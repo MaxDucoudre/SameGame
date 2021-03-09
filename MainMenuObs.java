@@ -1,29 +1,23 @@
-/**
-* 
-* @version 1 - 08 march 2021
-* @author Max Ducoudré
-* @author Loris Schnell
-*/
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class MainMenuObs implements ActionListener {
+public abstract class MainMenuObs implements ActionListener {
 
-  private JFrame fenetre;
+	protected JFrame fenetre;
+	protected MainMenuFrame mmf;
 
-  public MainMenuObs(JFrame fenetre0) {
-    this.fenetre = fenetre0;
-  }
-
-  public void actionPerformed(ActionEvent e) { 
-
-    String button_text = e.getActionCommand();
+	public MainMenuObs(JFrame fenetre0, MainMenuFrame mmf0) {
+		this.fenetre = fenetre0;
+		this.mmf = mmf0;
+	}
 
 
-    System.out.println(button_text);
+	public void actionPerformed(ActionEvent e) { 
+	}
 
-  } 
 }
+
+
 

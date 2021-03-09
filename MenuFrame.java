@@ -12,6 +12,11 @@ public abstract class MenuFrame {
 	}
 
 
+	public void refreshFrame() {
+		fenetre.setSize(this.fenetre.getWidth()-1, this.fenetre.getHeight());
+	}
+
+
 	public void eraseFrame() {
 		this.fenetre.getContentPane().removeAll();
 		this.fenetre.repaint();

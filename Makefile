@@ -1,59 +1,30 @@
 
-### VARIABLES ###
-
+JFLAGS = -encoding UTF-8 -implicit:none -g
 JC = javac
-JCFLAGS = -encoding UTF-8 -implicit:none
 
 JVM = java
 JVMFLAGS = 
 
+.SUFFIXES: .java .class
+.java.class:
+	$(JC) $(JFLAGS) $*.java
 
-
-### REGLES ESSENTIELLES ###
- 
-Main.class : Main.java TitleMenuFrame.class
-        ${JC} ${JCFLAGS} Main.java
-
-
-MenuFrame.class : MenuFrame.java 
-        ${JC} ${JCFLAGS} MenuFrame.java
-
-
-TitleMenuFrame.class : TitleMenuFrame.java TitleMenu.class TitleMenuObs.class MenuFrame.class
-        ${JC} ${JCFLAGS} TitleMenuFrame.java
-
-TitleMenu.class : TitleMenu.java
-        ${JC} ${JCFLAGS} TitleMenu.java
-
-TitleMenuObs.class : TitleMenuObs.java TitleMenu.class MainMenuFrame.class
-        ${JC} ${JCFLAGS} TitleMenuObs.java
-
-
-MainMenuFrame.class : MainMenuFrame.java MainMenu.class MainMenuObs.class MenuFrame.class 
-        ${JC} ${JCFLAGS} MainMenuFrame.java
-
-MainMenu.class : MainMenu.java
-        ${JC} ${JCFLAGS} MainMenu.java
-
-MainMenuObs.class : MainMenuObs.java MainMenuFrame.class
-        ${JC} ${JCFLAGS} MainMenuObs.java
-
-
-
-
-
-### REGLES OPTIONNELLES ###
+CLASSES = \
+	Main.java \
+	MenuFrame.java \
+	TitleMenu.java \
+	TitleMenuFrame.java \
+	TitleMenuObs.java \
+	MainMenu.java \
+	MainMenuFrame.java \
+	MainMenuObsOptions.java 
 
 run : Main.class
-        ${JVM} ${JVMFLAGS} Main
+	${JVM} ${JVMFLAGS} Main
 
-clean :
-        -rm -f *.class
+default: classes
 
-mrproper : clean Main.class
+classes: $(CLASSES:.java=.class)
 
-### BUTS FACTICES ###
-
-.PHONY : run clean mrproper
-
-### FIN ###
+clean:
+	$(RM) *.class

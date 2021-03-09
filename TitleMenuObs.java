@@ -29,10 +29,12 @@ public class TitleMenuObs implements ActionListener {
     this.tm.update(); // Change l'état du menu Title de false vers true
 
     this.tmf.eraseFrame();
-    
+
     System.out.println("État du menu titre : " + this.tm.check());
 
     MainMenuFrame mainmenu = new MainMenuFrame(fenetre);
+    mainmenu.refreshFrame();
+
     System.out.println("Main Menu");
 
 
