@@ -11,27 +11,26 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class TitleMenuFrame {
+public class TitleMenuFrame extends MenuFrame {
 
  TitleMenu tm = new TitleMenu(true);
- JFrame fenetre;
 
   // Constructeur
  public TitleMenuFrame(JFrame fenetre0) {
-  this.fenetre = fenetre0;
+  super(fenetre0);
 
   JLabel gamename = new JLabel("SameGame");
   gamename.setHorizontalAlignment(JLabel.CENTER);
-  this.fenetre.add(gamename, BorderLayout.NORTH);
+  super.fenetre.add(gamename, BorderLayout.NORTH);
 
     // Bouton "Start" pour lancer le jeux
-  JButton startbutton = new JButton("Start");
+      System.out.println("test ");
+
+  JButton startbutton = new JButton("Salutations");
   JPanel p = new JPanel();
   p.add(startbutton);
-  this.fenetre.add(p, BorderLayout.CENTER);
-  
-    // Observateur pour le bouton start
-  startbutton.addActionListener(new TitleMenuObs(tm, this.fenetre)); 
+  super.fenetre.add(p, BorderLayout.CENTER);
+  startbutton.addActionListener(new TitleMenuObs(tm, this, super.fenetre)); //observateur
 }
 
 public boolean isActive() {

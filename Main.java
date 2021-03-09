@@ -20,9 +20,8 @@ public class Main {
 		fenetre.setSize(800, 500);
 		fenetre.setVisible(true);
 
+
 		TitleMenuFrame titlemenu = new TitleMenuFrame(fenetre);
-
-
 
 
 
