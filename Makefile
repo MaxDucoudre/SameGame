@@ -17,10 +17,14 @@ TitleMenuFrame.class : TitleMenuFrame.java TitleMenuObs.class TitleMenu.class
 TitleMenu.class : TitleMenu.java
 	${JC} ${JCFLAGS} TitleMenu.java
 
-TitleMenuObs.class : TitleMenuObs.java TitleMenu.class
+TitleMenuObs.class : TitleMenuObs.java TitleMenu.class MainMenuFrame.class
 	${JC} ${JCFLAGS} TitleMenuObs.java
 
-	
+MainMenuFrame.class : MainMenuFrame.java MainMenu.class
+	${JC} ${JCFLAGS} MainMenuFrame.java
+
+MainMenu.class : MainMenu.java
+	${JC} ${JCFLAGS} MainMenu.java
 
 
 ### REGLES OPTIONNELLES ###

@@ -22,14 +22,13 @@ public class TitleMenuFrame {
 
   JLabel gamename = new JLabel("SameGame");
   gamename.setHorizontalAlignment(JLabel.CENTER);
-  gamename.setVerticalAlignment(JLabel.BOTTOM);
   this.fenetre.add(gamename, BorderLayout.NORTH);
 
     // Bouton "Start" pour lancer le jeux
   JButton startbutton = new JButton("Start");
   JPanel p = new JPanel();
   p.add(startbutton);
-  this.fenetre.add(p);
+  this.fenetre.add(p, BorderLayout.CENTER);
   
     // Observateur pour le bouton start
   startbutton.addActionListener(new TitleMenuObs(tm, this.fenetre)); 

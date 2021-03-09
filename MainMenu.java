@@ -9,7 +9,6 @@
 
 import java.lang.Math; 
 
-
 public class MainMenu {
 
 // Tableau de chaîne de caractère comprenant les différentes citations
@@ -23,11 +22,11 @@ public class MainMenu {
     public void MainMenu() {
     }
 
-/*
+
     // Méthode renvoyant une des citations du tableau de manière aléatoire
     public String randomQuote() {
-      int min = 1;
-      int max = this.quote.length;
+      int min = 0;
+      int max = this.quote.length-1;
       int range = (max - min) + 1;
       int rand = (int)(Math.random() * range) + min;
 
@@ -35,6 +34,6 @@ public class MainMenu {
 
     }
 
-*/
+
 
 }
