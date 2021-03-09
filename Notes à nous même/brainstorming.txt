@@ -1,0 +1,79 @@
+
+Ecran Titre (Press Start)
+--
+
+Sauvegarde 3 slots
+ -jouer, Créer, supprimer, copier
+
+   Créer : Nom du joueur
+
+   Suppripmer : confirmation
+
+   Copier : vers quel slot copier ?
+
+   jouer : aller au menu princiupal avec la save en question
+
+   -Retour à l'écran titre
+   -quitter le jeux
+
+Menu Principal
+  -Lancer
+  -Lancer à deux
+
+  -Boutique
+     -Pack de skin
+    En vente
+    Desequiper
+    Equipe 
+
+     -Bouton give
+
+
+  -Options
+     -Difficulté (Ajout de mur ou non)
+     -Configuration spéciale active ou non
+     -Crédits
+        -Nos deux têtes, plus nos réseaux
+        -mentions légales
+
+     -Retour menu principal
+
+   -Statistiques du joueur
+    -Historique des parties (10 dernières parties)
+      -Score
+      -Timer 
+
+    -Meilleur temps
+    -Meilleur score
+
+    -Score moyen
+    -Temps moyen
+    -Nombre de parties
+
+    -Changer de profil
+    -Quitter le jeux
+
+
+Ecran de fin de partie
+
+-Grille initiale en petit
+
+-Score (record ou non)
+-Temps (record ou non)
+
+-Partager son score sur les réseaux
+
+-Bouton rejouer
+-bouton Menu principal
+
+
+Le jeux direct
+
+
+-Grille (la game)
+15 colonnes, 10 lignes
+-Score actuelle
+-Timer
+-Bouton pause qui cache la grille et arrête le timer
+   -reprendre la game
+   -retour au menu principal (annuler la partie)
