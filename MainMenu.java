@@ -26,7 +26,7 @@ public class MainMenu {
     // Méthode renvoyant une des citations du tableau de manière aléatoire
     public String randomQuote() {
       int min = 0;
-      int max = this.quote.length-1;
+      int max = this.quote.length - 1;
       int range = (max - min) + 1;
       int rand = (int)(Math.random() * range) + min;
 
