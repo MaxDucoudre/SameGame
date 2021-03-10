@@ -15,6 +15,7 @@ public abstract class MainMenuObs implements ActionListener {
 
 
 	public void actionPerformed(ActionEvent e) { 
+		
 	}
 
 }

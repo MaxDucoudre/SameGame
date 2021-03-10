@@ -13,10 +13,15 @@ public class MainMenu {
 
 // Tableau de chaîne de caractère comprenant les différentes citations
   private String[] quote = {
-    "Citation du jour - 1",
-    "Citation du jour - 2",
-    "Citation du jour - 3",
+    "Mieux vaut vivre un jour comme un lion que cent ans comme un mouton.",
+    "Les larmes qui coulent sont amères mais plus amères encore sont celles qui ne coulent pas.",
+    "Offrir l'amitié à qui veut l'amour, c'est donner du pain à qui meurt de soif.",
+    "On ne peut empêcher le chien d'aboyer, ni le menteur de mentir.",
+    "On peux tromper mille fois un homme, mais pas une fois mille ho... non, c'est l'inverse.",
+    "Les chaussettes de l'achiduchesse sont-elles sèchent ? Archi-sèche ?",
+    "Pierre qui roule n'amasse pas mousse !",
   };
+
 
   // Constructeur
     public void MainMenu() {

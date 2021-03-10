@@ -20,11 +20,11 @@ public class Main {
 
 		// Récupération des dimentions de l'écran sous forme de int
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int screenWidth = (int)screenSize.getWidth();
-		int screenHeight = (int)screenSize.getHeight();
+		int screenWidth = (int)screenSize.getWidth()/2;
+		int screenHeight = (int)screenSize.getHeight()/2;
 
 		fenetre.setSize(screenWidth, screenHeight);
-		fenetre.setLocation(0, 0);
+		fenetre.setLocation(200, 200);
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenetre.setVisible(true);
 

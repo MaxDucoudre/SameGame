@@ -11,13 +11,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-
 public class MainMenuFrame extends MenuFrame {
 
   private MainMenu mm = new MainMenu();
 
-  String string_launchgame   = new String("Lance la partie");
-  String string_launchgamevs = new String("Lance une partie à 2");
+  String string_launchgame   = new String("Lancer partie");
+  String string_launchgamevs = new String("Lancer une partie à 2");
   String string_boutique     = new String("Boutique");
   String string_options      = new String("Options");
   String string_statistique  = new String("Statistiques");
@@ -37,18 +36,17 @@ public class MainMenuFrame extends MenuFrame {
    // Panel qui prend en compte les boutons
    JPanel p = new JPanel();
 
-
    JButton launchgame = new JButton(string_launchgame);
    p.add(launchgame);
-   // launchgame.addActionListener(new MainMenuObs(this.fenetre)); 
+   launchgame.addActionListener(new MainMenuObsLaunchgame(this.fenetre, this)); 
 
    JButton launchgamevs = new JButton(string_launchgamevs);
    p.add(launchgamevs);
-  // launchgamevs.addActionListener(new MainMenuObs(this.fenetre)); 
+   launchgamevs.addActionListener(new MainMenuObsLaunchgamevs(this.fenetre, this)); 
 
    JButton boutique = new JButton(string_boutique);
    p.add(boutique);
-  // boutique.addActionListener(new MainMenuObs(this.fenetre)); 
+   boutique.addActionListener(new MainMenuObsBoutique(this.fenetre, this)); 
 
    JButton options = new JButton(string_options);
    p.add(options);
@@ -57,23 +55,19 @@ public class MainMenuFrame extends MenuFrame {
 
    JButton statistique = new JButton(string_statistique);
    p.add(statistique);
-  // statistique.addActionListener(new MainMenuObs(this.fenetre)); 
+   statistique.addActionListener(new MainMenuObsStatistique(this.fenetre, this)); 
 
    JButton savemenu = new JButton(string_savemenu);
    p.add(savemenu);   
-  // savemenu.addActionListener(new MainMenuObs(this.fenetre)); 
+   savemenu.addActionListener(new MainMenuObsSavemenu(this.fenetre, this)); 
 
    JButton leftgame = new JButton(string_leftgame);
    p.add(leftgame);   
-  // leftgame.addActionListener(new MainMenuObs(this.fenetre)); 
+   leftgame.addActionListener(new MainMenuObsLeftgame(this.fenetre, this)); 
 
    p.setBackground(Color.GREEN);
    p.setOpaque(true);
    super.fenetre.add(p, BorderLayout.CENTER);
 
  }
-
-
-
-
 }
