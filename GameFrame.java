@@ -15,9 +15,19 @@
 
     private Game game = new Game();
     private char[][] tab_grid = new char[10][15];
-    private JPanel grid = new JPanel();
+    public JPanel grid = new JPanel();
+    private JPanel top = new JPanel();
 
     private JLabel[][] pions = new JLabel[10][15];
+
+    private JLabel scoreLabel = new JLabel("Score : 0");
+    private JLabel hightScoreLabel = new JLabel("Record : Inexistant");
+    private JLabel scoreGetLabel = new JLabel();
+    private JLabel multiplicatorLabel = new JLabel();
+
+    private JLabel timerLabel = new JLabel("Chrono : 0:00");
+
+    private JButton pause = new JButton("Pause");
 
     // 
 
@@ -35,41 +45,62 @@
      this.updateGrid();
      super.fenetre.add(this.grid, BorderLayout.CENTER);
 
-     JLabel label_highscore = new JLabel("Record : ");
-     JLabel label_score = new JLabel("Score : ");
 
+     this.scoreLabel.setOpaque(true);
+     this.scoreLabel.setBackground(Color.CYAN);
+     this.top.add(this.scoreLabel);
+
+     this.timerLabel.setOpaque(true);
+     this.timerLabel.setBackground(Color.CYAN);
+     this.top.add(this.timerLabel);
+
+     this.timerLabel.setOpaque(true);
+     this.timerLabel.setBackground(Color.CYAN);
+     this.top.add(this.timerLabel);
+
+     this.hightScoreLabel.setOpaque(true);
+     this.hightScoreLabel.setBackground(Color.CYAN);
+     this.top.add(this.hightScoreLabel);
+
+     this.scoreGetLabel.setOpaque(true);
+     this.top.add(this.scoreGetLabel);
+
+     this.multiplicatorLabel.setOpaque(true);
+     this.top.add(this.multiplicatorLabel);
+     super.fenetre.add(this.top, BorderLayout.NORTH);
+
+     this.top.add(this.pause);
 
      super.fenetre.addMouseListener(new GameObs(fenetre, game, this));
-
+     super.fenetre.addMouseMotionListener(new GameObs(fenetre, game, this));
    }
 
    public void updateGrid() {
     int i,j;
     this.tab_grid = this.game.getGrid();
     this.game.afficherGrid();
-    System.out.println("Mise à jour visuelle de la grille");
-
+    System.out.println("Mise en forme visuelle de la grille...");
 
 
     for (i=0; i<10; i++) {
       for (j=0; j<15; j++) {
 
         if(tab_grid[i][j] == 'R') {
-          this.pions[i][j] = new JLabel("R"); 
+          this.pions[i][j] = new JLabel(); 
           this.pions[i][j].setOpaque(true);
           this.pions[i][j].setBackground(Color.RED);
           this.grid.add(pions[i][j]);
         }
 
         if(tab_grid[i][j] == 'V') {
-          this.pions[i][j] = new JLabel("V"); 
+          this.pions[i][j] = new JLabel(); 
           this.pions[i][j].setOpaque(true);
           this.pions[i][j].setBackground(Color.GREEN);
           this.grid.add(pions[i][j]);
         }
 
         if(tab_grid[i][j] == 'B') {
-          this.pions[i][j] = new JLabel("B"); 
+          this.pions[i][j] = new JLabel(); 
           this.pions[i][j].setOpaque(true);
           this.pions[i][j].setBackground(Color.BLUE);
           this.grid.add(pions[i][j]);
@@ -77,13 +108,52 @@
         }
       }
     }
-
   }
 
-  public JLabel getPion(int i, int j) {
-    return this.pions[i][j];
+
+  public void changeBackgroundPion(Color color, boolean[][] tab_group_hover, int i, int j) {
+    for (i=0; i<10; i++) {
+      for (j=0; j<15; j++) {
+        if(tab_group_hover[i][j] == true) {
+          this.pions[i][j].setBackground(color);
+        } else {
+          if(tab_grid[i][j] == 'R') {
+            this.pions[i][j].setBackground(Color.RED);
+          }
+          if(tab_grid[i][j] == 'V') {
+            this.pions[i][j].setBackground(Color.GREEN);
+          }
+          if(tab_grid[i][j] == 'B') { 
+            this.pions[i][j].setBackground(Color.BLUE);
+          }
+          if(tab_grid[i][j] == 'D') { 
+            this.pions[i][j].setBackground(Color.WHITE);
+          }
+        }
+      }
+    }
   }
 
+  public void resetBackgroundPion() {
+    for (int i=0; i<10; i++) {
+      for (int j=0; j<15; j++) {
+        if(tab_grid[i][j] == 'R') {
+          this.pions[i][j].setBackground(Color.RED);
+        }
+        if(tab_grid[i][j] == 'V') {
+          this.pions[i][j].setBackground(Color.GREEN);
+        }
+        if(tab_grid[i][j] == 'B') { 
+          this.pions[i][j].setBackground(Color.BLUE);
+        }
+        if(tab_grid[i][j] == 'D') { 
+          this.pions[i][j].setBackground(Color.WHITE);
+        }
+
+      }
+    }
+  }
+  
   public int getXPion(int i, int j) {
 
     return this.pions[i][j].getX();
@@ -93,16 +163,6 @@
     return this.pions[i][j].getY();
   }
 
-  public int getYGrid() {
-    return this.grid.getY();
-  }
-
-  public int getXGrid() {
-    return this.grid.getX();
-  }
-
-
-
   public int getWidthPion(int i, int j) {
     return this.pions[i][j].getWidth();
   }
@@ -110,6 +170,36 @@
   public int getHeightPion(int i, int j) {
     return this.pions[i][j].getHeight();
   }
+
+
+
+  public void scoreLabel() {
+    this.scoreLabel.setText("Score : " + this.game.scoreTotal());
+
+    if(this.game.scoreCalcul() != 0) {
+      this.scoreGetLabel.show();
+      this.scoreGetLabel.setBackground(Color.CYAN);
+      this.scoreGetLabel.setText("+" + this.game.scoreCalcul() + " points !" );
+    } else {
+      this.scoreGetLabel.hide();
+    }
+
+    if(this.game.sizeGroupPion() > 2) {
+     this.multiplicatorLabel.show();
+     this.multiplicatorLabel.setBackground(Color.CYAN);
+     this.multiplicatorLabel.setText("multiplicateur X" + this.game.sizeGroupPion());
+   } else {
+     this.multiplicatorLabel.hide();
+   }
+ }
+
+
+ public void setTimerLabel() {
+  this.scoreLabel.setText("Chrono :" + this.game.getChronoString());
+  System.out.println("Timer");
+
+}
+
 
 
 }
