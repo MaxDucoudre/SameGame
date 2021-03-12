@@ -63,7 +63,7 @@ MainMenuObsSavemenu.class : MainMenuObsSavemenu.java MainMenuFrame.class MainMen
 SaveMenuFrame.class : SaveMenuFrame.java MenuFrame.class
 	${JC} ${JCFLAGS} SaveMenuFrame.java
 
-Game.class : Game.java
+Game.class : Game.java Chrono.class
 	${JC} ${JCFLAGS} Game.java
 
 GameFrame.class : GameFrame.java Game.class GameObs.class
@@ -71,7 +71,12 @@ GameFrame.class : GameFrame.java Game.class GameObs.class
 
 GameObs.class : GameObs.java Game.class GameFrame.class
 	${JC} ${JCFLAGS} GameObs.java
-	
+
+Chrono.class : Chrono.java ChronoThread.class
+	${JC} ${JCFLAGS} Chrono.java
+
+ChronoThread.class : ChronoThread.java GameFrame.class
+	${JC} ${JCFLAGS} ChronoThread.java
 
 
 ### REGLES OPTIONNELLES ###

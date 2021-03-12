@@ -13,7 +13,7 @@
   public class GameFrame extends MenuFrame {
 
 
-    private Game game = new Game();
+    private Game game;
     private char[][] tab_grid = new char[10][15];
     public JPanel grid = new JPanel();
     private JPanel top = new JPanel();
@@ -33,13 +33,13 @@
 
 
     // Constructeur
-    public GameFrame(JFrame fenetre0, Game game0) {
+    public GameFrame(JFrame fenetre0) {
      super(fenetre0);
-     this.game = game0;
+     this.game = new Game(this);
+
      this.game.genereGrid();
 
      System.out.println("Entrée dans le jeux");
-
      this.grid.setLayout(new GridLayout(10, 15));
 
      this.updateGrid();
@@ -54,9 +54,7 @@
      this.timerLabel.setBackground(Color.CYAN);
      this.top.add(this.timerLabel);
 
-     this.timerLabel.setOpaque(true);
-     this.timerLabel.setBackground(Color.CYAN);
-     this.top.add(this.timerLabel);
+
 
      this.hightScoreLabel.setOpaque(true);
      this.hightScoreLabel.setBackground(Color.CYAN);
@@ -67,12 +65,15 @@
 
      this.multiplicatorLabel.setOpaque(true);
      this.top.add(this.multiplicatorLabel);
-     super.fenetre.add(this.top, BorderLayout.NORTH);
 
      this.top.add(this.pause);
 
+     super.fenetre.add(this.top, BorderLayout.NORTH);
+
+
      super.fenetre.addMouseListener(new GameObs(fenetre, game, this));
      super.fenetre.addMouseMotionListener(new GameObs(fenetre, game, this));
+
    }
 
    public void updateGrid() {
@@ -85,21 +86,21 @@
     for (i=0; i<10; i++) {
       for (j=0; j<15; j++) {
 
-        if(tab_grid[i][j] == 'R') {
+        if(this.tab_grid[i][j] == 'R') {
           this.pions[i][j] = new JLabel(); 
           this.pions[i][j].setOpaque(true);
           this.pions[i][j].setBackground(Color.RED);
           this.grid.add(pions[i][j]);
         }
 
-        if(tab_grid[i][j] == 'V') {
+        if(this.tab_grid[i][j] == 'V') {
           this.pions[i][j] = new JLabel(); 
           this.pions[i][j].setOpaque(true);
           this.pions[i][j].setBackground(Color.GREEN);
           this.grid.add(pions[i][j]);
         }
 
-        if(tab_grid[i][j] == 'B') {
+        if(this.tab_grid[i][j] == 'B') {
           this.pions[i][j] = new JLabel(); 
           this.pions[i][j].setOpaque(true);
           this.pions[i][j].setBackground(Color.BLUE);
@@ -155,7 +156,6 @@
   }
   
   public int getXPion(int i, int j) {
-
     return this.pions[i][j].getX();
   }
 
@@ -177,28 +177,30 @@
     this.scoreLabel.setText("Score : " + this.game.scoreTotal());
 
     if(this.game.scoreCalcul() != 0) {
-      this.scoreGetLabel.show();
-      this.scoreGetLabel.setBackground(Color.CYAN);
-      this.scoreGetLabel.setText("+" + this.game.scoreCalcul() + " points !" );
-    } else {
-      this.scoreGetLabel.hide();
-    }
-
-    if(this.game.sizeGroupPion() > 2) {
-     this.multiplicatorLabel.show();
-     this.multiplicatorLabel.setBackground(Color.CYAN);
-     this.multiplicatorLabel.setText("multiplicateur X" + this.game.sizeGroupPion());
+     this.scoreGetLabel.setVisible(true);
+     this.scoreGetLabel.setBackground(Color.CYAN);
+     this.scoreGetLabel.setText("+" + this.game.scoreCalcul() + " points !" );
    } else {
-     this.multiplicatorLabel.hide();
+     this.scoreGetLabel.setVisible(false);
+   }
+
+   if(this.game.sizeGroupPion() > 2) {
+     this.multiplicatorLabel.setVisible(true);
+     this.multiplicatorLabel.setBackground(Color.CYAN);
+     this.multiplicatorLabel.setText("BONUS X" + this.game.sizeGroupPion());
+   } else {
+     this.multiplicatorLabel.setVisible(false);
    }
  }
 
-
- public void setTimerLabel() {
-  this.scoreLabel.setText("Chrono :" + this.game.getChronoString());
-  System.out.println("Timer");
+ public void setChrono() {
+  this.timerLabel.setText("Chrono : " + this.game.getChrono());
 
 }
+
+
+
+
 
 
 

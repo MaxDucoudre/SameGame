@@ -1,81 +1,86 @@
-public class Chrono {
+  import javax.swing.*;
+  import java.awt.*;
 
-    private long tempsDepart=0;
-    private long tempsFin=0;
-    private long pauseDepart=0;
-    private long pauseFin=0;
-    private long duree=0;
 
-    public void start()
-        {
-        tempsDepart=System.currentTimeMillis();
-        tempsFin=0;
-        pauseDepart=0;
-        pauseFin=0;
-        duree=0;
-        }
+  public class Chrono {
 
-    public void pause()
-        {
-        if(tempsDepart==0) {return;}
-        pauseDepart=System.currentTimeMillis();
-        }
+    private long timeStart = 0;
+    private long timeEnd = 0;
+    private long pauseStart = 0;
+    private long pauseEnd = 0;
+    private long duree = 0;
 
-    public void resume()
-        {
-        if(tempsDepart==0) {return;}
-        if(pauseDepart==0) {return;}
-        pauseFin=System.currentTimeMillis();
-        tempsDepart=tempsDepart+pauseFin-pauseDepart;
-        tempsFin=0;
-        pauseDepart=0;
-        pauseFin=0;
-        duree=0;
-        }
+    private long now = 0;
+    private long dureeNow = 0;
+
+
+    private boolean stop = false;
+
+    private ChronoThread ct;
+
+
+
+    public Chrono(GameFrame gameframe0) {
+        this.ct  = new ChronoThread(gameframe0);
+
+
+    }
+
+    public void startChrono() {
+        this.timeStart = System.currentTimeMillis();
+        System.out.println("Lancement du chrono... " + this.timeStart);
+        this.pauseStart = 0;
+        this.ct.start();
+    }
+
+    public void endChrono() {
+        this.timeEnd = System.currentTimeMillis();
+        System.out.println("Fin du chrono... " + this.timeEnd + " ms");
+
+        this.duree = (this.timeEnd - this.timeStart) /*- (this.pauseEnd - this.pauseStart)*/;
+        System.out.println("Durée :" + this.duree + " ms");
+
+        this.stop = true;
+
+        this.timeStart = 0;
+        this.timeEnd = 0;
+        this.pauseStart = 0;
+        this.pauseEnd = 0;
+
+        this.ct.stop();
         
-    public void stop()
-        {
-        if(tempsDepart==0) {return;}
-        tempsFin=System.currentTimeMillis();
-        duree=(tempsFin-tempsDepart) - (pauseFin-pauseDepart);
-        tempsDepart=0;
-        tempsFin=0;
-        pauseDepart=0;
-        pauseFin=0;
-        }        
 
-    public long getDureeSec()
-        {
-        return duree/1000;
-        }
-        
-    public long getDureeMs()
-        {
-        return duree;
-        }        
+    }
 
-    public String getDureeTxt()
-        {
-        return timeToHMS(getDureeSec());
+    public String getDureeNow() {
+        if (this.stop == false) {
+            this.now = System.currentTimeMillis();
+            this.dureeNow = (this.now - this.timeStart) /*- (this.pauseEnd - this.pauseStart) */;
+            return this.toString(this.dureeNow);
+        } else {
+            return this.toString(this.duree);
         }
 
-    public static String timeToHMS(long tempsS) {
+    }
 
-        // IN : (long) temps en secondes
-        // OUT : (String) temps au format texte : "1 h 26 min 3 s"
 
-        int h = (int) (tempsS / 3600);
-        int m = (int) ((tempsS % 3600) / 60);
-        int s = (int) (tempsS % 60);
+    public String toString(long temps_ms) {
+        String dureeMinSec = "";
+        long secondes_total;
 
-        String r="";
+        secondes_total = temps_ms/1000;
 
-        if(h>0) {r+=h+" h ";}
-        if(m>0) {r+=m+" min ";}
-        if(s>0) {r+=s+" s";}
-        if(h<=0 && m<=0 && s<=0) {r="0 s";}
 
-        return r;
+        int minutes = (int) ((secondes_total % 3600) / 60);
+        int secondes = (int) (secondes_total % 60);
+
+        if (secondes < 10) {
+            dureeMinSec = minutes + ":0" + secondes;
+        } else {
+            dureeMinSec = minutes + ":" + secondes;
         }
 
-    } // class Chrono
+        return dureeMinSec;
+
+    }
+}

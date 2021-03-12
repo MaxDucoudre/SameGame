@@ -7,21 +7,17 @@ public class Game {
 	private boolean[][] tab_group = new boolean[10][15];
 	private boolean[][] tab_destroyed = new boolean[10][15];
 	private	boolean[][] tab_col = new boolean[10][15];
-	private int nb_group = 0;
 	private boolean[][] tab_nb_group = new boolean[10][15];
 
 	private int actualScore;
 
 
-	// Attributs pour le chrono
-	private long timeStart ;
-	private long timeEnd ;
-	private long pauseStart;
-	private long pauseEnd;
-	private long duree;
+	private Chrono chrono;
 
-	public Game() {
+	private int first_clic = 0;
 
+	public Game(GameFrame gameframe0) {
+		chrono = new Chrono(gameframe0);
 	}
 
 	public void genereGrid() {
@@ -29,7 +25,6 @@ public class Game {
 		int num;
 
 		System.out.println("Génération d'une grille aléatoire...");
-
 		for (i=0; i<10; i++) {
 			for (j=0; j<15; j++) {
 
@@ -124,6 +119,13 @@ public class Game {
 
 	public void groupDestruct() {
 
+		if (this.first_clic == 0) {
+			this.chrono.startChrono(); // Le chrono se lance au premier clique
+			this.first_clic++;
+		}
+		System.out.println("Chrono : " + this.chrono.getDureeNow());
+
+
 		for (int i=0; i<10; i++) {
 			for (int j=0; j<15; j++) {
 
@@ -156,6 +158,7 @@ public class Game {
 		int i, j, l;
 		char previous_grid;
 		for (l = 0; l < 10; l++) {
+
 			for (i = 0; i  <9; i++) {
 				for (j = 0; j < 15 ; j++) {
 					if (this.tab_grid[i+1][j] == 'D' && this.tab_grid[i][j] != 'D') {
@@ -173,8 +176,8 @@ public class Game {
 		char next_col;
 
 		for (l = 0; l < 10; l++) {
-			for (j = 0; j < 14; j++) {
 
+			for (j = 0; j < 14; j++) {
 				if (destroyedCol(j) == true) {
 
 					for (i = 0; i < 10; i++) {
@@ -195,8 +198,10 @@ public class Game {
 		return true;
 	}
 
-	public boolean endGame() {
+	public int groupRemaining() {
+		int nb_group = 0;
 		this.resetgroupPions();
+		
 		for (int i=0; i<10; i++) {
 			for (int j=0; j<15; j++) {
 				if (this.tab_grid[i][j] != 'D') {
@@ -204,15 +209,27 @@ public class Game {
 					this.groupPions(i, j);
 					// La partie ne finie pas tant qu'il reste des groupes de taille supérieures à 1
 					if (this.sizeGroupPion() > 1) { 
-						this.resetgroupPions();
-						return false;
+
+						nb_group = nb_group + 1;
 					}
 				}
 			}
 		}
-		// Sinon, la partie se termine
-		this.resetgroupPions();
-		return true;
+		return nb_group;
+	}
+
+	public boolean endGame() {
+		System.out.println(this.groupRemaining());
+
+		if (this.groupRemaining() > 1) {
+			System.out.println("Partie en cours...");
+			return false;
+
+		} else {
+			System.out.println("Fin de la partie...");
+			this.chrono.endChrono();
+			return true;
+		}
 	}
 
 	public int scoreCalcul() {
@@ -224,70 +241,18 @@ public class Game {
 		return this.actualScore;
 	}
 
-
-
-
-	// Méthodes pour le chronomètre
-	public void startChrono() {
-		this.timeStart  = System.currentTimeMillis();
-		this.pauseStart = 0;
+	public String getChrono() {
+		return this.chrono.getDureeNow();
 	}
 
-	public void endChrono() {
-		if(this.timeStart == 0) {
-			return;
-		}
-		this.timeEnd = System.currentTimeMillis();
-		this.duree = (this.timeEnd - this.timeStart) - (this.pauseEnd - this.pauseStart);
-		this.timeStart = 0;
-		this.timeEnd = 0;
-		this.pauseStart = 0;
-		this.pauseEnd = 0;
 
-	}
-
-	public void pauseChrono() {
-		if(this.timeStart == 0) {
-			return;
-		}
-		this.pauseStart = System.currentTimeMillis();
-	}
-
-	public void resumeChrono() {
-		if(this.timeStart == 0) {
-			return;
-		}
-
-		if(this.pauseStart == 0) {
-			return;
-		}
-
-		pauseEnd = System.currentTimeMillis();
-		this.timeStart = this.timeStart + this.pauseEnd - this.pauseStart;
-		this.timeEnd = 0;
-		this.pauseStart = 0;
-		this.pauseEnd = 0;
-		this.duree = 0;
-	}
-
+/*
 	public String getChronoString() {
-		System.out.println("Timer");
-
-		String dureeMinSec;
-		long secondes;
-		long minutes = 0;	
-
-		secondes = this.duree/1000;
-
-
-		while(secondes <= 60) {
-			minutes = minutes + 1;
-			secondes = secondes - 60;
-		}
-
-		dureeMinSec = (minutes + ":" + secondes);
-		return dureeMinSec;
+		this.chrono.liveChrono();
+		return this.chrono.toString();
 	}
+	*/
+
 
 }
 
