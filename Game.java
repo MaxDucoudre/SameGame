@@ -246,14 +246,6 @@ public class Game {
 	}
 
 
-/*
-	public String getChronoString() {
-		this.chrono.liveChrono();
-		return this.chrono.toString();
-	}
-	*/
-
-
 }
 
 

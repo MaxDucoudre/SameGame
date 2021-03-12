@@ -3,7 +3,7 @@
 ### VARIABLES ###
 
 JC = javac
-JCFLAGS = -encoding UTF-8 -implicit:none -g
+JCFLAGS = -encoding UTF-8 -implicit:none -g 
 
 JVM = java
 JVMFLAGS =
