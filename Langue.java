@@ -146,14 +146,14 @@ public class Langue {
 
 	public String getTimeString() {
 		if(this.langue == "French") {
-			return "Temps";
+			return "Chrono";
 		}
 
 		if(this.langue == "English") {
-			return "Time";
+			return "Timer";
 		}		
 
-		return "Time";
+		return "Timer";
 	}
 
 	public String getPauseString() {

@@ -20,7 +20,6 @@ public class GameObs implements MouseListener, MouseMotionListener, ActionListen
 
 	public void actionPerformed(ActionEvent e){
 
-
 		// réaction du bouton pause pendant la partie
 		if (e.getActionCommand() == this.gameframe.pauseString) {
 			System.out.println("Pause");
@@ -119,7 +118,6 @@ public class GameObs implements MouseListener, MouseMotionListener, ActionListen
 }
 
 public void mouseMoved(MouseEvent e) {
-	this.gameframe.resetBackgroundPion();
 
 	this.gameframe.setChrono();
 
