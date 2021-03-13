@@ -14,15 +14,15 @@ import java.awt.event.*;
 public class MainMenuFrame extends MenuFrame {
 
   private MainMenu mm = new MainMenu();
+  private MainMenuObs mainMenuObs = new MainMenuObs(this.fenetre, this);
 
-  String string_launchgame   = new String("Lancer partie");
-  String string_launchgamevs = new String("Lancer une partie à 2");
-  String string_boutique     = new String("Boutique");
-  String string_options      = new String("Options");
-  String string_statistique  = new String("Statistiques");
-  String string_savemenu     = new String("Sauvegardes");
-  String string_leftgame     = new String("Quitter le jeux");
-
+  public String launchGameString = super.langue.getLaunchGameString();
+  public String launchGameVs     = super.langue.getLaunchGameVsString();
+  public String shopString       = super.langue.getShopString();
+  public String settingsString   = super.langue.getSettingsString();
+  public String statisticsString = super.langue.getStatisticsString();
+  public String saveString       = super.langue.getSavesString();
+  public String leftGameString   = super.langue.getLeftGameString();
 
   // Constructeur
   public MainMenuFrame(JFrame fenetre0) {
@@ -36,34 +36,33 @@ public class MainMenuFrame extends MenuFrame {
    // Panel qui prend en compte les boutons
    JPanel p = new JPanel();
 
-   JButton launchgame = new JButton(string_launchgame);
+   JButton launchgame = new JButton(this.launchGameString);
    p.add(launchgame);
-   launchgame.addActionListener(new MainMenuObsLaunchgame(this.fenetre, this)); 
+   launchgame.addActionListener(this.mainMenuObs); 
 
-   JButton launchgamevs = new JButton(string_launchgamevs);
+   JButton launchgamevs = new JButton(this.launchGameVs);
    p.add(launchgamevs);
-   launchgamevs.addActionListener(new MainMenuObsLaunchgamevs(this.fenetre, this)); 
+   launchgamevs.addActionListener(this.mainMenuObs); 
 
-   JButton boutique = new JButton(string_boutique);
+   JButton boutique = new JButton(this.shopString);
    p.add(boutique);
-   boutique.addActionListener(new MainMenuObsBoutique(this.fenetre, this)); 
+   boutique.addActionListener(this.mainMenuObs); 
 
-   JButton options = new JButton(string_options);
+   JButton options = new JButton(this.settingsString);
    p.add(options);
-   MainMenuObsOptions optionsObs = new MainMenuObsOptions(this.fenetre, this);
-   options.addActionListener(optionsObs); 
+   options.addActionListener(this.mainMenuObs); 
 
-   JButton statistique = new JButton(string_statistique);
+   JButton statistique = new JButton(this.statisticsString);
    p.add(statistique);
-   statistique.addActionListener(new MainMenuObsStatistique(this.fenetre, this)); 
+   statistique.addActionListener(this.mainMenuObs); 
 
-   JButton savemenu = new JButton(string_savemenu);
+   JButton savemenu = new JButton(this.saveString);
    p.add(savemenu);   
-   savemenu.addActionListener(new MainMenuObsSavemenu(this.fenetre, this)); 
+   savemenu.addActionListener(this.mainMenuObs); 
 
-   JButton leftgame = new JButton(string_leftgame);
+   JButton leftgame = new JButton(this.leftGameString);
    p.add(leftgame);   
-   leftgame.addActionListener(new MainMenuObsLeftgame(this.fenetre, this)); 
+   leftgame.addActionListener(this.mainMenuObs); 
 
    p.setBackground(Color.GREEN);
    p.setOpaque(true);

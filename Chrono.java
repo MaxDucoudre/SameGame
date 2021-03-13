@@ -13,6 +13,7 @@
     private long now = 0;
     private long dureeNow = 0;
 
+    private long dureePause = 0;
 
     private boolean stop = false;
 
@@ -28,38 +29,76 @@
 
     public void startChrono() {
         this.timeStart = System.currentTimeMillis();
-        System.out.println("Lancement du chrono... " + this.timeStart);
+        System.out.println("Lancement du chrono... " + this.timeStart/1000 + " s");
+        this.timeEnd = 0;
         this.pauseStart = 0;
+        this.pauseEnd = 0;
+        this.duree = 0;
+        this.dureePause = 0;
+
+        this.stop = false;
+
         this.ct.start();
+
     }
 
     public void endChrono() {
-        this.timeEnd = System.currentTimeMillis();
-        System.out.println("Fin du chrono... " + this.timeEnd + " ms");
+        this.ct.stop();
 
-        this.duree = (this.timeEnd - this.timeStart) /*- (this.pauseEnd - this.pauseStart)*/;
-        System.out.println("Durée :" + this.duree + " ms");
+        this.timeEnd = System.currentTimeMillis();
+        System.out.println("Fin du chrono... ");
+
+
+        this.duree = (this.timeEnd - this.timeStart) - (this.pauseEnd - this.pauseStart);
+        System.out.println("Durée de la partie : " +  toString(this.duree));
 
         this.stop = true;
+
 
         this.timeStart = 0;
         this.timeEnd = 0;
         this.pauseStart = 0;
         this.pauseEnd = 0;
-
-        this.ct.stop();
+        this.dureePause = 0;
         
 
     }
 
+    public void pauseChrono() {
+        this.stop = true;
+
+        this.pauseStart = 0;
+
+        this.pauseStart = System.currentTimeMillis();
+
+    }
+
+
+
+    public void resumeChrono() {
+        this.pauseEnd = System.currentTimeMillis();
+
+        this.dureePause = this.pauseEnd - this.pauseStart;
+
+        //this.timeStart = this.timeStart + this.pauseEnd - this.pauseStart;
+
+        this.timeEnd = 0;
+        this.stop = false;
+
+    }
+
+
     public String getDureeNow() {
         if (this.stop == false) {
             this.now = System.currentTimeMillis();
-            this.dureeNow = (this.now - this.timeStart) /*- (this.pauseEnd - this.pauseStart) */;
-            return this.toString(this.dureeNow);
-        } else {
-            return this.toString(this.duree);
+            this.dureeNow = this.now - this.timeStart - (this.pauseEnd - this.pauseStart);
+
+            this.dureePause = 0;
         }
+            //System.out.println(this.toString(this.dureeNow));
+
+        return this.toString(this.dureeNow);
+        
 
     }
 

@@ -3,7 +3,7 @@
 ### VARIABLES ###
 
 JC = javac
-JCFLAGS = -encoding UTF-8 -implicit:none -g 
+JCFLAGS = -encoding UTF-8 -implicit:none -g
 
 JVM = java
 JVMFLAGS =
@@ -15,7 +15,7 @@ JVMFLAGS =
 Main.class : Main.java TitleMenuFrame.class
 	${JC} ${JCFLAGS} Main.java
 
-MenuFrame.class : MenuFrame.java 
+MenuFrame.class : MenuFrame.java Langue.class
 	${JC} ${JCFLAGS} MenuFrame.java
 
 
@@ -29,7 +29,7 @@ TitleMenuObs.class : TitleMenuObs.java TitleMenu.class MainMenuFrame.class
 	${JC} ${JCFLAGS} TitleMenuObs.java
 
 
-MainMenuFrame.class : MenuFrame.class MainMenuFrame.java MainMenu.class MainMenuObsSavemenu.class MainMenuObsLaunchgamevs.class MainMenuObsOptions.class MainMenuObsLaunchgame.class MainMenuObsLeftgame.class MainMenuObsBoutique.class MainMenuObsStatistique.class
+MainMenuFrame.class : MenuFrame.class MainMenuFrame.java MainMenu.class MainMenuObs.class GameFrame.class
 	${JC} ${JCFLAGS} MainMenuFrame.java
 
 MainMenu.class : MainMenu.java
@@ -37,27 +37,6 @@ MainMenu.class : MainMenu.java
 
 MainMenuObs.class : MainMenuObs.java MainMenuFrame.class
 	${JC} ${JCFLAGS} MainMenuObs.java
-
-MainMenuObsOptions.class : MainMenuObsOptions.java MainMenuFrame.class MainMenuObs.class
-	${JC} ${JCFLAGS} MainMenuObsOptions.java
-
-MainMenuObsLeftgame.class : MainMenuObsLeftgame.java MainMenuFrame.class MainMenuObs.class
-	${JC} ${JCFLAGS} MainMenuObsLeftgame.java
-
-MainMenuObsStatistique.class : MainMenuObsStatistique.java MainMenuFrame.class MainMenuObs.class
-	${JC} ${JCFLAGS} MainMenuObsStatistique.java
-
-MainMenuObsBoutique.class : MainMenuObsBoutique.java MainMenuFrame.class MainMenuObs.class
-	${JC} ${JCFLAGS} MainMenuObsBoutique.java
-
-MainMenuObsLaunchgame.class : MainMenuObsLaunchgame.java MainMenuFrame.class MainMenuObs.class Game.class GameFrame.class
-	${JC} ${JCFLAGS} MainMenuObsLaunchgame.java
-
-MainMenuObsLaunchgamevs.class : MainMenuObsLaunchgamevs.java MainMenuFrame.class MainMenuObs.class
-	${JC} ${JCFLAGS} MainMenuObsLaunchgamevs.java
-
-MainMenuObsSavemenu.class : MainMenuObsSavemenu.java MainMenuFrame.class MainMenuObs.class SaveMenuFrame.class
-	${JC} ${JCFLAGS} MainMenuObsSavemenu.java
 
 
 SaveMenuFrame.class : SaveMenuFrame.java MenuFrame.class
@@ -69,8 +48,9 @@ Game.class : Game.java Chrono.class
 GameFrame.class : GameFrame.java Game.class GameObs.class
 	${JC} ${JCFLAGS} GameFrame.java
 
-GameObs.class : GameObs.java Game.class GameFrame.class
+GameObs.class : GameObs.java Game.class GameFrame.class MainMenuFrame.class
 	${JC} ${JCFLAGS} GameObs.java
+
 
 Chrono.class : Chrono.java ChronoThread.class
 	${JC} ${JCFLAGS} Chrono.java
@@ -78,6 +58,8 @@ Chrono.class : Chrono.java ChronoThread.class
 ChronoThread.class : ChronoThread.java GameFrame.class
 	${JC} ${JCFLAGS} ChronoThread.java
 
+Langue.class : Langue.java
+	${JC} ${JCFLAGS} Langue.java
 
 ### REGLES OPTIONNELLES ###
 

@@ -6,10 +6,17 @@ public abstract class MenuFrame {
 
 	public JFrame fenetre;
 	private int i = 1;
+	protected Langue langue;
 
 	public MenuFrame(JFrame fenetre0) {
 		System.out.println("--Nouveau menu généré--");
 		this.fenetre = fenetre0;
+		this.langue = new Langue("French");
+	}
+	
+	public MenuFrame() {
+		System.out.println("--Nouveau menu généré--");
+
 	}
 
 

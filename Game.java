@@ -3,18 +3,16 @@ import java.util.Arrays;
 
 public class Game {
 
-	private char[][] tab_grid = new char[10][15];
-	private boolean[][] tab_group = new boolean[10][15];
+	private char[][] tab_grid         = new char[10][15];
+	private boolean[][] tab_group     = new boolean[10][15];
 	private boolean[][] tab_destroyed = new boolean[10][15];
-	private	boolean[][] tab_col = new boolean[10][15];
-	private boolean[][] tab_nb_group = new boolean[10][15];
+	private	boolean[][] tab_col       = new boolean[10][15];
+	private boolean[][] tab_nb_group  = new boolean[10][15];
 
 	private int actualScore;
 
 
 	private Chrono chrono;
-
-	private int first_clic = 0;
 
 	public Game(GameFrame gameframe0) {
 		chrono = new Chrono(gameframe0);
@@ -25,6 +23,8 @@ public class Game {
 		int num;
 
 		System.out.println("Génération d'une grille aléatoire...");
+		this.chrono.startChrono(); // Le chrono se lance au premier clique
+
 		for (i=0; i<10; i++) {
 			for (j=0; j<15; j++) {
 
@@ -119,10 +119,6 @@ public class Game {
 
 	public void groupDestruct() {
 
-		if (this.first_clic == 0) {
-			this.chrono.startChrono(); // Le chrono se lance au premier clique
-			this.first_clic++;
-		}
 		System.out.println("Chrono : " + this.chrono.getDureeNow());
 
 
@@ -131,6 +127,7 @@ public class Game {
 
 				if(this.tab_group[i][j] == true) {
 					this.tab_grid[i][j] = 'D';
+
 				}
 			}
 		}
@@ -138,6 +135,23 @@ public class Game {
 
 	public boolean[][] getTabGroup(int i, int j) {
 		return this.tab_group;
+	}
+
+	public int groupRemaining() {
+		int nb_group = 0;
+
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 15; j++) {
+
+				if (this.tab_grid[i][j] != 'D') {
+
+					if (this.tab_group[i][j] == true) {
+						nb_group++;
+					}
+				}
+			}
+		}
+		return nb_group;
 	}
 
 	public int sizeGroupPion() {
@@ -195,11 +209,15 @@ public class Game {
 				return false;
 			}
 		}
+
 		return true;
 	}
 
-	public int groupRemaining() {
-		int nb_group = 0;
+
+
+
+	public int pionRemaining() {
+		int nb_pion = 0;
 		this.resetgroupPions();
 		
 		for (int i=0; i<10; i++) {
@@ -208,28 +226,43 @@ public class Game {
 
 					this.groupPions(i, j);
 					// La partie ne finie pas tant qu'il reste des groupes de taille supérieures à 1
-					if (this.sizeGroupPion() > 1) { 
+					//if (this.sizeGroupPion() > 1) { 
 
-						nb_group = nb_group + 1;
-					}
+					nb_pion = nb_pion + 1;
+					//}
 				}
 			}
 		}
-		return nb_group;
+		this.resetgroupPions();
+
+		return nb_pion;
 	}
 
+
+
 	public boolean endGame() {
-		System.out.println(this.groupRemaining());
 
-		if (this.groupRemaining() > 1) {
-			System.out.println("Partie en cours...");
-			return false;
+		for (int i=0; i<10; i++) {
+			for (int j=0; j<15; j++) {
 
-		} else {
-			System.out.println("Fin de la partie...");
-			this.chrono.endChrono();
-			return true;
+				if (this.tab_grid[i][j] != 'D') {
+
+					this.resetgroupPions();
+					this.groupPions(i, j);
+
+					if (this.groupRemaining() > 1 && this.sizeGroupPion() > 1) {
+						System.out.println("Partie en cours...");
+						return false;
+					}
+					this.resetgroupPions();
+				}
+			}
 		}
+		this.resetgroupPions();
+		System.out.println("Fin de la partie...");
+		this.chrono.endChrono();
+
+		return true;
 	}
 
 	public int scoreCalcul() {
@@ -245,6 +278,17 @@ public class Game {
 		return this.chrono.getDureeNow();
 	}
 
+
+	public void pauseGame() {
+		this.chrono.pauseChrono();
+	}
+
+
+	public void resumeGame() {
+		this.chrono.resumeChrono();
+
+
+	}
 
 }
 

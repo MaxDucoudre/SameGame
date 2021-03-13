@@ -23,7 +23,7 @@
     gamename.setHorizontalAlignment(JLabel.CENTER);
     super.fenetre.add(gamename, BorderLayout.NORTH);
 
-    JButton startbutton = new JButton("Start");
+    JButton startbutton = new JButton(super.langue.getStartString()); // Bouton pour lancer le jeux
     JPanel p = new JPanel();
     p.add(startbutton);
     super.fenetre.add(p, BorderLayout.CENTER);
