@@ -1,3 +1,13 @@
+/**
+ * Classe Contrôleur : GameObs
+ * Cette classe permet de rendre interactive la fenêtre du jeux
+ *
+ * @version 1
+ * @author Max Ducoudré
+ * @author Loris Schnell
+ */
+
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -18,44 +28,45 @@ public class GameObs implements MouseListener, MouseMotionListener, ActionListen
 		this.fenetre = fenetre0;
 	}
 
-	public void actionPerformed(ActionEvent e){
+	// La méthode actionPerformed : se lance au clique de la souris sur un bouton
+	public void actionPerformed(ActionEvent e) {
 
 		// réaction du bouton pause pendant la partie
-		if (e.getActionCommand() == this.gameframe.pauseString) {
+		if (e.getActionCommand() == this.gameframe.pauseString) { // si le nom du bouton appuyé est identique à celui du bouton pause
 			System.out.println("Pause");
 			this.gameframe.startPause();
 		}
 
-		// Réaction des boutons du menu pause
-		if (e.getActionCommand() == this.gameframe.resumeString) {
+		// Réaction du bouton "reprendre" dans le menu pause
+		if (e.getActionCommand() == this.gameframe.resumeString) { // si le nom du bouton appuyé est identique à celui du bouton "reprendre"
 			System.out.println("Resume");
-			this.gameframe.endPause();
+			this.gameframe.endPause(); // lance la méthode endPause de GameFrame
 		}
 
-		if (e.getActionCommand() == this.gameframe.abandonString) {
+		if (e.getActionCommand() == this.gameframe.abandonString) { // si le nom du bouton appuyé est identique à celui du bouton "abandonner"
 			System.out.println("Main Menu");
 
 			this.gameframe.eraseFrame();
-			MainMenuFrame mmf = new MainMenuFrame(this.fenetre);
+			MainMenuFrame mmf = new MainMenuFrame(this.fenetre); // on relance un objet de type MainMenuFrame
 			this.gameframe.refreshFrame();
 
 		}
 
-		// Réaction des boutons à l'écran de fin
+		// Réaction des boutons de l'écran de fin
 
-		if (e.getActionCommand() == this.gameframe.mainMenuString) {
+		if (e.getActionCommand() == this.gameframe.mainMenuString) { // si le nom du bouton appuyé est identique à celui du bouton "Main Menu"
 			System.out.println("Main Menu");
 
 			this.gameframe.eraseFrame();
-			MainMenuFrame mmf = new MainMenuFrame(this.fenetre);
+			MainMenuFrame mmf = new MainMenuFrame(this.fenetre); // on recréer un objet de type MainMenuFrame
 			this.gameframe.refreshFrame();
 		}
 
-		if (e.getActionCommand() == this.gameframe.restartString) {
+		if (e.getActionCommand() == this.gameframe.restartString) { // si le nom du bouton appuyé est identique à celui du bouton "relancer"
 			System.out.println("Restart");
 
 			this.gameframe.eraseFrame();
-			GameFrame gf = new GameFrame(fenetre);
+			GameFrame gf = new GameFrame(this.fenetre, "NULL"); // on recréer un objet de type GameFrame
 			this.gameframe.refreshFrame();
 		}
 
@@ -64,95 +75,105 @@ public class GameObs implements MouseListener, MouseMotionListener, ActionListen
 	}
 
 
-
+	// La méthode actionPerformed : se lance au clique de la souris l'écran
 	public void mouseClicked(MouseEvent e) {
 		int l;
 
 		// vérifie si la partie n'est pas sur pause et n'est pas terminée
-		if(this.gameframe.getPauseStatus() == false && this.gameframe.getEndGameStatus() == false) { 
-			for (int i=0; i<10; i++) {
-				for (int j=0; j<15; j++) {
+		if (this.gameframe.getPauseStatus() == false && this.gameframe.getEndGameStatus() == false) {
 
-					if (e.getX() >= this.gameframe.getXPion(i, j) + this.gameframe.grid.getX() && e.getX() < this.gameframe.getXPion(i, j)  + this.gameframe.grid.getX() + this.gameframe.getWidthPion(i, j)
-						&& 	e.getY() >= this.gameframe.getYPion(i, j) + this.gameframe.grid.getY() && e.getY() < this.gameframe.getYPion(i, j) + this.gameframe.grid.getY() + this.gameframe.getHeightPion(i, j) ){
+			// on rentre dans une double boucle pour vérifier chaque points de la grille 
+			for (int i = 0; i < 10; i++) {
+				for (int j = 0; j < 15; j++) {
 
-
-
-
-						this.game.resetgroupPions();
-					this.game.groupPions(i, j);
+					// cette condition compare la position X et Y du clique de la souris avec la position X et Y d'un pion dand la partie
+					if (e.getX() >= this.gameframe.getXPion(i, j) + this.gameframe.grid.getX() && e.getX() < this.gameframe.getXPion(i, j) + this.gameframe.grid.getX() + this.gameframe.getWidthPion(i, j) &&
+						e.getY() >= this.gameframe.getYPion(i, j) + this.gameframe.grid.getY() && e.getY() < this.gameframe.getYPion(i, j) + this.gameframe.grid.getY() + this.gameframe.getHeightPion(i, j)) {
 
 
-					this.tab_grid = this.game.getGrid();
-
-				if(this.game.sizeGroupPion() > 1 && this.tab_grid[i][j] != 'D') { 	//Action quand on clique sur un groupe de plus de 1 de taille
-					System.out.println("Ligne " + i + " | Colonne : " + j);
-					System.out.println("Pion détruits : " + this.game.sizeGroupPion());
-					System.out.println("+ " + this.game.scoreCalcul() + " au score");
-					System.out.println("Score actuel : " + this.game.scoreTotal());
 
 
-					this.game.groupDestruct();
+						this.game.resetgroupPions(); // remise à 0 des groupes
+						this.game.groupPions(i, j); // vérification du groupe de la case cliqué
 
-					this.gameframe.setScoreLabel(); // met à jour le score dans l'affichage
+						this.tab_grid = this.game.getGrid(); // on récupère la grille sous forme de tableau de char
 
-					this.game.cascadePionHorizontal();
-					this.game.cascadePionVertical();
-					this.game.afficherGrid();
-					System.out.println();
-
-					if(this.game.endGame() == true) {
-						this.gameframe.eraseFrame();
-
-						this.gameframe.endGameFrame();
-						
-						this.gameframe.refreshFrame();
+						if (this.game.sizeGroupPion() > 1 && this.tab_grid[i][j] != 'D') { // Si la taille du groupe est supérieure à 1 et que la case n'est pas vide
+							System.out.println("Ligne " + i + " | Colonne : " + j);
+							System.out.println("Pion détruits : " + this.game.sizeGroupPion());
+							System.out.println("+ " + this.game.scoreCalcul() + " au score");
+							System.out.println("Score actuel : " + this.game.scoreTotal());
 
 
+							this.game.groupDestruct(); // on détruit le groupe
+
+							this.gameframe.setScoreLabel(); // on met à jour le score dans l'affichage
+
+							this.game.cascadePionHorizontal(); // on fait tomber les pions vers le bas
+							this.game.cascadePionVertical(); // on décale une colone si sa voisine est vide
+							this.game.afficherGrid(); // affichage de la grille à la console
+							System.out.println();
+
+							if (this.game.endGame() == true) { // si la partie est terminée
+
+								this.gameframe.eraseFrame();
+								this.gameframe.endGameFrame(); // on affiche l'écran de fin
+								this.gameframe.refreshFrame();
+
+
+							}
+						}
 					}
 				}
 			}
 		}
 	}
-}
-}
 
-public void mouseMoved(MouseEvent e) {
-
-	this.gameframe.setChrono();
-
-	for (int i=0; i<10; i++) {
-		for (int j=0; j<15; j++) {
-			if (e.getX() >= this.gameframe.getXPion(i, j) + this.gameframe.grid.getX() && e.getX() < this.gameframe.getXPion(i, j)  + this.gameframe.grid.getX() + this.gameframe.getWidthPion(i, j)
-				&& 	e.getY() >= this.gameframe.getYPion(i, j) + this.gameframe.grid.getY() && e.getY() < this.gameframe.getYPion(i, j) + this.gameframe.grid.getY() + this.gameframe.getHeightPion(i, j) ){
+	// La méthode mouseMoved vérifie la position de la souris sur l'écran
+	public void mouseMoved(MouseEvent e) {
 
 
-				this.game.groupPions(i, j);
+		// on rentre dans une double boucle pour vérifier chaque points de la grille 
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 15; j++) {
 
-			this.tab_grid = this.game.getGrid();
-			if(this.game.sizeGroupPion() >= 2 && this.tab_grid[i][j] != 'D') {
+				// cette condition compare la position X et Y  de la souris avec la position X et Y d'un pion dand la partie
+				if (e.getX() >= this.gameframe.getXPion(i, j) + this.gameframe.grid.getX() && e.getX() < this.gameframe.getXPion(i, j) + this.gameframe.grid.getX() + this.gameframe.getWidthPion(i, j) &&
+					e.getY() >= this.gameframe.getYPion(i, j) + this.gameframe.grid.getY() && e.getY() < this.gameframe.getYPion(i, j) + this.gameframe.grid.getY() + this.gameframe.getHeightPion(i, j)) {
 
-				this.tab_group = this.game.getTabGroup(i, j);
-				this.gameframe.changeBackgroundPion(Color.ORANGE, this.tab_group, i, j);
-				
+
+					this.game.groupPions(i, j); // on calcule le groupe du pion survolé
+
+					this.tab_grid = this.game.getGrid(); // on récupère la grille de la partie sous forme de tableau de char
+
+					if (this.game.sizeGroupPion() >= 2 && this.tab_grid[i][j] != 'D') { // si le groupe est plus grand que 2 et que la case n'est pas vide
+
+						this.tab_group = this.game.getTabGroup(i, j); // alors on récupère le tableau de booléen du grouoe en question
+						this.gameframe.changeBackgroundPion(Color.ORANGE, this.tab_group, i, j); // et on applique un changement de couleur là où les cases du tableau sont en true
+
+					} else {
+						this.gameframe.resetBackgroundPion(); // redonne la couleur initiale aux pions quand la souris quitte un groupe
+
+					}
+
+				} else {
+					// sécurité pour être sur que les groupes soient reset et qu'ils ne rentrent pas en conflit avec le clique
+					this.game.resetgroupPions();
+
+
+				}
+
 			}
-
-		} else 	{
-
-			this.game.resetgroupPions();
-
 		}
 
 	}
-}
-}
 
 
 
-public void mouseEntered(MouseEvent evenement) {}  
-public void mouseExited(MouseEvent evenement) {}           
-public void mousePressed(MouseEvent evenement) {}          
-public void mouseReleased(MouseEvent evenement) {}
-public void mouseDragged(MouseEvent evenement) {}      
+	public void mouseEntered(MouseEvent evenement) {}
+	public void mouseExited(MouseEvent evenement) {}
+	public void mousePressed(MouseEvent evenement) {}
+	public void mouseReleased(MouseEvent evenement) {}
+	public void mouseDragged(MouseEvent evenement) {}
 
 }

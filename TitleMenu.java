@@ -2,7 +2,7 @@
 * Classe Modèle : TitleMenu
 * Menu titre au lancement du jeux
 *
-* @version 1 - 08 march 2021
+* @version 1 
 * @author Max Ducoudré
 * @author Loris Schnell
 */
@@ -22,7 +22,7 @@ public class TitleMenu {
   }
 
   /**
-  * Méthode changeant l'état du menu titre
+  * Méthode "update" changeant l'état du menu titre
   */
   
   public void update() {
@@ -32,6 +32,10 @@ public class TitleMenu {
   		this.enable = false;
   	}
   }
+  /**
+  * Méthode "check" permettant de récupérer l'état du menu titre
+  * @return true si le menu titre est actif, si non false
+  */
 
   public boolean check() {
   	if(this.enable == true) {
@@ -40,8 +44,4 @@ public class TitleMenu {
   		return false;
   	}
   }
-
-
-
-
 }

@@ -68,8 +68,6 @@ run : Main.class
 
 clean :
 	-rm -f *.class
-	-rm -f */*.class
-
 
 mrproper : clean Main.class
 

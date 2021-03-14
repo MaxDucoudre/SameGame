@@ -1,3 +1,13 @@
+/**
+* Classe Langue
+* Cette classe permet de définir des chaîne de caractère de chaque label et de chaque bouton en fonction d'une langue séléctionnée
+*
+* @version 1
+* @author Max Ducoudré
+* @author Loris Schnell
+*/
+
+
 public class Langue {
 
 	private String langue;

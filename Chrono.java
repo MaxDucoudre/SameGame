@@ -105,6 +105,7 @@ public class Chrono {
 
 /**
 * La méthode "getDureeNow" permet de récupérer l'état du chrono, soit la variable "dureeNow"
+* @return la durée actuelle du chrono
 */
     public String getDureeNow() {
         if (this.stop == false) {
@@ -114,15 +115,14 @@ public class Chrono {
             this.dureePause = 0;
         }
             //System.out.println(this.toString(this.dureeNow));
-
         return this.toString(this.dureeNow);
-        
-
     }
+
 
 /**
 * La méthode "toString" renvoie sous forme de "m:ss" les milisecondes qu'on y injecte en paramètre
 * @param temps_ms représente le temps en miliseconde qu'on veut rentrer
+* @return un temps en format 0:00 en fonction des milisecondes données
 */
     public String toString(long temps_ms) {
         String dureeMinSec = "";
