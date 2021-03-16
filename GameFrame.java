@@ -31,12 +31,11 @@
 		public String restartString = super.langue.getRestartString();
 
 		// attributs JLabel informant de l'état de la partie en cours
-		private JLabel scoreLabel = new JLabel(super.langue.getScoreString() + " : 0"); // le score
-		private JLabel hightScoreLabel = new JLabel(super.langue.getHightScoreString() + " : Inexistant"); // le record
+		private JLabel scoreLabel = new JLabel(" " + super.langue.getScoreString() + " : 0 "); // le score
+		private JLabel hightScoreLabel = new JLabel(" " + super.langue.getHightScoreString() + " : Inexistant "); // le record
 		private JLabel scoreGetLabel = new JLabel(); // les points gagnés
 		private JLabel multiplicatorLabel = new JLabel(); // le nombre de pions détruits
-		private JLabel timerLabel = new JLabel(super.langue.getTimeString() + " : 0:00"); // le chrono
-
+		private JLabel timerLabel = new JLabel(" " + super.langue.getTimeString() + " : 0:00 "); // le chrono
 
 		public JButton pauseButton; // bouton Pause durant la partie
 		// attributs JButton du menu pause
@@ -54,6 +53,25 @@
 		// Panel qui s'affiche à la fin de la partie
 		public JPanel endGamePanel = new JPanel();
 
+	    	// On séléctionne une image pour le fond
+		private Image image_background = Toolkit.getDefaultToolkit().getImage("./ressources/background_jungle2.jpg");
+
+		    // JPanel principal du jeux
+		private BackgroundImagePanel gamePanel = new BackgroundImagePanel(image_background, fenetre);
+
+		
+		// initialisation des icones des pions
+		private ImageIcon icon_pion_red;
+		private ImageIcon icon_pion_green;
+		private ImageIcon icon_pion_blue;
+
+		// Couleur marron
+		private Color brown = new Color(102,51,0);
+		// couleur grise
+		private Color green = new Color(138,172,42);
+
+		private int y = 0;
+
 		/**
 		 * Le constructeur de GameFrame
 		 * @param fenetre0
@@ -62,88 +80,129 @@
 		public GameFrame(JFrame fenetre0, String fichier_grille) {
 			super(fenetre0);
 
+			this.gamePanel.setLayout(new BorderLayout());
 
 			// génère une grille avec fichier_grille, si fichier_grille est "NULL", la grilel sera générée aléatoirement
 			this.game = new Game(this, fichier_grille); 
 
 
-
-
-		System.out.println("Entrée dans le jeux");
+			System.out.println("Entrée dans le jeux");
 			this.grid.setLayout(new GridLayout(10, 15)); // on met le JPanel de la grille sous forme de GridLayout 
 
-			this.updateGrid(); // Remplissage du JPanel "grid"
-			super.fenetre.add(this.grid, BorderLayout.CENTER);
+			this.grid.setBorder(BorderFactory.createLineBorder(this.brown, 3));
+
 
 			// Informations sur la partie
+			// LE SCORE
 			this.scoreLabel.setOpaque(true);
-			this.scoreLabel.setBackground(Color.CYAN);
+			this.scoreLabel.setBackground(this.green);
+			this.scoreLabel.setBorder(BorderFactory.createLineBorder(this.brown, 2));
 			this.top.add(this.scoreLabel);
 
+			// LE RECORD
 			this.hightScoreLabel.setOpaque(true);
-			this.hightScoreLabel.setBackground(Color.CYAN);
+			this.hightScoreLabel.setBackground(this.green);
+			this.hightScoreLabel.setBorder(BorderFactory.createLineBorder(this.brown, 2));
 			this.top.add(this.hightScoreLabel);
 
+			// LE TIMER
 			this.timerLabel.setOpaque(true);
-			this.timerLabel.setBackground(Color.CYAN);
+			this.timerLabel.setBackground(this.green);
+			this.timerLabel.setBorder(BorderFactory.createLineBorder(this.brown, 2));
 			this.top.add(this.timerLabel);
 
+			// LES POINTS GAGNE
 			this.scoreGetLabel.setOpaque(true);
 			this.top.add(this.scoreGetLabel);
 
+			// LES PIONS DETRUITS
 			this.multiplicatorLabel.setOpaque(true);
 			this.top.add(this.multiplicatorLabel);
+			// fin informations sur la partie
 
 			this.pauseButton = new JButton(this.pauseString);
+			//this.setBackground(Color.GREEN);
 			this.top.add(this.pauseButton);
 
-			super.fenetre.add(this.top, BorderLayout.NORTH);
-			// fin informations sur la partie
+
+			// On ajoute la grille et l'affichage des données sur le JPanel principal
+			super.fenetre.add(this.gamePanel, BorderLayout.CENTER);
+
 
 			// observateurs rendant interactif toute la fenêtre
 			super.fenetre.addMouseListener(new GameObs(game, this, super.fenetre)); // la fenetre devient interactif au clique de la souris
 			super.fenetre.addMouseMotionListener(new GameObs(game, this, super.fenetre)); // la fenetre devient interactif au survol de la souris
 			this.pauseButton.addActionListener(new GameObs(game, this, super.fenetre)); // les boutons de la fenêtre deviennent interactifs
+
+
+
+
+
+			this.setGridLabel(); // Remplissage du JPanel "grid"
+
+			this.grid.setOpaque(false);
+			this.top.setOpaque(false);
+			this.gamePanel.add(this.grid, BorderLayout.CENTER);
+			this.gamePanel.add(this.top, BorderLayout.NORTH);
+
+
+			// On ajoute la grille et l'affichage des données sur le JPanel principal
+			super.fenetre.add(this.gamePanel, BorderLayout.CENTER);
+
+
+
 		}
+
 
 		/**
 		 * La méthode "updateGrid" permet de mettre à jour l'affichage de la grille en prenant les informations de la classe modèle "Game"
 		 */
-		public void updateGrid() {
+		public void setGridLabel() {
 			int i, j;
 			this.tab_grid = this.game.getGrid(); // on récupère le tableau de char comprenant la position des pions
 			this.game.afficherGrid();
 			System.out.println("Mise en forme visuelle de la grille...");
 
-			// On remplie de JLabel représentant les pions le JPanel grid
-			// On traverse donc toutes les cases du tableau via cette double boucle imbriquée
+			this.ResizeIcon(); // on définit les images
+
+			// On remplie de JLabel représentant les pions le JPanel grid sous forme de GridLayout(10, 15)
+			// On traverse donc toutes les cases du tableau via cette boucle imbriquée
+
 			for (i = 0; i < 10; i++) {
 				for (j = 0; j < 15; j++) {
 
 					if (this.tab_grid[i][j] == 'R') { // si il y a 'R' dans la case, alors on met à jour le visuel de la case
 					this.pions[i][j] = new JLabel();
-					this.pions[i][j].setOpaque(true);
-					this.pions[i][j].setBackground(Color.RED);
-					this.grid.add(this.pions[i][j]);
-				}
+							this.pions[i][j].setBackground(null); // sinon on l'enlève
+							this.pions[i][j].setOpaque(false);
+							this.pions[i][j].setIcon(this.icon_pion_red);
+							this.grid.add(this.pions[i][j]);
+
+						}
 
 					if (this.tab_grid[i][j] == 'V') { // si il y a 'V' dans la case, alors on met à jour le visuel de la case
 					this.pions[i][j] = new JLabel();
-					this.pions[i][j].setOpaque(true);
-					this.pions[i][j].setBackground(Color.GREEN);
-					this.grid.add(this.pions[i][j]);
-				}
+							this.pions[i][j].setBackground(null); // sinon on l'enlève
+							this.pions[i][j].setOpaque(false);
+							this.pions[i][j].setIcon(this.icon_pion_green);
+							this.grid.add(this.pions[i][j]);
+						}
 
 					if (this.tab_grid[i][j] == 'B') { // si il y a 'B' dans la case, alors on met à jour le visuel de la case
 					this.pions[i][j] = new JLabel();
-					this.pions[i][j].setOpaque(true);
-					this.pions[i][j].setBackground(Color.BLUE);
-					this.grid.add(this.pions[i][j]);
-
+							this.pions[i][j].setBackground(null); // sinon on l'enlève
+							this.pions[i][j].setOpaque(false);
+							this.pions[i][j].setIcon(this.icon_pion_blue);
+							this.grid.add(this.pions[i][j]);
+						}
+					}
 				}
+
+
 			}
-		}
-	}
+
+
+
 
 		/**
 		 * La méthode "changeBackgroundPion" permet de changer la couleur du groupe qu'on survole avec la souris
@@ -152,52 +211,125 @@
 		 * @param i représente la colone du pion
 		 * @param j représente la ligne du pion
 		 */
-		public void changeBackgroundPion(Color color, boolean[][] tab_group_hover, int i, int j) {
+		public void hoverBackgroundPion(Color color, boolean[][] tab_group_hover, int i, int j) {
+
+			this.ResizeIcon(); // on redéfinit les icones
+
+
 			for (i = 0; i < 10; i++) {
 				for (j = 0; j < 15; j++) {
 					if (tab_group_hover[i][j] == true) { // si le groupe est survolé
+						this.pions[i][j].setOpaque(true);
 						this.pions[i][j].setBackground(color); // alors on lui applique une couleur
+
 					} else {
 						// Sinon on remet les couleurs par défaut
 						if (tab_grid[i][j] == 'R') {
-							this.pions[i][j].setBackground(Color.RED);
+							this.pions[i][j].setBackground(null); // sinon on l'enlève
+							this.pions[i][j].setOpaque(false);
+							this.pions[i][j].setIcon(this.icon_pion_red);
 						}
+
 						if (tab_grid[i][j] == 'V') {
-							this.pions[i][j].setBackground(Color.GREEN);
-						}
-						if (tab_grid[i][j] == 'B') {
-							this.pions[i][j].setBackground(Color.BLUE);
-						}
-						if (tab_grid[i][j] == 'D') {
-							this.pions[i][j].setBackground(Color.WHITE);
-						}
+						this.pions[i][j].setBackground(null); // sinon on l'enlève
+						this.pions[i][j].setOpaque(false);
+						this.pions[i][j].setIcon(this.icon_pion_green);
+					}
+
+					if (tab_grid[i][j] == 'B') {
+						this.pions[i][j].setBackground(null); // sinon on l'enlève
+						this.pions[i][j].setOpaque(false);
+						this.pions[i][j].setIcon(this.icon_pion_blue);
+					}
+
+					if (tab_grid[i][j] == 'D') {
+						this.pions[i][j].setBackground(null); // sinon on l'enlève
+						this.pions[i][j].setOpaque(false);
+						this.pions[i][j].setIcon(null);
+					}
+				}
+			}
+		}
+	}
+
+		/**
+		 * La méthode "resetBackgroundPion" redessine la couleur des pions par défaut
+		 */
+		public void resetBackgroundPion() {
+
+			this.ResizeIcon(); // on redéfinit les icones
+
+
+			// on donne des valeurs aux attributs des images des pions
+			for (int i = 0; i < 10; i++) {
+				for (int j = 0; j < 15; j++) {
+
+					if (tab_grid[i][j] == 'R') {
+						this.pions[i][j].setIcon(this.icon_pion_red);
+						this.pions[i][j].setBackground(Color.WHITE);
+						this.pions[i][j].setOpaque(false);
+					}
+
+					if (tab_grid[i][j] == 'V') {
+						this.pions[i][j].setIcon(this.icon_pion_green);
+						this.pions[i][j].setBackground(Color.WHITE);
+						this.pions[i][j].setOpaque(false);
+					}
+
+					if (tab_grid[i][j] == 'B') {
+						this.pions[i][j].setIcon(this.icon_pion_blue);
+						this.pions[i][j].setBackground(Color.WHITE);
+						this.pions[i][j].setOpaque(false);
+					}
+
+					if (tab_grid[i][j] == 'D') {
+						this.pions[i][j].setIcon(null);	
+						this.pions[i][j].setBackground(Color.WHITE);
+						this.pions[i][j].setOpaque(false);
 					}
 				}
 			}
 		}
 
+		/**
+		 * La méthode "ResizeIcon" permet de redimensionner les images correctement en fonction des JPanel qui les contient
+		 */
+		public void ResizeIcon() {
+
+
+			this.icon_pion_red = new ImageIcon("./ressources/ananas.png"); // On initialise une icone avec l'image
+			//Image image_pion_red = icon_pion_red.getImage().getScaledInstance(this.pions[1][1].getWidth(), this.pions[1][1].getHeight(), Image.SCALE_SMOOTH); // on reprend l'image et on la redimensionne
+			Image image_pion_red = icon_pion_red.getImage().getScaledInstance(super.fenetre.getWidth()/15, super.fenetre.getHeight()/10-10, Image.SCALE_SMOOTH); // on reprend l'image et on la redimensionne
+			this.icon_pion_red = new ImageIcon(image_pion_red); // on met cette image redimensionnée dans l'icone
+
+			this.icon_pion_green = new ImageIcon("./ressources/banana.png"); // On initialise une icone avec l'image
+			//Image image_pion_green = icon_pion_green.getImage().getScaledInstance(this.pions[1][1].getWidth(), this.pions[1][1].getHeight(), Image.SCALE_SMOOTH); // on reprend l'image et on la redimensionne
+			Image image_pion_green = icon_pion_green.getImage().getScaledInstance(super.fenetre.getWidth()/15, super.fenetre.getHeight()/10-10, Image.SCALE_SMOOTH); // on reprend l'image et on la redimensionne
+			this.icon_pion_green = new ImageIcon(image_pion_green); // on met cette image redimensionnée dans l'icone
+
+			this.icon_pion_blue = new ImageIcon("./ressources/coconut.png"); // On initialise une icone avec l'image
+			//Image image_pion_blue = icon_pion_blue.getImage().getScaledInstance(this.pions[1][1].getWidth(), this.pions[1][1].getHeight(), Image.SCALE_SMOOTH); // on reprend l'image et on la redimensionne
+			Image image_pion_blue = icon_pion_blue.getImage().getScaledInstance(super.fenetre.getWidth()/15, super.fenetre.getHeight()/10-10, Image.SCALE_SMOOTH); // on reprend l'image et on la redimensionne
+			this.icon_pion_blue = new ImageIcon(image_pion_blue); // on met cette image redimensionnée dans l'icone
+
+
+
+	}
 
 		/**
-		 * La méthode "resetBackgroundPion" redessine la couleur des pions par défaut
+		 * La méthode "getPionsLabel" permet de récupérer le tableau de JLabel de la grille
+		 * @return le tableau de JLabel
 		 */
+		public JLabel[][] getPionsLabel() {
+			return this.pions;
+		}
 
-		public void resetBackgroundPion() {
-			for (int i = 0; i < 10; i++) {
-				for (int j = 0; j < 15; j++) {
-					if (tab_grid[i][j] == 'R') {
-						this.pions[i][j].setBackground(Color.RED);
-					}
-					if (tab_grid[i][j] == 'V') {
-						this.pions[i][j].setBackground(Color.GREEN);
-					}
-					if (tab_grid[i][j] == 'B') {
-						this.pions[i][j].setBackground(Color.BLUE);
-					}
-					if (tab_grid[i][j] == 'D') {
-						this.pions[i][j].setBackground(Color.WHITE);
-					}
-				}
-			}
+		/**
+		 * La méthode "getTabGrid" permet de récupérer le tableau de caractère de la grille
+		 * @return le tableau de char de la grille
+		 */
+		public char[][] getTabGrid() {
+			return this.tab_grid;
 		}
 
 		/**
@@ -246,20 +378,24 @@
 		 */
 		public void setScoreLabel() {
 			// Met à jour l'affichage du score
-			this.scoreLabel.setText("Score : " + this.game.scoreTotal());
+			this.scoreLabel.setText(" Score : " + this.game.scoreTotal() + " ");
 
 			if (this.game.scoreCalcul() != 0) { // si le score gagné est supérieur à 0, alors
 				this.scoreGetLabel.setVisible(true); // on affiche le score gagné
-				this.scoreGetLabel.setBackground(Color.CYAN);
-				this.scoreGetLabel.setText("+" + this.game.scoreCalcul() + " points !");
+				this.scoreGetLabel.setBackground(this.green);
+				this.scoreGetLabel.setBorder(BorderFactory.createLineBorder(this.brown, 2));
+
+				this.scoreGetLabel.setText(" +" + this.game.scoreCalcul() + " points ! ");
 			} else {
 				this.scoreGetLabel.setVisible(false); // sinon on le masque
 			}
 
 			if (this.game.sizeGroupPion() > 2) { // si la taille d'un groupe détruit est supérieure à 2
 				this.multiplicatorLabel.setVisible(true); // alors on affiche le nombre de case détruites
-				this.multiplicatorLabel.setBackground(Color.CYAN);
-				this.multiplicatorLabel.setText("BONUS X" + this.game.sizeGroupPion());
+				this.multiplicatorLabel.setBackground(this.green);
+				this.multiplicatorLabel.setBorder(BorderFactory.createLineBorder(this.brown, 2));
+
+				this.multiplicatorLabel.setText(" BONUS X" + this.game.sizeGroupPion() + " ");
 			} else {
 				this.multiplicatorLabel.setVisible(false); // sinon on le cache
 			}
@@ -269,7 +405,7 @@
 		 * La méthode "setChrono" permet de mettre à jour l'affichage du chronomètre
 		 */
 		public void setChrono() {
-			this.timerLabel.setText(super.langue.getTimeString() + " : " + this.game.getChrono());
+			this.timerLabel.setText(" " + super.langue.getTimeString() + " : " + this.game.getChrono() + " ");
 		}
 
 		/**
@@ -333,11 +469,11 @@
 			this.game.pauseGame(); // on met sur pause le chronomètre
 
 			this.pausePanel.setVisible(true); // on affiche le JPanel de la pause
-			this.grid.setVisible(false); // on cache la grille
-			this.top.setVisible(false); // on cache les informations de la partie
+			this.gamePanel.setVisible(false); // on cache la partie
 
-			this.pausePanel.setBackground(Color.GREEN);
-			this.pausePanel.setOpaque(true);
+			this.pauseScorePanel.setOpaque(true);
+			this.pauseButtonPanel.setBackground(Color.ORANGE);
+			this.pauseScorePanel.setBackground(Color.BLUE);
 
 
 			this.pauseButtonPanel.add(this.resumePauseButton);
@@ -363,8 +499,7 @@
 		public void endPause() {
 			this.game.resumeGame(); // on relance le chronomètre
 
-			this.grid.setVisible(true); // on réaffiche la grille
-			this.top.setVisible(true); // on réaffiche les informations de la partie
+			this.gamePanel.setVisible(true); // on réaffiche la partie
 			this.pausePanel.setVisible(false); // on recache le menu pause
 
 			this.pauseStatus = false; // attribut disant si la partie se met en pause ou non passe en "false"

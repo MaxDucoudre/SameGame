@@ -18,6 +18,8 @@ Main.class : Main.java TitleMenuFrame.class
 MenuFrame.class : MenuFrame.java Langue.class
 	${JC} ${JCFLAGS} MenuFrame.java
 
+BackgroundImagePanel.class : BackgroundImagePanel.class
+	${JC} ${JCFLAGS} BackgroundImagePanel.java
 
 TitleMenuFrame.class : MenuFrame.class TitleMenuFrame.java TitleMenu.class TitleMenuObs.class 
 	${JC} ${JCFLAGS} TitleMenuFrame.java
@@ -29,7 +31,7 @@ TitleMenuObs.class : TitleMenuObs.java TitleMenu.class MainMenuFrame.class
 	${JC} ${JCFLAGS} TitleMenuObs.java
 
 
-MainMenuFrame.class : MenuFrame.class MainMenuFrame.java MainMenu.class MainMenuObs.class GameFrame.class
+MainMenuFrame.class : MenuFrame.class MainMenuFrame.java MainMenu.class MainMenuObs.class GameFrame.class BackgroundImagePanel.class
 	${JC} ${JCFLAGS} MainMenuFrame.java
 
 MainMenu.class : MainMenu.java
@@ -45,7 +47,7 @@ SaveMenuFrame.class : SaveMenuFrame.java MenuFrame.class
 Game.class : Game.java Chrono.class
 	${JC} ${JCFLAGS} Game.java
 
-GameFrame.class : GameFrame.java Game.class GameObs.class
+GameFrame.class : GameFrame.java Game.class GameObs.class BackgroundImagePanel.class
 	${JC} ${JCFLAGS} GameFrame.java
 
 GameObs.class : GameObs.java Game.class GameFrame.class MainMenuFrame.class
@@ -60,6 +62,8 @@ ChronoThread.class : ChronoThread.java GameFrame.class
 
 Langue.class : Langue.java
 	${JC} ${JCFLAGS} Langue.java
+
+
 
 ### REGLES OPTIONNELLES ###
 

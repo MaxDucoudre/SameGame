@@ -24,7 +24,6 @@ public class MainMenuObs implements ActionListener {
 	}
 
 
-
 	// Lors de la pression d'un bouton
 	public void actionPerformed(ActionEvent e) { 
 		

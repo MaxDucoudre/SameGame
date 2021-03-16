@@ -132,14 +132,14 @@ public class Langue {
 
 	public String getHightScoreString() {
 		if(this.langue == "French") {
-			return "Record : ";
+			return "Record";
 		}
 
 		if(this.langue == "English") {
 			return "Hight Score";
 		}		
 
-		return "Hight Score : ";
+		return "Hight Score";
 	}
 
 	public String getFinalScoreString() {

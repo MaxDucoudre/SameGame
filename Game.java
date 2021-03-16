@@ -44,9 +44,13 @@ public class Game {
 		} else {
 			this.genererGrille(); // on génère une grille aléatoire
 
-		//	FileInputStream fichier_grille_lecture = new FileInputStream(new File(fichier_grille));
-		//	DataInputStream fichier_grille_flux = new DataInputStream(fichier_grille_lecture);  
-
+			/*
+			try {
+				FileInputStream fichier_grille_lecture = new FIleInputStream(fichier_grille);
+			//DataInputStream fichier_grille_flux = new DataInputStream(fichier_grille_lecture);  
+			} catch(FileNotFoundException error) {
+				System.out.println("Erreur à l'ouverture du fichier de la grille");
+			}*/
 		}
 	}
 

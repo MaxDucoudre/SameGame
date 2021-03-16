@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public abstract class MenuFrame {
+public abstract class MenuFrame extends JComponent {
 
 	// attributs
 	public JFrame fenetre;
@@ -22,7 +22,8 @@ public abstract class MenuFrame {
 	public MenuFrame(JFrame fenetre0) {
 		System.out.println("--Nouveau menu généré--");
 		this.fenetre = fenetre0; // on récupère la fenêtre du jeux
-		this.langue = new Langue("French");
+		this.fenetre.add(this, BorderLayout.CENTER);
+		this.langue = new Langue("French"); // set la langue du jeux
 	}
 	
 	
@@ -42,8 +43,9 @@ public abstract class MenuFrame {
 		} else {
 			fenetre.setSize(this.fenetre.getWidth()+1, this.fenetre.getHeight());
 			this.i = 1;
-
 		}
+			this.fenetre.repaint();
+
 	}
 
 /**
