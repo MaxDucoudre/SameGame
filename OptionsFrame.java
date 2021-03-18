@@ -57,39 +57,58 @@ public class OptionsFrame extends MenuFrame {
 			// GRAPHISME DES BOUTONS
 		JPanel line1panel = new JPanel();
 		line1panel.setOpaque(false);
+		// Bouton difficulté
 		this.difficulty_button.setBackground(super.button_color);
-		this.difficulty_button.setText(this.difficulty_normal_string);
+		// Set le text du bouton difficulté
+		if(this.options.getDifficulty() == "normal") {
+			this.difficulty_button.setText(this.difficulty_normal_string);
+		} else if(this.options.getDifficulty() == "hard") {
+			this.difficulty_button.setText(this.difficulty_hard_string);
+		}	
 		this.difficulty_button.setFont(super.font); 
 		this.difficulty_button.addActionListener(new OptionsObs(this));
 		line1panel.add(this.difficulty_button);
 
+
 		JPanel line2panel = new JPanel();
 		line2panel.setOpaque(false);
+		// Bouton mod
 		this.mod_button.setBackground(super.button_color);
-		this.mod_button.setText(mod_solo_string);
+		// set le texte du bouton mod
+		if(this.options.getMod() == "solo") {
+			this.mod_button.setText(this.mod_solo_string);
+		} else if(this.options.getMod() == "dual") {
+			this.mod_button.setText(this.mod_dual_string);
+		}		
 		this.mod_button.setFont(super.font); 
 		line2panel.add(this.mod_button);
 
+
 		JPanel line3panel = new JPanel();
 		line3panel.setOpaque(false);
+		// Bouton langue
 		this.langue_button.setBackground(super.button_color);
-		this.langue_button.setText(langue_english_string);
-		this.langue_button.setFont(super.font); 
+		// Set le text du bouton langue
+		if(this.options.getLanguage() == "english") {
+			this.langue_button.setText(this.langue_english_string);
+		} else if(this.options.getLanguage() == "french") {
+			this.langue_button.setText(this.langue_french_string);
+		}	
+		this.langue_button.setFont(super.font);
+		this.langue_button.addActionListener(new OptionsObs(this));
 		line3panel.add(this.langue_button);
 
 
 		JPanel line5panel = new JPanel();
 		line5panel.setOpaque(false);
+		// Bouton sauvegarde
 		this.save_button.setBackground(super.button_color);
 		this.save_button.setText(save_string);
 		this.save_button.setFont(super.font); 
+		this.save_button.addActionListener(new OptionsObs(this, super.fenetre));
 		line5panel.add(this.save_button);
 
-		this.cancel_button.setBackground(super.button_color);
-		this.cancel_button.setText(cancel_string);
-		this.cancel_button.setFont(super.font); 
-		line5panel.add(this.cancel_button);
-
+		// bouton reset
 		this.reset_button.setBackground(super.button_color);
 		this.reset_button.setText(reset_string);
 		this.reset_button.setFont(super.font); 
@@ -108,7 +127,60 @@ public class OptionsFrame extends MenuFrame {
 
 		super.fenetre.add(optionsPanel, BorderLayout.CENTER);
 
+	}
 
+	/**
+	 * La méthode "setDifficultyButton" permet de mettre à jour l'affichage du bouton "difficulté" et change la difficulté
+	 */
+	public void setDifficultyButton() {
+		if (this.options.getDifficulty() == "hard") { // si la difficulté est difficile
+
+			this.difficulty_button.setText(this.difficulty_hard_string); // alors on change le texte du bouton
+			this.options.setDifficulty("normal"); // et on met la difficulté en normale
+
+
+		} else if(this.options.getDifficulty() == "normal") {// si la difficulté est normale
+
+			this.difficulty_button.setText(this.difficulty_normal_string);// alors on change le texte du bouton
+			this.options.setDifficulty("hard"); // et on met la difficulté en difficile
+
+		}
+	}
+
+	/**
+	 * La méthode "setLanguageButton" permet de mettre à jour l'affichage du bouton "langue" et change la langue
+	 */
+	public void setLanguageButton() {
+		if (this.options.getLanguage() == "english") { // si la langue est en anglais
+
+			this.langue_button.setText(this.langue_french_string); // alors on change le texte du bouton
+			this.options.setLanguage("french"); // et on met la langue en français
+
+
+		} else if(this.options.getLanguage() == "french") {// si la langue est en français
+
+			this.langue_button.setText(this.langue_english_string);// alors on change le texte du bouton
+			this.options.setLanguage("english"); // et on met la langue en anglais
+
+		}
+	}
+
+	/**
+	 * La méthode "setModButton" permet de mettre à jour l'affichage du bouton "mod" et change le mod
+	 */
+	public void setModButton() {
+		if (this.options.getMod() == "solo") { // si le mod est en solo
+
+			this.mod_button.setText(this.mod_dual_string); // alors on change le texte du bouton
+			this.options.setMod("dual"); // et on met le mod en duel
+
+
+		} else if(this.options.getMod() == "dual") {// si le mod est en duel
+
+			this.mod_button.setText(this.mod_solo_string);// alors on change le texte du bouton
+			this.options.setMod("solo"); // et on met le mod en solo
+
+		}
 	}
 
 }

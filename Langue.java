@@ -19,13 +19,13 @@ public class Langue {
 	// TEXTES DU MENU TITRE
 	public String getStartString() {
 
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Lancer";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Start";
-		}		
+		}	
 
 		return "Start";
 	}
@@ -33,23 +33,23 @@ public class Langue {
 
 	// TEXTES DU MENU PRINCIPAL
 	public String getLaunchGameString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Lancer la partie";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Launch Game";
-		}		
+		}
 
 		return "Launch Game";
 	}
 
 	public String getLaunchGameVsString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Lancer un duel";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Launch Game 1v1";
 		}		
 
@@ -57,11 +57,11 @@ public class Langue {
 	}
 
 	public String getShopString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Boutique";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Shop";
 		}		
 
@@ -69,11 +69,11 @@ public class Langue {
 	}
 
 	public String getSettingsString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Options";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Settings";
 		}		
 
@@ -82,11 +82,11 @@ public class Langue {
 
 
 	public String getStatisticsString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Statistiques";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Statistics";
 		}		
 
@@ -94,11 +94,11 @@ public class Langue {
 	}
 
 	public String getSavesString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Sauvegardes";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Saves";
 		}		
 
@@ -106,11 +106,11 @@ public class Langue {
 	}
 
 	public String getLeftGameString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Quitter le jeux";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Left Game";
 		}		
 
@@ -119,11 +119,11 @@ public class Langue {
 
 	// TEXTES DU JEUX
 	public String getScoreString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Score";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Score";
 		}		
 
@@ -131,11 +131,11 @@ public class Langue {
 	}
 
 	public String getHightScoreString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Record";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Hight Score";
 		}		
 
@@ -143,11 +143,11 @@ public class Langue {
 	}
 
 	public String getNewHightScoreString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Nouveau Record";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "New Hight Score";
 		}		
 
@@ -156,11 +156,11 @@ public class Langue {
 
 
 	public String getFinalScoreString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Score final";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Final score";
 		}		
 
@@ -168,11 +168,11 @@ public class Langue {
 	}
 
 	public String getTimeString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Chrono";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Timer";
 		}		
 
@@ -180,11 +180,11 @@ public class Langue {
 	}
 
 	public String getPauseString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Pause";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Pause";
 		}		
 
@@ -192,11 +192,11 @@ public class Langue {
 	}
 
 	public String getResumeString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Reprendre";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Resume";
 		}		
 
@@ -205,11 +205,11 @@ public class Langue {
 
 
 	public String getMainMenuString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Menu Principal";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Main Menu";
 		}		
 
@@ -217,11 +217,11 @@ public class Langue {
 	}
 
 	public String getRestartString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Relancer";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Restart";
 		}		
 
@@ -229,11 +229,11 @@ public class Langue {
 	}
 
 	public String getAbandonString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Abandonner";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Abandon";
 		}		
 
@@ -241,11 +241,11 @@ public class Langue {
 	}
 
 	public String getEndString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Fin de la partie";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "End of the game";
 		}		
 
@@ -255,11 +255,11 @@ public class Langue {
 
 	// MENU DES OPTIONS
 	public String getDifficultyString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Difficulté";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Difficulty";
 		}		
 
@@ -267,11 +267,11 @@ public class Langue {
 	}
 
 	public String getModString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Mode";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Mod";
 		}		
 
@@ -279,11 +279,11 @@ public class Langue {
 	}
 
 	public String getLanguageString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Langue";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Language";
 		}		
 
@@ -291,11 +291,11 @@ public class Langue {
 	}
 
 	public String getSaveString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Enregistrer";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Save";
 		}		
 
@@ -303,11 +303,11 @@ public class Langue {
 	}
 
 	public String getCancelString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Annuler";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Cancel";
 		}		
 
@@ -315,11 +315,11 @@ public class Langue {
 	}
 
 	public String getResetString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Réinitialiser";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Reset";
 		}		
 
@@ -327,11 +327,11 @@ public class Langue {
 	}
 
 	public String getHardString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Difficile";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Hard";
 		}		
 
@@ -339,11 +339,11 @@ public class Langue {
 	}
 
 	public String getNormalString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Normal";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Normal";
 		}		
 
@@ -351,11 +351,11 @@ public class Langue {
 	}
 
 	public String getSoloString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Seul";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Solo";
 		}		
 
@@ -363,11 +363,11 @@ public class Langue {
 	}
 
 	public String getDualString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Duel";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "Dual";
 		}		
 
@@ -375,27 +375,27 @@ public class Langue {
 	}
 
 	public String getFrenchString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Français";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "French";
-		}		
+		}
 
 		return "French";
 	}
 
 	public String getEnglishString() {
-		if(this.langue == "French") {
+		if(this.langue == "french") {
 			return "Anglais";
 		}
 
-		if(this.langue == "English") {
+		if(this.langue == "english") {
 			return "English";
 		}		
 
-		return "English";
+		return "english";
 	}
 
 }

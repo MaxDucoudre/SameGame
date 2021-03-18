@@ -63,9 +63,9 @@ public class GameObs implements MouseListener, MouseMotionListener, ActionListen
 
 		// Réaction des boutons de l'écran de fin
 		if (e.getActionCommand() == this.gameframe.mainMenuString) { // si le nom du bouton appuyé est identique à celui du bouton "Main Menu"
-		System.out.println("Main Menu");
+			System.out.println("Main Menu");
 
-		this.gameframe.eraseFrame();
+			this.gameframe.eraseFrame();
 			MainMenuFrame mmf = new MainMenuFrame(this.fenetre); // on recréer un objet de type MainMenuFrame
 			this.gameframe.refreshFrame();
 		}

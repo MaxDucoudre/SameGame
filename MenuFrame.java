@@ -17,6 +17,7 @@ public abstract class MenuFrame extends JComponent {
 	public JFrame fenetre;
 	private int i = 1;
 	protected Langue langue;
+	private Options options = new Options(); // On a besoin des options pour récupérer la langue active
 
 
 		// Attributs couleur et police 
@@ -36,10 +37,11 @@ public abstract class MenuFrame extends JComponent {
 
 	// Constructeur
 	public MenuFrame(JFrame fenetre0) {
-		System.out.println("--Nouveau menu généré--");
 		this.fenetre = fenetre0; // on récupère la fenêtre du jeux
 		this.fenetre.add(this, BorderLayout.CENTER);
-		this.langue = new Langue("French"); // set la langue du jeux
+		this.langue = new Langue(this.options.getLanguage()); // set la langue du jeux en fonction des options
+		System.out.println("Langue : " + this.options.getLanguage());
+
 		this.refreshFrame();
 	}
 	

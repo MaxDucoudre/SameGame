@@ -384,7 +384,7 @@ public class Game {
 		} catch (FileNotFoundException e) {
 			System.err.println("Erreur d'ouverture en lecture");
 		}      
-		return 10; 
+		return 0; 
 
 	}
 
@@ -496,7 +496,7 @@ public class Game {
 	 * @return l'ancien record sous forme de int
 	 */
 	 public int getOldHightscore() {
-	 	
+
 	 	return this.old_hightscore; // sinon il ne l'est pas
 	 }
 

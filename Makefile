@@ -15,7 +15,7 @@ JVMFLAGS =
 Main.class : Main.java TitleMenuFrame.class
 	${JC} ${JCFLAGS} Main.java
 
-MenuFrame.class : MenuFrame.java Langue.class
+MenuFrame.class : MenuFrame.java Langue.class Options.class
 	${JC} ${JCFLAGS} MenuFrame.java
 
 BackgroundImagePanel.class : BackgroundImagePanel.class
