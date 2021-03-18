@@ -142,6 +142,19 @@ public class Langue {
 		return "Hight Score";
 	}
 
+	public String getNewHightScoreString() {
+		if(this.langue == "French") {
+			return "Nouveau Record";
+		}
+
+		if(this.langue == "English") {
+			return "New Hight Score";
+		}		
+
+		return "New Hight Score";
+	}
+
+
 	public String getFinalScoreString() {
 		if(this.langue == "French") {
 			return "Score final";
@@ -215,7 +228,7 @@ public class Langue {
 		return "Restart";
 	}
 
-		public String getAbandonString() {
+	public String getAbandonString() {
 		if(this.langue == "French") {
 			return "Abandonner";
 		}
@@ -225,6 +238,164 @@ public class Langue {
 		}		
 
 		return "Abandon";
+	}
+
+	public String getEndString() {
+		if(this.langue == "French") {
+			return "Fin de la partie";
+		}
+
+		if(this.langue == "English") {
+			return "End of the game";
+		}		
+
+		return "End of the game";
+	}
+
+
+	// MENU DES OPTIONS
+	public String getDifficultyString() {
+		if(this.langue == "French") {
+			return "Difficulté";
+		}
+
+		if(this.langue == "English") {
+			return "Difficulty";
+		}		
+
+		return "Difficulty";
+	}
+
+	public String getModString() {
+		if(this.langue == "French") {
+			return "Mode";
+		}
+
+		if(this.langue == "English") {
+			return "Mod";
+		}		
+
+		return "Mod";
+	}
+
+	public String getLanguageString() {
+		if(this.langue == "French") {
+			return "Langue";
+		}
+
+		if(this.langue == "English") {
+			return "Language";
+		}		
+
+		return "Language";
+	}
+
+	public String getSaveString() {
+		if(this.langue == "French") {
+			return "Enregistrer";
+		}
+
+		if(this.langue == "English") {
+			return "Save";
+		}		
+
+		return "Save";
+	}
+
+	public String getCancelString() {
+		if(this.langue == "French") {
+			return "Annuler";
+		}
+
+		if(this.langue == "English") {
+			return "Cancel";
+		}		
+
+		return "Cancel";
+	}
+
+	public String getResetString() {
+		if(this.langue == "French") {
+			return "Réinitialiser";
+		}
+
+		if(this.langue == "English") {
+			return "Reset";
+		}		
+
+		return "Reset";
+	}
+
+	public String getHardString() {
+		if(this.langue == "French") {
+			return "Difficile";
+		}
+
+		if(this.langue == "English") {
+			return "Hard";
+		}		
+
+		return "Hard";
+	}
+
+	public String getNormalString() {
+		if(this.langue == "French") {
+			return "Normal";
+		}
+
+		if(this.langue == "English") {
+			return "Normal";
+		}		
+
+		return "Normal";
+	}
+
+	public String getSoloString() {
+		if(this.langue == "French") {
+			return "Seul";
+		}
+
+		if(this.langue == "English") {
+			return "Solo";
+		}		
+
+		return "Solo";
+	}
+
+	public String getDualString() {
+		if(this.langue == "French") {
+			return "Duel";
+		}
+
+		if(this.langue == "English") {
+			return "Dual";
+		}		
+
+		return "Dual";
+	}
+
+	public String getFrenchString() {
+		if(this.langue == "French") {
+			return "Français";
+		}
+
+		if(this.langue == "English") {
+			return "French";
+		}		
+
+		return "French";
+	}
+
+	public String getEnglishString() {
+		if(this.langue == "French") {
+			return "Anglais";
+		}
+
+		if(this.langue == "English") {
+			return "English";
+		}		
+
+		return "English";
 	}
 
 }

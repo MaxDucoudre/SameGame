@@ -36,24 +36,9 @@ public class GameObs implements MouseListener, MouseMotionListener, ActionListen
 		this.fenetre = fenetre0;
 	}
 
-	public void destructionSound() {
-		try {
-			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("./ressources/destruction.wav"));
-			Clip clip = AudioSystem.getClip();
-			clip.open(audioInputStream);
-			clip.start();
-        // If you want the sound to loop infinitely, then put: clip.loop(Clip.LOOP_CONTINUOUSLY); 
-        // If you want to stop the sound, then use clip.stop();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
-
 
 	// La méthode actionPerformed : se lance au clique de la souris sur un bouton
 	public void actionPerformed(ActionEvent e) {
-
-		this.destructionSound();
 
 		// réaction du bouton pause pendant la partie
 		if (e.getActionCommand() == this.gameframe.pauseString) { // si le nom du bouton appuyé est identique à celui du bouton pause
@@ -85,11 +70,15 @@ public class GameObs implements MouseListener, MouseMotionListener, ActionListen
 			this.gameframe.refreshFrame();
 		}
 
+
+		// On récupère le nom du fichier de la grille si il y a un
+		String fichier_grille = this.gameframe.fichier_grille_path;
+
 		if (e.getActionCommand() == this.gameframe.restartString) { // si le nom du bouton appuyé est identique à celui du bouton "relancer"
 		System.out.println("Restart");
 
 		this.gameframe.eraseFrame();
-			GameFrame gf = new GameFrame(this.fenetre, "NULL"); // on recréer un objet de type GameFrame
+			GameFrame gf = new GameFrame(this.fenetre, fichier_grille); // on recréer un objet de type GameFrame
 			this.gameframe.refreshFrame();
 		}
 
@@ -129,6 +118,7 @@ public class GameObs implements MouseListener, MouseMotionListener, ActionListen
 						System.out.println("Score actuel : " + this.game.scoreTotal());
 
 
+							this.destructionSound(); // lance le son de destruction des pions
 							this.game.groupDestruct(); // on détruit le groupe
 
 							this.gameframe.setScoreLabel(); // on met à jour le score dans l'affichage
@@ -143,7 +133,6 @@ public class GameObs implements MouseListener, MouseMotionListener, ActionListen
 
 							if (this.game.endGame() == true) { // si la partie est terminée
 
-								this.gameframe.eraseFrame();
 								this.gameframe.endGameFrame(); // on affiche l'écran de fin
 								this.gameframe.refreshFrame();
 
@@ -185,21 +174,40 @@ public class GameObs implements MouseListener, MouseMotionListener, ActionListen
 					}
 
 				} else {
-					// sécurité pour être sur que les groupes soient reset et qu'ils ne rentrent pas en conflit avec le clique
+					// sécurité pour être sur que les groupes soient reset et qu'ils ne rentrent pas en conflit avec ceux du clique
 					this.game.resetgroupPions();
 				}
 
 			}
 		}
 
+
 	}
+		/**
+		 * La méthode "destructionSound" joue le son de destruction des pions
+		 */
+		public void destructionSound() {
+			try {
+				AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("./ressources/destruction.wav"));
+				Clip clip = AudioSystem.getClip();
+				clip.open(audioInputStream);
+				clip.start();
+
+			} catch (IllegalArgumentException ex) {
+				System.out.println("Son de destruction non joué");
+
+			} catch (Exception ex) {
+				ex.printStackTrace();
+
+			}
+		}
 
 
 
-	public void mouseEntered(MouseEvent evenement) {}
-	public void mouseExited(MouseEvent evenement) {}
-	public void mousePressed(MouseEvent evenement) {}
-	public void mouseReleased(MouseEvent evenement) {}
-	public void mouseDragged(MouseEvent evenement) {}
+		public void mouseEntered(MouseEvent evenement) {}
+		public void mouseExited(MouseEvent evenement) {}
+		public void mousePressed(MouseEvent evenement) {}
+		public void mouseReleased(MouseEvent evenement) {}
+		public void mouseDragged(MouseEvent evenement) {}
 
-}
+	}

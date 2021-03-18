@@ -21,6 +21,11 @@ MenuFrame.class : MenuFrame.java Langue.class
 BackgroundImagePanel.class : BackgroundImagePanel.class
 	${JC} ${JCFLAGS} BackgroundImagePanel.java
 
+Langue.class : Langue.java
+	${JC} ${JCFLAGS} Langue.java
+
+
+## MENU TITRE ##
 TitleMenuFrame.class : MenuFrame.class TitleMenuFrame.java TitleMenu.class TitleMenuObs.class 
 	${JC} ${JCFLAGS} TitleMenuFrame.java
 
@@ -30,20 +35,31 @@ TitleMenu.class : TitleMenu.java
 TitleMenuObs.class : TitleMenuObs.java TitleMenu.class MainMenuFrame.class
 	${JC} ${JCFLAGS} TitleMenuObs.java
 
-
-MainMenuFrame.class : MenuFrame.class MainMenuFrame.java MainMenu.class MainMenuObs.class GameFrame.class BackgroundImagePanel.class
+## MENU PRINCIPAL ##
+MainMenuFrame.class : MainMenuFrame.java MenuFrame.class BackgroundImagePanel.class MainMenu.class MainMenuObs.class
 	${JC} ${JCFLAGS} MainMenuFrame.java
 
 MainMenu.class : MainMenu.java
 	${JC} ${JCFLAGS} MainMenu.java
 
-MainMenuObs.class : MainMenuObs.java MainMenuFrame.class
+MainMenuObs.class : MainMenuObs.java MainMenuFrame.class OptionsFrame.class GameFrame.class 
 	${JC} ${JCFLAGS} MainMenuObs.java
+
+## MENU OPTIONS ##
+OptionsFrame.class : OptionsFrame.java BackgroundImagePanel.class Options.class OptionsObs.class 
+	${JC} ${JCFLAGS} OptionsFrame.java
+
+OptionsObs.class : OptionsObs.java OptionsFrame.class
+	${JC} ${JCFLAGS} OptionsObs.java
+
+Options.class : Options.java
+	${JC} ${JCFLAGS} Options.java
 
 
 SaveMenuFrame.class : SaveMenuFrame.java MenuFrame.class
 	${JC} ${JCFLAGS} SaveMenuFrame.java
 
+## LE JEUX ##
 Game.class : Game.java Chrono.class
 	${JC} ${JCFLAGS} Game.java
 
@@ -60,8 +76,6 @@ Chrono.class : Chrono.java ChronoThread.class
 ChronoThread.class : ChronoThread.java GameFrame.class
 	${JC} ${JCFLAGS} ChronoThread.java
 
-Langue.class : Langue.java
-	${JC} ${JCFLAGS} Langue.java
 
 
 

@@ -27,6 +27,7 @@ class BackgroundImagePanel extends JPanel {
 		super();
 		this.img = img0;
 		this.fenetre = fenetre0;
+		this.setOpaque(false);
 
 	}
 

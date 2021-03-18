@@ -27,6 +27,9 @@ public class Game {
 	// initialisation d'un Chrono qui sera utile dans le jeux pour le timer 
 	private Chrono chrono;
 
+	// ancien reocrd
+	private int old_hightscore;
+
 	/**
 	 * Le constructeur a besoin de gameframe car le chrono en a besoin pour activer le thread qui actualisera l'affichage du chrono
 	 * @param gameframe0
@@ -37,23 +40,56 @@ public class Game {
 		this.chrono.startChrono(); // On lance le chrono au début de la partie
 
 
-		System.out.println("Génération d'une grille aléatoire...");
-
 		if(fichier_grille == "NULL") { // si il n'y a pas de fichier
+		System.out.println("Génération d'une grille aléatoire...");
 			this.genererGrille(); // on génère une grille aléatoire			
 		} else {
-			this.genererGrille(); // on génère une grille aléatoire
-
-			/*
-			try {
-				FileInputStream fichier_grille_lecture = new FIleInputStream(fichier_grille);
-			//DataInputStream fichier_grille_flux = new DataInputStream(fichier_grille_lecture);  
-			} catch(FileNotFoundException error) {
-				System.out.println("Erreur à l'ouverture du fichier de la grille");
-			}*/
+			this.genererGrilleFichier(fichier_grille); // on génère une grille à partir d'un fichier
 		}
 	}
 
+	/**
+	 * la méthode "genererGrilleFichier" permet de générer une grille à partie d'un fichier
+	 * @param fichier_path est le chemin vers le fichier en question
+	 */
+	public void genererGrilleFichier(String fichier_path) {
+
+		char char_value;
+
+		try {
+
+			InputStream fichier = new FileInputStream(fichier_path);
+			DataInputStream flux = new DataInputStream(fichier);
+
+			try {
+
+				for (int i = 0; i < 10; i++) {
+					for (int j = 0; j < 15; j++) {
+						char_value = flux.readChar(); // on lis les 150 caractères du fichier et on les mets dans char_value
+
+						System.out.print(char_value);
+
+						// Puis on remplis le tableau de la grille
+						if (char_value == 'R') {
+							this.tab_grid[i][j] = 'R'; // R représente les pions rouges
+						}
+						if (char_value == 'V') {
+							this.tab_grid[i][j] = 'V'; // V représente les pions verts
+						}
+						if (char_value == 'B') {
+							this.tab_grid[i][j] = 'B'; // B représente les pions bleus
+						}
+					}
+					System.out.println();
+				}
+
+			} catch(IOException e) { 
+				System.out.println("Erreur lors de la lecture");
+			}
+		} catch(FileNotFoundException e) {
+			System.out.println("Erreur lors de l'ouverture du fichier");
+		}
+	}
 
 	/**
 	 * La méthode "genererGrille" génère une grille de manière aléatoire
@@ -83,7 +119,7 @@ public class Game {
 		}
 	}
 
-	/**
+	/**	
 	 * La méthode "afficherGrid" affiche la grille à la console
 	 */
 	public void afficherGrid() {
@@ -325,6 +361,62 @@ public class Game {
 		return nb_pion; // on renvoie le compteur (int)
 	}
 
+	/**
+	 * La méthode "getHightscore" permet de récupérer le record dans un fichier
+	 * @return le record en int
+	 */
+	public int getHightscore() {
+		int hightscore;
+
+		try {
+			// On ouvre le fichier
+			FileInputStream fichier = new FileInputStream("./files/hightscore.bin");
+			DataInputStream flux = new DataInputStream(fichier);  
+
+			try {
+				hightscore = flux.readInt(); // On récupère la valeur dans le fichier
+				return hightscore; // on renvoi la valeur dans le fichier
+
+			} catch (IOException e) {
+				System.err.println("Erreur de lecture");
+			}
+
+		} catch (FileNotFoundException e) {
+			System.err.println("Erreur d'ouverture en lecture");
+		}      
+		return 10; 
+
+	}
+
+	/**
+	 * La méthode "setHightscore" permet de mettre à jour le record dans un fichier
+	 * @param score Le nouveau record en int 
+	 */
+	public void setHightscore(int score) {
+		int hightscore;
+
+		try { 
+			// on ouvre le fichier en écriture
+			FileOutputStream fichier = new FileOutputStream ("./files/hightscore.bin");
+			DataOutputStream flux = new DataOutputStream (fichier);  
+
+			try {
+				flux.writeInt(score); // on met à jour la valeur dans le fichier
+			}
+
+			catch (IOException e) {
+				System.err.println("Erreur lors de l'écriture");
+			}
+		}
+		catch (FileNotFoundException e) {
+			System.err.println("Erreur lors de l'ouverture en écriture");
+		}      
+
+	}
+
+
+
+
 
 	/**
 	 * La méthode "endGame" vérifie si la partie est terminée ou non en renvoyant un booléen
@@ -349,8 +441,20 @@ public class Game {
 				}
 			}
 		}
+		// Fin de la partie ici
 		this.resetgroupPions();
 		System.out.println("Fin de la partie...");
+
+		System.out.println("Ancien record : " + this.getHightscore()); 
+		this.old_hightscore = this.getHightscore();
+
+		// Si le record est inférieure au score à la fin de la partie
+		if (this.getHightscore() < this.actualScore) {
+			// alors on change le record
+			this.setHightscore(this.actualScore);
+		}
+
+		System.out.println("Nouveau record : " + this.getHightscore()); 
 
 		this.chrono.endChrono(); // on arrête le chrono quand la partie se termine
 		return true; // sinon la partie se termine
@@ -374,6 +478,27 @@ public class Game {
 		this.actualScore = this.actualScore + this.scoreCalcul();
 		return this.actualScore;
 	}
+
+	/**
+	 * La méthode "newHightscore" nous dis si le record est battu ou non
+	 * @return true si le record est battu, sinon false.
+	 */
+	 public boolean newHightscore() {
+	 	if(this.actualScore > this.getHightscore()) { // si le score actuel est supérieur au record
+	 		return true; // alors le record est battu
+	 	} else {
+	 		return false; // sinon il ne l'est pas
+	 	}
+	 }
+
+	/**
+	 * La méthode "getOldHightscore" nous donne l'ancien record
+	 * @return l'ancien record sous forme de int
+	 */
+	 public int getOldHightscore() {
+	 	
+	 	return this.old_hightscore; // sinon il ne l'est pas
+	 }
 
 	/**
 	 * la méthode "getChrono" permet renvoie le chrono sous forme de String à l'instant où elle est appelée

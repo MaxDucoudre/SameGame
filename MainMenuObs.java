@@ -35,7 +35,7 @@ public class MainMenuObs implements ActionListener {
 		if(e.getActionCommand() == this.mmf.launchGameString) {
 
 			this.mmf.eraseFrame();
-			GameFrame smf = new GameFrame(this.fenetre, "./grilles_prefab/grille1.bin");
+			GameFrame smf = new GameFrame(this.fenetre, "NULL");
 			this.mmf.refreshFrame();
 		}
 
@@ -44,7 +44,7 @@ public class MainMenuObs implements ActionListener {
 		if(e.getActionCommand() == this.mmf.launchGameVs) {
 
 			this.mmf.eraseFrame();
-		// GameFrameVS smf = new GameFrameVS();
+			GameFrame smf = new GameFrame(this.fenetre, "./grilles/grille1.bin");
 			this.mmf.refreshFrame();
 		}
 
@@ -60,7 +60,7 @@ public class MainMenuObs implements ActionListener {
 		if(e.getActionCommand() == this.mmf.settingsString) {
 
 			this.mmf.eraseFrame();
-		//OptionsMenuFrame omf = new OptionMenuFrame();
+			OptionsFrame omf = new OptionsFrame(this.fenetre);
 			this.mmf.refreshFrame();
 		}
 

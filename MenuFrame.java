@@ -18,12 +18,29 @@ public abstract class MenuFrame extends JComponent {
 	private int i = 1;
 	protected Langue langue;
 
+
+		// Attributs couleur et police 
+
+		public Color contour_color = new Color(102,51,0);
+
+		public Color label_color = new Color(138,172,42);
+
+		public Color button_color = new Color(138,172,42);
+
+		public Font font = new Font("Arial", Font.BOLD, 20);
+
+		public Color top_color = new Color(131,218,202);
+
+		public Image image_background = Toolkit.getDefaultToolkit().getImage("./ressources/background_jungle2.jpg");
+
+
 	// Constructeur
 	public MenuFrame(JFrame fenetre0) {
 		System.out.println("--Nouveau menu généré--");
 		this.fenetre = fenetre0; // on récupère la fenêtre du jeux
 		this.fenetre.add(this, BorderLayout.CENTER);
 		this.langue = new Langue("French"); // set la langue du jeux
+		this.refreshFrame();
 	}
 	
 	
