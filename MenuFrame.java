@@ -35,40 +35,38 @@ public abstract class MenuFrame extends JComponent {
 		public Image image_background = Toolkit.getDefaultToolkit().getImage("./ressources/background_jungle2.jpg");
 
 
-	// Constructeur
-	public MenuFrame(JFrame fenetre0) {
+	/**
+	* Le constructeur de MenuFrame
+	*/
+		public MenuFrame(JFrame fenetre0) {
 		this.fenetre = fenetre0; // on récupère la fenêtre du jeux
 		this.fenetre.add(this, BorderLayout.CENTER);
-		this.langue = new Langue(this.options.getLanguage()); // set la langue du jeux en fonction des options
-		System.out.println("Langue : " + this.options.getLanguage());
+		//this.langue = new Langue("esperanto"); // set la langue du jeux en fonction des options
 
+		this.langue = new Langue(this.options.getLanguage()); // set la langue du jeux en fonction des options
 		this.refreshFrame();
 	}
 	
-	
-	// Constructeur sans la fenetre si on en a pas besoin (pour des sous-menu qui sont dans des menus)
+	/**
+	* Constructeur sans la fenetre si on en a pas besoin (pour des sous-menu qui sont dans des menus)
+	*/
 	public MenuFrame() {
 		System.out.println("--Nouveau menu généré--");
 
 	}
 
 /**
-* Méthode "refreshFrame" qui réactualise les dimensions de la fenêtre pour mettre à jour l'affichage lorsqu'il ne se met pas à jour
+* Méthode "refreshFrame" réactualise l'affichage de la fenetre
 */
 	public void refreshFrame() {
-		if (this.i == 1) {
-			fenetre.setSize(this.fenetre.getWidth()-1, this.fenetre.getHeight());
-			this.i = this.i - 1;
-		} else {
-			fenetre.setSize(this.fenetre.getWidth()+1, this.fenetre.getHeight());
-			this.i = 1;
-		}
+
 			this.fenetre.repaint();
+			this.fenetre.setVisible(true);
 
 	}
 
 /**
-* méthode "eraseFrame" qui efface tous les composants de de la fenêtre pour en refaire de nouveaux
+* méthode "eraseFrame" qui efface tous les JComponents de de la fenêtre 
 */
 	public void eraseFrame() {
 		this.fenetre.getContentPane().removeAll();

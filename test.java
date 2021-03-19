@@ -4,18 +4,22 @@ import java.io.FileInputStream;
 import java.io.*;  
 
 public class test {  
-  public static void main(String[] args) throws IOException {  
-    int c;
+	public static void main(String[] args) throws IOException {  
 
-    File inputFile = new File("./grilles_prefab/grille2.txt"); 
+		int i;
+		int j;
 
-    FileReader in = new FileReader(inputFile); 
+      FileReader fichier =new FileReader("./grilles/grille1.txt");   //Creation of File Reader object
+      BufferedReader flux = new BufferedReader(fichier);  //Creation of BufferedReader object
+      int c = 0;          
 
 
-    while ((c = in.read()) != -1) {
-      System.out.println("Caractère : " + (char)c + " ");  
-    }  
+      while (c != -1) {
 
-    in.close(); 
-  }
-}
+           			char character = (char) c;          
+            		System.out.println(c);        
+            		c = flux.read();
+
+            	}	
+            }
+        }

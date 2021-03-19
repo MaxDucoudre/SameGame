@@ -8,6 +8,7 @@
 */
 
 import javax.swing.*;
+import javax.swing.filechooser.*;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -40,12 +41,29 @@ public class MainMenuObs implements ActionListener {
 		}
 
 
-		// Action du bouton qui lance une partie à 2
+		// Action du bouton qui lance une partie à partir d'un fichier
 		if(e.getActionCommand() == this.mmf.launchGameVs) {
+			String chosed_file = "NULL";
 
-			this.mmf.eraseFrame();
-			GameFrame smf = new GameFrame(this.fenetre, "./grilles/grille1.bin");
-			this.mmf.refreshFrame();
+			// Le JFile chooser pour choisir un fichier de grille
+			JFileChooser chooser = new JFileChooser("./grid");
+			chooser.setDialogTitle("Grid File Chooser");
+			FileFilter filter = new FileNameExtensionFilter("File .txt", "txt");
+			chooser.setFileFilter(filter);
+			int returnVal = chooser.showOpenDialog(this.mmf);
+
+			if(returnVal == JFileChooser.APPROVE_OPTION) {
+				chosed_file = chooser.getSelectedFile().getName();
+				System.out.println("Fichier utilisé : " + chooser.getSelectedFile().getName());
+
+				// On lance la partie
+				this.mmf.eraseFrame();
+				GameFrame smf = new GameFrame(this.fenetre, "./grid/" + chosed_file);
+				this.mmf.refreshFrame();
+			}
+
+
+
 		}
 
 		// action du bouton qui lance le menu de la boutique
@@ -68,7 +86,7 @@ public class MainMenuObs implements ActionListener {
 		if(e.getActionCommand() == this.mmf.statisticsString) {
 
 			this.mmf.eraseFrame();
-		//StatisicsMenuFrame omf = new StatisicsMenuFrame();
+			StatisticsMenuFrame smf = new StatisticsMenuFrame(this.fenetre);
 			this.mmf.refreshFrame();
 		}
 

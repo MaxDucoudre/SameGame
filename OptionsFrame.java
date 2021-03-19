@@ -81,6 +81,7 @@ public class OptionsFrame extends MenuFrame {
 			this.mod_button.setText(this.mod_dual_string);
 		}		
 		this.mod_button.setFont(super.font); 
+		this.mod_button.addActionListener(new OptionsObs(this));
 		line2panel.add(this.mod_button);
 
 
@@ -103,19 +104,20 @@ public class OptionsFrame extends MenuFrame {
 		line5panel.setOpaque(false);
 		// Bouton sauvegarde
 		this.save_button.setBackground(super.button_color);
-		this.save_button.setText(save_string);
+		this.save_button.setText(this.save_string);
 		this.save_button.setFont(super.font); 
 		this.save_button.addActionListener(new OptionsObs(this, super.fenetre));
 		line5panel.add(this.save_button);
 
 		// bouton reset
 		this.reset_button.setBackground(super.button_color);
-		this.reset_button.setText(reset_string);
-		this.reset_button.setFont(super.font); 
+		this.reset_button.setText(this.reset_string);
+		this.reset_button.setFont(super.font);
+		this.reset_button.addActionListener(new OptionsObs(this));
 		line5panel.add(this.reset_button);
 
 
-
+		// Rajout du JPanel principal
 		this.optionsPanel.setLayout(new GridLayout(7,1));
 		this.optionsPanel.add(this.pauselabel);
 		this.optionsPanel.add(new JLabel()); // JLabel vide
@@ -135,13 +137,13 @@ public class OptionsFrame extends MenuFrame {
 	public void setDifficultyButton() {
 		if (this.options.getDifficulty() == "hard") { // si la difficulté est difficile
 
-			this.difficulty_button.setText(this.difficulty_hard_string); // alors on change le texte du bouton
+			this.difficulty_button.setText(this.difficulty_normal_string); // alors on change le texte du bouton
 			this.options.setDifficulty("normal"); // et on met la difficulté en normale
 
 
 		} else if(this.options.getDifficulty() == "normal") {// si la difficulté est normale
 
-			this.difficulty_button.setText(this.difficulty_normal_string);// alors on change le texte du bouton
+			this.difficulty_button.setText(this.difficulty_hard_string);// alors on change le texte du bouton
 			this.options.setDifficulty("hard"); // et on met la difficulté en difficile
 
 		}
@@ -181,6 +183,20 @@ public class OptionsFrame extends MenuFrame {
 			this.options.setMod("solo"); // et on met le mod en solo
 
 		}
+	}
+
+
+	public void resetSettings() {
+
+		this.options.setDifficulty("normal"); //  on met la difficulté en normale
+		this.difficulty_button.setText(this.difficulty_normal_string); 
+
+		this.options.setMod("solo"); // on met le mod en solo
+		this.mod_button.setText(this.mod_solo_string);
+
+		this.options.setLanguage("english");  // et remet la langue en anglais
+		this.langue_button.setText(this.langue_english_string); 
+
 	}
 
 }

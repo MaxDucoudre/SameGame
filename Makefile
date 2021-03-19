@@ -42,22 +42,41 @@ MainMenuFrame.class : MainMenuFrame.java MenuFrame.class BackgroundImagePanel.cl
 MainMenu.class : MainMenu.java
 	${JC} ${JCFLAGS} MainMenu.java
 
-MainMenuObs.class : MainMenuObs.java MainMenuFrame.class OptionsFrame.class GameFrame.class 
+MainMenuObs.class : MainMenuObs.java MainMenuFrame.class GameFrame.class OptionsFrame.class StatisticsMenuFrame.class 
 	${JC} ${JCFLAGS} MainMenuObs.java
 
 ## MENU OPTIONS ##
 OptionsFrame.class : OptionsFrame.java BackgroundImagePanel.class Options.class OptionsObs.class 
 	${JC} ${JCFLAGS} OptionsFrame.java
 
-OptionsObs.class : OptionsObs.java OptionsFrame.class
+OptionsObs.class : OptionsObs.java OptionsFrame.class Credits.class MainMenuFrame.class
 	${JC} ${JCFLAGS} OptionsObs.java
 
-Options.class : Options.java
+Options.class : Options.java 
 	${JC} ${JCFLAGS} Options.java
+
+## MENU STATISTIQUES ##
+StatisticsMenuFrame.class : StatisticsMenuFrame.java StatisticsObs.class BackgroundImagePanel.class Statistics.class Game.class
+	${JC} ${JCFLAGS} StatisticsMenuFrame.java
+
+Statistics.class : Statistics.java
+	${JC} ${JCFLAGS} Statistics.java
+
+StatisticsObs.class : StatisticsObs.java StatisticsMenuFrame.class MainMenuFrame.class
+	${JC} ${JCFLAGS} StatisticsObs.java
+
+## MENU CREDITS ##
+Credits.class : Credits.java MenuFrame.java CreditsObs.class
+	${JC} ${JCFLAGS} Credits.java
+
+CreditsObs.class : CreditsObs.java Credits.java MainMenuFrame.class
+	${JC} ${JCFLAGS} CreditsObs.java
+
 
 
 SaveMenuFrame.class : SaveMenuFrame.java MenuFrame.class
 	${JC} ${JCFLAGS} SaveMenuFrame.java
+
 
 ## LE JEUX ##
 Game.class : Game.java Chrono.class

@@ -16,12 +16,13 @@ public class OptionsObs implements ActionListener {
 	private OptionsFrame optionsframe;
 	private JFrame fenetre;
 
-	// constructeur
+	// constructeur pour les boutons qui ont besoin de la fenêtre
 	public OptionsObs(OptionsFrame optionsframe0, JFrame fenetre0) {
 		this.optionsframe = optionsframe0;
 		this.fenetre = fenetre0;
 	}
 
+	// Constructeur pour les boutons qui n'ont pas besoin de la fenêtre
 	public OptionsObs(OptionsFrame optionsframe0) {
 		this.optionsframe = optionsframe0;
 	}
@@ -29,7 +30,6 @@ public class OptionsObs implements ActionListener {
 
 	// Lors de la pression d'un bouton
 	public void actionPerformed(ActionEvent e) { 
-
 
 
 			// BOUTONS DIFFICULTE
@@ -59,6 +59,7 @@ public class OptionsObs implements ActionListener {
 			System.out.println("Langue changée");
 		}
 
+
 			// BOUTONS MOD
 		// Bouton mod duel
 		if(e.getActionCommand() == this.optionsframe.mod_dual_string) {
@@ -72,6 +73,14 @@ public class OptionsObs implements ActionListener {
 			System.out.println("Mod duel actif");
 		}
 
+		// Bouton RESET
+		if(e.getActionCommand() == this.optionsframe.reset_string) {
+
+			System.out.println("Réinitialisation des options");
+
+			this.optionsframe.resetSettings(); // remise des settings par défaut
+		}
+
 
 		// Bouton SAUVEGARDER
 		if(e.getActionCommand() == this.optionsframe.save_string) {
@@ -82,6 +91,5 @@ public class OptionsObs implements ActionListener {
 			MainMenuFrame mmf = new MainMenuFrame(this.fenetre); // on recréer un objet de type MainMenuFrame
 			this.optionsframe.refreshFrame();
 		}
-
 	}
 }

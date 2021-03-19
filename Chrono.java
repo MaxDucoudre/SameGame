@@ -120,6 +120,23 @@ public class Chrono {
 
 
 /**
+* La méthode "getDureeNowLong" permet de récupérer l'état du chrono en milisecondes
+* @return la durée du chrono en ms sous forme de long
+*/
+    public long getDureeNowLong() {
+        if (this.stop == false) {
+            this.now = System.currentTimeMillis();
+            this.dureeNow = this.now - this.timeStart - (this.pauseEnd - this.pauseStart); // dureeNow est calculé en prenant le temps du chrono et en enlevant la durée de la pause
+
+            this.dureePause = 0;
+        }
+            //System.out.println(this.toString(this.dureeNow));
+        return this.dureeNow;
+    }
+
+
+
+/**
 * La méthode "toString" renvoie sous forme de "m:ss" les milisecondes qu'on y injecte en paramètre
 * @param temps_ms représente le temps en miliseconde qu'on veut rentrer
 * @return un temps en format 0:00 en fonction des milisecondes données

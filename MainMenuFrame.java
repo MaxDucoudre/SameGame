@@ -18,7 +18,7 @@ public class MainMenuFrame extends MenuFrame {
 
 	// On récupère les chaînes de caractère de chaque boutons pour que l'observateur puisse les comparer avec le clique sans passer par la classe "Langue"
 	public String launchGameString = super.langue.getLaunchGameString();
-	public String launchGameVs     = super.langue.getLaunchGameVsString();
+	public String launchGameVs     = super.langue.getLaunchFromFileString();
 	public String shopString       = super.langue.getShopString();
 	public String settingsString   = super.langue.getSettingsString();
 	public String statisticsString = super.langue.getStatisticsString();
@@ -33,7 +33,6 @@ public class MainMenuFrame extends MenuFrame {
 	public MainMenuFrame(JFrame fenetre0) {
 		super(fenetre0);
 
-		
 
 
 

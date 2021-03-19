@@ -24,7 +24,7 @@ public class Options {
 		int difficulty;
 		try {
 			// On ouvre le fichier
-			FileInputStream fichier = new FileInputStream("./files/difficulty.bin");
+			FileInputStream fichier = new FileInputStream("./settings/difficulty.bin");
 			DataInputStream flux = new DataInputStream(fichier);  
 
 			try {
@@ -56,7 +56,7 @@ public class Options {
 
 		try { 
 			// on ouvre le fichier en écriture
-			FileOutputStream fichier = new FileOutputStream ("./files/difficulty.bin");
+			FileOutputStream fichier = new FileOutputStream ("./settings/difficulty.bin");
 
 			DataOutputStream flux = new DataOutputStream (fichier);  
 
@@ -87,7 +87,7 @@ public class Options {
 		int language;
 		try {
 			// On ouvre le fichier
-			FileInputStream fichier = new FileInputStream("./files/language.bin");
+			FileInputStream fichier = new FileInputStream("./settings/language.bin");
 			DataInputStream flux = new DataInputStream(fichier);  
 
 			try {
@@ -118,7 +118,7 @@ public class Options {
 	public void setLanguage(String langue_string) {
 		try { 
 			// on ouvre le fichier en écriture
-			FileOutputStream fichier = new FileOutputStream ("./files/language.bin");
+			FileOutputStream fichier = new FileOutputStream ("./settings/language.bin");
 
 			DataOutputStream flux = new DataOutputStream (fichier);  
 
@@ -150,7 +150,7 @@ public class Options {
 		int mod;
 		try {
 			// On ouvre le fichier
-			FileInputStream fichier = new FileInputStream("./files/mod.bin");
+			FileInputStream fichier = new FileInputStream("./settings/mod.bin");
 			DataInputStream flux = new DataInputStream(fichier);  
 
 			try {
@@ -181,7 +181,7 @@ public class Options {
 	public void setMod(String mod_string) {
 		try { 
 			// on ouvre le fichier en écriture
-			FileOutputStream fichier = new FileOutputStream ("./files/mod.bin");
+			FileOutputStream fichier = new FileOutputStream ("./settings/mod.bin");
 
 			DataOutputStream flux = new DataOutputStream (fichier);  
 
