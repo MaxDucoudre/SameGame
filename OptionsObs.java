@@ -15,6 +15,7 @@ public class OptionsObs implements ActionListener {
 	// attributs
 	private OptionsFrame optionsframe;
 	private JFrame fenetre;
+	private JComboBox combobox;
 
 	// constructeur pour les boutons qui ont besoin de la fenêtre
 	public OptionsObs(OptionsFrame optionsframe0, JFrame fenetre0) {
@@ -26,6 +27,8 @@ public class OptionsObs implements ActionListener {
 	public OptionsObs(OptionsFrame optionsframe0) {
 		this.optionsframe = optionsframe0;
 	}
+
+
 
 
 	// Lors de la pression d'un bouton
@@ -46,18 +49,19 @@ public class OptionsObs implements ActionListener {
 		}
 
 
-			// BOUTONS LANGUE
+			// BOUTONS LANGUE (JCOMBOBOX)
 		// Bouton langue englaise 
-		if(e.getActionCommand() == this.optionsframe.langue_english_string) {
-			this.optionsframe.setLanguageButton();
+		if(this.optionsframe.getLanguageComboBoxString() == this.optionsframe.langue_english_string) { // On regarde ce qui est selectioné dans la Jcombobox
+			this.optionsframe.setLanguageButton("english");
 			System.out.println("Langue changée");
 		}
 
 		// Bouton langue française 
-		if(e.getActionCommand() == this.optionsframe.langue_french_string) {
-			this.optionsframe.setLanguageButton();
+		if(this.optionsframe.getLanguageComboBoxString() == this.optionsframe.langue_french_string) { // On regarde ce qui est selectioné dans la Jcombobox
+			this.optionsframe.setLanguageButton("french");
 			System.out.println("Langue changée");
 		}
+			System.out.println(e.getActionCommand());
 
 
 			// BOUTONS MOD

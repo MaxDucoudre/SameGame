@@ -19,7 +19,7 @@ public class ChronoThread extends Thread {
 		this.gameframe = gameframe0;
 	}
 
-
+@Override
 	public void run() {
 		System.out.println("Thread du chrono actif...");
 

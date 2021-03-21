@@ -704,7 +704,7 @@ dans les différentes méthodes
 
 
 
-// Autres
+// AUTRES
 	public String getPlayedGameString() {
 		if(this.langue == "french") {
 			return "Parties jouées";
@@ -727,6 +727,103 @@ dans les différentes méthodes
 		}	
 
 		return "Credits";
+	}
+
+	public String getHightScoreNotCountedString() {
+		if(this.langue == "french") {
+			return "Record non comptabilisé";
+		}
+
+		if(this.langue == "english") {
+			return "Hight score not counted";
+		}	
+
+		return "Hight score not counted";
+	}
+
+	public String getOldHightScoreString() {
+		if(this.langue == "french") {
+			return "Ancien record";
+		}
+
+		if(this.langue == "english") {
+			return "Old hight score";
+		}	
+
+		return "Old hight score";
+	}
+
+	public String getNewString() {
+		if(this.langue == "french") {
+			return "Nouveau";
+		}
+
+		if(this.langue == "english") {
+			return "New";
+		}	
+
+		return "New";
+	}
+
+	public String getDeleteString() {
+		if(this.langue == "french") {
+			return "Supprimer";
+		}
+
+		if(this.langue == "english") {
+			return "Delete";
+		}	
+
+		return "Delete";
+	}
+
+
+	public String getSelectString() {
+		if(this.langue == "french") {
+			return "Sélectionner";
+		}
+
+		if(this.langue == "english") {
+			return "Select";
+		}	
+
+		return "Select";
+	}
+
+	public String getSaveNameString() {
+		if(this.langue == "french") {
+			return "Nom de la sauvegarde";
+		}
+
+		if(this.langue == "english") {
+			return "Save name";
+		}	
+
+		return "Save name";
+	}
+
+	public String getCreateString() {
+		if(this.langue == "french") {
+			return "Créer";
+		}
+
+		if(this.langue == "english") {
+			return "Create";
+		}	
+
+		return "Create";
+	}
+
+	public String getEmptySlotString() {
+		if(this.langue == "french") {
+			return "Emplacement vide";
+		}
+
+		if(this.langue == "english") {
+			return "Empty Slot";
+		}	
+
+		return "Empty Slot";
 	}
 
 }

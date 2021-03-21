@@ -150,6 +150,7 @@ public class GameObs implements MouseListener, MouseMotionListener, ActionListen
 	// La méthode mouseMoved vérifie la position de la souris sur l'écran
 	public void mouseMoved(MouseEvent e) {
 
+		this.gameframe.setChrono(); // mise à jour de l'affichage du chrono si le thread qui l'actualise ne s'est pas lancé correctement
 
 		// on rentre dans une double boucle pour vérifier chaque points de la grille 
 		for (int i = 0; i < 10; i++) {

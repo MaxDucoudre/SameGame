@@ -3,7 +3,7 @@
 ### VARIABLES ###
 
 JC = javac
-JCFLAGS = -encoding UTF-8 -implicit:none -g
+JCFLAGS = -encoding UTF-8 -implicit:none -Xlint:unchecked
 
 JVM = java
 JVMFLAGS =
@@ -42,7 +42,7 @@ MainMenuFrame.class : MainMenuFrame.java MenuFrame.class BackgroundImagePanel.cl
 MainMenu.class : MainMenu.java
 	${JC} ${JCFLAGS} MainMenu.java
 
-MainMenuObs.class : MainMenuObs.java MainMenuFrame.class GameFrame.class OptionsFrame.class StatisticsMenuFrame.class 
+MainMenuObs.class : MainMenuObs.java MainMenuFrame.class GameFrame.class OptionsFrame.class StatisticsMenuFrame.class SaveMenuFrame.class
 	${JC} ${JCFLAGS} MainMenuObs.java
 
 ## MENU OPTIONS ##
@@ -73,13 +73,24 @@ CreditsObs.class : CreditsObs.java Credits.java MainMenuFrame.class
 	${JC} ${JCFLAGS} CreditsObs.java
 
 
+## SAUVEGARDES ##
 
-SaveMenuFrame.class : SaveMenuFrame.java MenuFrame.class
+SaveMenuFrame.class : SaveMenuFrame.java MenuFrame.class Save.class SaveMenuObs.class
 	${JC} ${JCFLAGS} SaveMenuFrame.java
 
+Save.class : Save.java
+	${JC} ${JCFLAGS} Save.java
+
+SaveMenuObs.class : SaveMenuObs.java SaveMenuFrame.class MainMenuFrame.class
+	${JC} ${JCFLAGS} SaveMenuObs.java
+
+
+## COINS ###
+Coins.class : Coins.java
+	${JC} ${JCFLAGS} Coins.java
 
 ## LE JEUX ##
-Game.class : Game.java Chrono.class
+Game.class : Game.java Chrono.class Coins.class Save.class
 	${JC} ${JCFLAGS} Game.java
 
 GameFrame.class : GameFrame.java Game.class GameObs.class BackgroundImagePanel.class

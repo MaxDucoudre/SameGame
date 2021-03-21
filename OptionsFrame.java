@@ -32,10 +32,9 @@ public class OptionsFrame extends MenuFrame {
 	public String mod_dual_string = super.langue.getModString() + " : " + super.langue.getDualString();
 
 
-	private JButton langue_button = new JButton();
-	public String langue_french_string = super.langue.getLanguageString() + " : " + super.langue.getFrenchString();
-	public String langue_english_string = super.langue.getLanguageString() + " : " + super.langue.getEnglishString();
-
+	private JComboBox combobox = new JComboBox(); // Objet JComboBox pour séléctionner la langue
+	public String langue_french_string = super.langue.getFrenchString();
+	public String langue_english_string = super.langue.getEnglishString();
 
 	private JButton save_button = new JButton();
 	public String save_string = super.langue.getSaveString();
@@ -45,6 +44,8 @@ public class OptionsFrame extends MenuFrame {
 
 	private JButton reset_button = new JButton();
 	public String reset_string = super.langue.getResetString();
+
+
 
 
 
@@ -87,17 +88,21 @@ public class OptionsFrame extends MenuFrame {
 
 		JPanel line3panel = new JPanel();
 		line3panel.setOpaque(false);
-		// Bouton langue
-		this.langue_button.setBackground(super.button_color);
-		// Set le text du bouton langue
-		if(this.options.getLanguage() == "english") {
-			this.langue_button.setText(this.langue_english_string);
-		} else if(this.options.getLanguage() == "french") {
-			this.langue_button.setText(this.langue_french_string);
-		}	
-		this.langue_button.setFont(super.font);
-		this.langue_button.addActionListener(new OptionsObs(this));
-		line3panel.add(this.langue_button);
+
+		// Combobox de la langue
+
+		this.combobox.setBackground(super.button_color); // on change la couleur
+		this.combobox.setFont(super.font); // on change la police
+		this.combobox.setMaximumRowCount(4); // Ne pas afficher plus de 4 selection en même temps sans scrollbar
+
+		this.combobox.addItem(langue_english_string);
+		this.combobox.addItem(langue_french_string);
+
+		this.combobox.addActionListener(new OptionsObs(this));
+		//super.langue.getLanguageString() + " : " + 
+		line3panel.add(combobox); // on ajoute la combobox au panel
+
+
 
 
 		JPanel line5panel = new JPanel();
@@ -132,6 +137,15 @@ public class OptionsFrame extends MenuFrame {
 	}
 
 	/**
+	 * La méthode "getLanguageComboBoxString" nous obtient la séléction du JComboBox de la langue
+	 * @return la langue selectionée sous forme de String
+	 */
+	public String getLanguageComboBoxString() {
+		String langue = this.combobox.getSelectedItem().toString();
+		return langue;
+	}
+
+	/**
 	 * La méthode "setDifficultyButton" permet de mettre à jour l'affichage du bouton "difficulté" et change la difficulté
 	 */
 	public void setDifficultyButton() {
@@ -150,22 +164,14 @@ public class OptionsFrame extends MenuFrame {
 	}
 
 	/**
-	 * La méthode "setLanguageButton" permet de mettre à jour l'affichage du bouton "langue" et change la langue
+	 * La méthode "setLanguageButton" permet de mettre à jour l langue
+	 * @param langue est la langue choisie
 	 */
-	public void setLanguageButton() {
-		if (this.options.getLanguage() == "english") { // si la langue est en anglais
-
-			this.langue_button.setText(this.langue_french_string); // alors on change le texte du bouton
-			this.options.setLanguage("french"); // et on met la langue en français
-
-
-		} else if(this.options.getLanguage() == "french") {// si la langue est en français
-
-			this.langue_button.setText(this.langue_english_string);// alors on change le texte du bouton
-			this.options.setLanguage("english"); // et on met la langue en anglais
+	public void setLanguageButton(String langue) {
+		this.options.setLanguage(langue); // on change la langue
 
 		}
-	}
+	
 
 	/**
 	 * La méthode "setModButton" permet de mettre à jour l'affichage du bouton "mod" et change le mod
@@ -193,9 +199,6 @@ public class OptionsFrame extends MenuFrame {
 
 		this.options.setMod("solo"); // on met le mod en solo
 		this.mod_button.setText(this.mod_solo_string);
-
-		this.options.setLanguage("english");  // et remet la langue en anglais
-		this.langue_button.setText(this.langue_english_string); 
 
 	}
 

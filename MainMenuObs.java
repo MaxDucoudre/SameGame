@@ -94,7 +94,7 @@ public class MainMenuObs implements ActionListener {
 		if(e.getActionCommand() == this.mmf.saveString) {
 			
 			this.mmf.eraseFrame();
-		//SaveMenuFrame omf = new SaveMenuFrame();
+		   SaveMenuFrame smf = new SaveMenuFrame(this.fenetre);
 			this.mmf.refreshFrame();
 		}
 

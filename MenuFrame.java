@@ -47,6 +47,10 @@ public abstract class MenuFrame extends JComponent {
 		this.refreshFrame();
 	}
 	
+
+
+
+	
 	/**
 	* Constructeur sans la fenetre si on en a pas besoin (pour des sous-menu qui sont dans des menus)
 	*/
@@ -55,19 +59,19 @@ public abstract class MenuFrame extends JComponent {
 
 	}
 
-/**
-* Méthode "refreshFrame" réactualise l'affichage de la fenetre
-*/
+	/**
+	* Méthode "refreshFrame" réactualise l'affichage de la fenetre
+	*/
 	public void refreshFrame() {
 
-			this.fenetre.repaint();
-			this.fenetre.setVisible(true);
+		this.fenetre.repaint();
+		this.fenetre.setVisible(true);
 
 	}
 
-/**
-* méthode "eraseFrame" qui efface tous les JComponents de de la fenêtre 
-*/
+	/**
+	* méthode "eraseFrame" qui efface tous les JComponents de de la fenêtre 
+	*/
 	public void eraseFrame() {
 		this.fenetre.getContentPane().removeAll();
 		this.fenetre.repaint();

@@ -53,8 +53,11 @@ public class Chrono {
 
         this.stop = false;
 
+        try {
         this.ct.start(); // On lance le thread qui vas bouclier tant qu'il est actif pour que le chrono s'actualise
-
+        } catch(NullPointerException e) {
+            System.out.println("Erreur lors du lancement du Thread mettant à jour l'affichage du chrono");
+        }
     }
 
 /**

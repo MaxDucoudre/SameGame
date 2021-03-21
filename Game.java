@@ -38,6 +38,13 @@ public class Game {
 	// attribut contenant le nombre de parties jouées en tout
 	private int numberofgame;
 
+	// Attribut de type Coins pour gérer l'argent d'un joueur
+	private Coins coins = new Coins(); 
+
+	public boolean grillefichier = false; // Passera en true si la partie a été lancée depuis un fichier
+
+	public Save save = new Save();
+
 	/**
 	 * Le constructeur a besoin de gameframe car le chrono en a besoin pour activer le thread qui actualisera l'affichage du chrono
 	 * @param gameframe0
@@ -53,6 +60,7 @@ public class Game {
 		System.out.println("Génération d'une grille aléatoire...");
 			this.genererGrille(); // on génère une grille aléatoire			
 		} else {
+			this.grillefichier = true;
 			this.genererGrilleFichier(fichier_grille); // on génère une grille à partir d'un fichier
 		}
 
@@ -395,7 +403,7 @@ public class Game {
 
 		// Double boucle imbriquée pour vérifier chaque case de la grille
 		for (int i = 0; i < 10; i++) {
-			for (int j = 0; j < 15; j++) {
+			for (int j = 0; j < 15; j++) { 
 
 				if (this.tab_grid[i][j] != 'D') { // si la case de la grille n'est pas vide
 
@@ -416,15 +424,23 @@ public class Game {
 
 		this.old_hightscore = this.getHightscore();
 
-		// Si le record est inférieure au score à la fin de la partie
-		if (this.getHightscore() < this.actualScore) {
-			// alors on change le record
-			this.setHightscore(this.actualScore);
-		}
 
+		if (this.grillefichier == false) { // on change le record et on gagne des coins que si la partie n'est pas lancée depuis un fichier (pour éviter la triche)
+		// Si le record est inférieure au score à la fin de la partie
+			if (this.getHightscore() < this.actualScore) {
+			// alors on change le record
+					this.setHightscore(this.actualScore);
+				}
+
+			int coinsObt = (int)this.actualScore/1000; // Nombre de coins obtenu 
+			this.coins.increaseCoins(coinsObt, this.save.getLoadedSave()); // on augmente ce nombre de coins
+		}
 
 		this.incrementNumberOfGame(); // on incrémente de 1 le nombre de partie
 		this.chrono.endChrono(); // on arrête le chrono quand la partie se termine
+
+
+
 		return true; // sinon la partie se termine
 	}
 
@@ -459,12 +475,12 @@ public class Game {
 	public void setHightscore(int score) {
 		int hightscore;
 
-		try { 
+		try {
 			// on ouvre le fichier en écriture pour noter le record
-			FileOutputStream fichier = new FileOutputStream ("./saves/save1/hightscore.bin");
+			FileOutputStream fichier = new FileOutputStream ("./saves/save"+this.save.getLoadedSave()+"/hightscore.bin");
 			DataOutputStream flux = new DataOutputStream (fichier);  
 			// on note le temps du record dans un autre fichier
-			FileOutputStream fichier2 = new FileOutputStream ("./saves/save1/timehightscore.bin");
+			FileOutputStream fichier2 = new FileOutputStream ("./saves/save"+this.save.getLoadedSave()+"/timehightscore.bin");
 			DataOutputStream flux2 = new DataOutputStream (fichier2);  
 
 			try {
@@ -491,7 +507,7 @@ public class Game {
 
 		try {
 			// On ouvre le fichier
-			FileInputStream fichier = new FileInputStream("./saves/save1/hightscore.bin");
+			FileInputStream fichier = new FileInputStream("./saves/save"+this.save.getLoadedSave()+"/hightscore.bin");
 			DataInputStream flux = new DataInputStream(fichier);  
 
 			try {
@@ -518,7 +534,7 @@ public class Game {
 		try { 
 
 			// on ouvre le fichier en écriture
-			FileOutputStream fichier_ecriture = new FileOutputStream ("./saves/save1/numbergame.bin");
+			FileOutputStream fichier_ecriture = new FileOutputStream ("./saves/save"+this.save.getLoadedSave()+"/numbergame.bin");
 			DataOutputStream flux_ecriture = new DataOutputStream (fichier_ecriture);  
 
 			try {
@@ -545,7 +561,7 @@ public class Game {
 
 		try { 
 			// on ouvre le fichier lecture
-			FileInputStream fichier_lecture = new FileInputStream ("./saves/save1/numbergame.bin");
+			FileInputStream fichier_lecture = new FileInputStream ("./saves/save"+this.save.getLoadedSave()+"/numbergame.bin");
 			DataInputStream flux_lecture = new DataInputStream (fichier_lecture);  
 
 			try {
@@ -564,6 +580,7 @@ public class Game {
 
 		return 0;
 	}
+
 
 	/**
 	 * La méthode "newHightscore" nous dis si le record est battu ou non

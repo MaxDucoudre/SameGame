@@ -483,6 +483,9 @@
 		 * La méthode "endGameFrame" se lance à la fin de la partie pour afficher une nouvelle interface
 		 */
 		public void endGameFrame() {
+
+			Coins coins = new Coins();
+
 			JLabel endScoreLabel = new JLabel(super.langue.getFinalScoreString() + " : " + this.game.scoreTotal()); // score de la partie
 			JLabel endAncienRecordLabel = new JLabel(); // ancien record
 
@@ -494,15 +497,32 @@
 			JButton endRestartButton = new JButton(this.restartString);
 			JPanel endGameButtonPanel = new JPanel();
 
-			JLabel oldhightscorelabel = new JLabel("this.game.getOldHightscore()"); // ancien record JLabel
+			JLabel oldhightscorelabel = new JLabel(); // ancien record JLabel
 			oldhightscorelabel.setFont(super.font);
 
 			// JLabel nouveau record
 			JLabel newhightscorelabel = new JLabel(super.langue.getNewHightScoreString() + " : " + this.game.scoreTotal() + " ! ");
 			newhightscorelabel.setForeground(Color.ORANGE);
 
-			this.endGameStatus = true; // le status de la partie change 
+			// JPanel des coins
+			JPanel coinsObtPanel = new JPanel();
+			coinsObtPanel.setOpaque(false);
+			JLabel coinsObt = new JLabel("+ " + (int)this.game.scoreTotal()/1000);
+			coinsObt.setForeground(Color.ORANGE);
+			coinsObt.setFont(super.font);
+			coinsObtPanel.add(coinsObt);
+			JLabel coinsImage = new JLabel();
 
+
+			if(this.game.grillefichier == false) { // on affiche l'argent obtenu que si la partie n'est pas lancée depuis un fichier
+				ImageIcon icon_money = new ImageIcon("./ressources/coins.png"); // On initialise une icone avec l'image
+				Image image_money = icon_money.getImage().getScaledInstance(super.fenetre.getWidth()/15, super.fenetre.getHeight()/10-5, Image.SCALE_SMOOTH); // on reprend l'image et on la redimensionne
+				icon_money = new ImageIcon(image_money); // on met cette image redimensionnée dans l'icone
+
+				coinsImage.setIcon(icon_money);
+				coinsObtPanel.add(coinsImage);
+				this.gamePanel.add(coinsObtPanel, BorderLayout.EAST); // JPanel des coins obtenus
+			}
 
 			this.endGamePanel.setLayout(new GridLayout(3,1));
 			this.endGamePanel.setOpaque(false);
@@ -524,11 +544,18 @@
 			// JLabel sur le menu de fin
 			if(this.game.newHightscore() == true) { // si le record est battu
 
-				oldhightscorelabel.setText("Ancien record : " + this.game.getOldHightscore()); 
+				oldhightscorelabel.setText(super.langue.getOldHightScoreString() +" : " + this.game.getOldHightscore()); 
 				oldhightscorelabel.setHorizontalAlignment(JLabel.RIGHT);
 				endGameLabelPanel.add(oldhightscorelabel); // ancien record label
 
-				endGameLabelPanel.add(new JLabel()); // JLabel vide
+				if(this.game.grillefichier == false) {
+					endGameLabelPanel.add(new JLabel()); // JLabel vide
+				} else if(this.game.grillefichier == true) {
+					JLabel nontakelabel = new JLabel("  --" + super.langue.getHightScoreNotCountedString() + "--");
+					nontakelabel.setFont(super.font);
+					nontakelabel.setForeground(Color.RED);
+					endGameLabelPanel.add(nontakelabel); // La partie n'est pas comptabilisée si elle est lancée depuis un fichier
+				}
 
 				newhightscorelabel.setFont(super.font); 
 				endGameLabelPanel.add(newhightscorelabel); // nouveau record label
@@ -544,8 +571,8 @@
 				oldhightscorelabel.setText("Record : " + this.game.getOldHightscore()); 
 				oldhightscorelabel.setHorizontalAlignment(JLabel.RIGHT);
 				endGameLabelPanel.add(oldhightscorelabel); // ancien record label
-				endGameLabelPanel.add(new JLabel()); // JLabel vide
 
+				endGameLabelPanel.add(new JLabel()); // JLabel vide
 
 				endScoreLabel.setFont(super.font); 
 				endScoreLabel.setHorizontalAlignment(JLabel.RIGHT);
@@ -557,7 +584,7 @@
 
 			}
 
-				this.endGamePanel.add(endGameLabelPanel);
+			this.endGamePanel.add(endGameLabelPanel);
 
 
 			// JButton sur le menu de fin
