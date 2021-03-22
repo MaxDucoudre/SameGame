@@ -483,7 +483,7 @@ dans les différentes méthodes
 
 	public String getSaveString() {
 		if(this.langue == "french") {
-			return "Enregistrer";
+			return "Sauvegardes";
 		}
 
 		if(this.langue == "english") {
@@ -704,6 +704,7 @@ dans les différentes méthodes
 
 
 
+
 // AUTRES
 	public String getPlayedGameString() {
 		if(this.langue == "french") {
@@ -826,4 +827,27 @@ dans les différentes méthodes
 		return "Empty Slot";
 	}
 
+	public String getAverageScoreString() {
+		if(this.langue == "french") {
+			return "Score moyen";
+		}
+
+		if(this.langue == "english") {
+			return "Average score";
+		}	
+
+		return "Average score";
+	}
+
+	public String getAPointsString() {
+		if(this.langue == "french") {
+			return "points";
+		}
+
+		if(this.langue == "english") {
+			return "points";
+		}	
+
+		return "points";
+	}
 }

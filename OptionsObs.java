@@ -61,7 +61,18 @@ public class OptionsObs implements ActionListener {
 			this.optionsframe.setLanguageButton("french");
 			System.out.println("Langue changée");
 		}
-			System.out.println(e.getActionCommand());
+
+		// Bouton langue esperanto 
+		if(this.optionsframe.getLanguageComboBoxString() == this.optionsframe.langue_esperanto_string) { // On regarde ce qui est selectioné dans la Jcombobox
+			this.optionsframe.setLanguageButton("esperanto");
+			System.out.println("Langue changée");
+		}
+
+		// Bouton langue allemande 
+		if(this.optionsframe.getLanguageComboBoxString() == this.optionsframe.langue_german_string) { // On regarde ce qui est selectioné dans la Jcombobox
+			this.optionsframe.setLanguageButton("german");
+			System.out.println("Langue changée");
+		}
 
 
 			// BOUTONS MOD

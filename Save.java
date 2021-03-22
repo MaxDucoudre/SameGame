@@ -78,7 +78,7 @@ public class Save {
 							i++;
 						} else {
 							System.out.println("Chaine de caractère trop longue");
-							return "Name too much long       ";
+							return "Too much char";
 						}
 
 
@@ -130,12 +130,29 @@ public class Save {
 				FileOutputStream fichier5 = new FileOutputStream ("./saves/save"+save+"/savename.bin");
 				DataOutputStream flux5 = new DataOutputStream (fichier5);  
 
+				FileOutputStream fichier6 = new FileOutputStream ("./saves/save"+save+"/average.bin");
+				DataOutputStream flux6 = new DataOutputStream (fichier6);  
+
+				FileOutputStream fichier7 = new FileOutputStream ("./saves/save"+save+"/activeskin.bin");
+				DataOutputStream flux7 = new DataOutputStream (fichier7);  
+
+				FileOutputStream fichier8 = new FileOutputStream ("./saves/save"+save+"/unlockedskin.bin");
+				DataOutputStream flux8 = new DataOutputStream (fichier8);  
+
+
 				try {
 					flux.writeInt(0); 
 					flux2.writeLong(0); 
 					flux3.writeInt(0);
 					flux4.writeInt(0);
 					flux5.writeChars("Empty Slot");
+					flux6.writeInt(0);
+					flux7.writeInt(0);
+
+					flux8.writeBoolean(true);
+					flux8.writeBoolean(false);
+					flux8.writeBoolean(false);
+
 					this.setActiveSave(save, false);
 				}
 

@@ -32,9 +32,11 @@ public class OptionsFrame extends MenuFrame {
 	public String mod_dual_string = super.langue.getModString() + " : " + super.langue.getDualString();
 
 
-	private JComboBox combobox = new JComboBox(); // Objet JComboBox pour séléctionner la langue
+	private JComboBox<String> combobox = new JComboBox<String>(); // Objet JComboBox pour séléctionner la langue
 	public String langue_french_string = super.langue.getFrenchString();
 	public String langue_english_string = super.langue.getEnglishString();
+	public String langue_esperanto_string = super.langue.getEsperantoString();
+	public String langue_german_string = super.langue.getGermanString();
 
 	private JButton save_button = new JButton();
 	public String save_string = super.langue.getSaveString();
@@ -97,6 +99,8 @@ public class OptionsFrame extends MenuFrame {
 
 		this.combobox.addItem(langue_english_string);
 		this.combobox.addItem(langue_french_string);
+		this.combobox.addItem(langue_esperanto_string);
+		this.combobox.addItem(langue_german_string);
 
 		this.combobox.addActionListener(new OptionsObs(this));
 		//super.langue.getLanguageString() + " : " + 

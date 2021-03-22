@@ -29,6 +29,7 @@ class BackgroundImagePanel extends JPanel {
 		this.fenetre = fenetre0;
 		this.setOpaque(false);
 
+
 	}
 
 /**
@@ -36,6 +37,7 @@ class BackgroundImagePanel extends JPanel {
 * @param g
 */
 	public void paintComponent(Graphics g) {
-		g.drawImage(img, 0, 0, this.fenetre.getWidth(), this.fenetre.getHeight(), null);
+		g.drawImage(img, 0, 0, this.fenetre.getWidth(), this.fenetre.getHeight(), this);
+		g.drawLine(0,0, 0, 0);
 	}
 }

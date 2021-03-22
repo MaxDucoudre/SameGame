@@ -98,6 +98,10 @@ public class Options {
 					return "english";
 				} else if(language == 1) { // pour 1, c'est en français
 					return "french";
+				} else if(language == 2) {// pour 2, c'est en esperanto
+					return "esperanto";
+				} else if(language == 3) {// pour 2, c'est en esperanto
+					return "german";
 				}
 
 			} catch (IOException e) {
@@ -126,13 +130,15 @@ public class Options {
 
 				if(langue_string == "english") {
 					flux.writeInt(0); // on met à jour la valeur en anglais (anglais = 0)
-
 				} else if (langue_string == "french") {
 					flux.writeInt(1); // on met à jour la valeur en français (français = 1)
+				} else if (langue_string == "esperanto") {
+					flux.writeInt(2); // on met à jour la valeur en esperanto (esperanto = 1)
+				} else if (langue_string == "german") {
+					flux.writeInt(3); // on met à jour la valeur en allemand (allemand = 1)
 				}
-			}
 
-			catch (IOException e) {
+			} catch (IOException e) {
 				System.err.println("Erreur lors de l'écriture");
 			}
 		}
@@ -188,10 +194,10 @@ public class Options {
 			try {
 
 				if(mod_string == "solo") {
-					flux.writeInt(0); // on met à jour la valeur en anglais (anglais = 0)
+					flux.writeInt(0); 
 
 				} else if (mod_string == "dual") {
-					flux.writeInt(1); // on met à jour la valeur en français (français = 1)
+					flux.writeInt(1); 
 				}
 			}
 

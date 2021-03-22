@@ -11,9 +11,12 @@ import java.io.*;
 
 public class Coins {
 
+	private int coins; // attributs stockant le nombre de coins de la sauvegarde active
 
+	private Save save = new Save();
 
 	public Coins() {
+		this.coins = this.getNumberOfCoins(this.save.getLoadedSave());
 		
 	}
 
@@ -24,7 +27,6 @@ public class Coins {
 	 * @param coinsObt le nombre de coins obtenus (en int)
 	 */
 	public void increaseCoins(int coinsObt, int save) {
-		int coins;
 
 		try { 
 
@@ -33,9 +35,8 @@ public class Coins {
 			DataOutputStream flux_ecriture = new DataOutputStream (fichier_ecriture);  
 
 			try {
-				coins = this.getNumberOfCoins(save); // on récupère le nombre d'argent 
-				coins = coins + coinsObt; // on l'incrémente du nombre de coins souhaité
-				flux_ecriture.writeInt(coins); // et on l'écrit dans le fihcier
+				this.coins = this.coins + coinsObt; // on l'incrémente du nombre de coins souhaité
+				flux_ecriture.writeInt(this.coins); // et on l'écrit dans le fihcier
 			} catch (IOException e) {
 				System.err.println("Erreur lors de l'ecriture");
 			}
@@ -52,26 +53,58 @@ public class Coins {
 	 * @return le nombre de coins du joueur (en int)
 	 */
 		public int getNumberOfCoins(int save) {
-			int coins;
-
-			try { 
+		
+		try { 
 			// on ouvre le fichier lecture
-				FileInputStream fichier_lecture = new FileInputStream ("./saves/save"+save+"/coins.bin");
-				DataInputStream flux_lecture = new DataInputStream (fichier_lecture);  
+			FileInputStream fichier_lecture = new FileInputStream ("./saves/save"+save+"/coins.bin");
+			DataInputStream flux_lecture = new DataInputStream (fichier_lecture);  
 
-				try {
-
-				coins = flux_lecture.readInt(); // on récupère le nombre de coins
-				return coins; // puis on le return
-
-			} catch (IOException e) {
-				System.err.println("Erreur lors de la lecture !");
+			try {
+				int coin;
+				coin = flux_lecture.readInt(); // on récupère le nombre de coins dans le fichier
+				return coin; // puis on le return
 			}
-		} catch (FileNotFoundException e) {
+
+			catch (IOException e) {
+				System.err.println("Erreur lors de la lecture");
+			}
+		}
+
+		catch (FileNotFoundException e) {
 			System.err.println("Erreur lors de l'ouverture en écriture");
 		}    
 
-		return 0;
+	return 0;
 	}
+
+
+	/**
+	 * La méthode "decreaseCoins" permet de baisser l'argent du porte monnaie
+	 * @param save correspond au numero de la sauvegarde sur laquelle on veut baisser les coins
+	 * @param coinsLost le nombre de coins a enlever du porte monnaie
+	 */
+	public void decreaseCoins(int coinsLost, int save) {
+
+		try { 
+
+			// on ouvre le fichier en écriture
+			FileOutputStream fichier_ecriture = new FileOutputStream ("./saves/save"+save+"/coins.bin");
+			DataOutputStream flux_ecriture = new DataOutputStream (fichier_ecriture);  
+
+			try {
+				this.coins = this.coins - coinsLost; // on l'incrémente du nombre de coins souhaité
+				if (this.coins < 0 ) {
+					this.coins = 0;
+				}
+				flux_ecriture.writeInt(this.coins); // et on l'écrit dans le fihcier
+			} catch (IOException e) {
+				System.err.println("Erreur lors de l'ecriture");
+			}
+		} catch (FileNotFoundException e) {
+			System.err.println("Erreur lors de l'ouverture en écriture !");
+		}      
+
+	}
+
 
 }

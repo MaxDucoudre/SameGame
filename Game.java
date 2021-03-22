@@ -38,12 +38,19 @@ public class Game {
 	// attribut contenant le nombre de parties jouées en tout
 	private int numberofgame;
 
+	//attribut contenant le score de toutes les parties
+	private int totalscore = 0;
+
+
 	// Attribut de type Coins pour gérer l'argent d'un joueur
 	private Coins coins = new Coins(); 
 
 	public boolean grillefichier = false; // Passera en true si la partie a été lancée depuis un fichier
 
 	public Save save = new Save();
+	public int saveActive = this.save.getLoadedSave();
+
+
 
 	/**
 	 * Le constructeur a besoin de gameframe car le chrono en a besoin pour activer le thread qui actualisera l'affichage du chrono
@@ -419,6 +426,7 @@ public class Game {
 			}
 		}
 		// Fin de la partie ici
+
 		this.resetgroupPions();
 		System.out.println("Fin de la partie...");
 
@@ -436,10 +444,9 @@ public class Game {
 			this.coins.increaseCoins(coinsObt, this.save.getLoadedSave()); // on augmente ce nombre de coins
 		}
 
+		this.setAverageGame();
 		this.incrementNumberOfGame(); // on incrémente de 1 le nombre de partie
 		this.chrono.endChrono(); // on arrête le chrono quand la partie se termine
-
-
 
 		return true; // sinon la partie se termine
 	}
@@ -477,10 +484,10 @@ public class Game {
 
 		try {
 			// on ouvre le fichier en écriture pour noter le record
-			FileOutputStream fichier = new FileOutputStream ("./saves/save"+this.save.getLoadedSave()+"/hightscore.bin");
+			FileOutputStream fichier = new FileOutputStream ("./saves/save"+this.saveActive+"/hightscore.bin");
 			DataOutputStream flux = new DataOutputStream (fichier);  
 			// on note le temps du record dans un autre fichier
-			FileOutputStream fichier2 = new FileOutputStream ("./saves/save"+this.save.getLoadedSave()+"/timehightscore.bin");
+			FileOutputStream fichier2 = new FileOutputStream ("./saves/save"+this.saveActive+"/timehightscore.bin");
 			DataOutputStream flux2 = new DataOutputStream (fichier2);  
 
 			try {
@@ -507,7 +514,7 @@ public class Game {
 
 		try {
 			// On ouvre le fichier
-			FileInputStream fichier = new FileInputStream("./saves/save"+this.save.getLoadedSave()+"/hightscore.bin");
+			FileInputStream fichier = new FileInputStream("./saves/save"+this.saveActive+"/hightscore.bin");
 			DataInputStream flux = new DataInputStream(fichier);  
 
 			try {
@@ -534,7 +541,7 @@ public class Game {
 		try { 
 
 			// on ouvre le fichier en écriture
-			FileOutputStream fichier_ecriture = new FileOutputStream ("./saves/save"+this.save.getLoadedSave()+"/numbergame.bin");
+			FileOutputStream fichier_ecriture = new FileOutputStream ("./saves/save"+this.saveActive+"/numbergame.bin");
 			DataOutputStream flux_ecriture = new DataOutputStream (fichier_ecriture);  
 
 			try {
@@ -561,7 +568,7 @@ public class Game {
 
 		try { 
 			// on ouvre le fichier lecture
-			FileInputStream fichier_lecture = new FileInputStream ("./saves/save"+this.save.getLoadedSave()+"/numbergame.bin");
+			FileInputStream fichier_lecture = new FileInputStream ("./saves/save"+this.saveActive+"/numbergame.bin");
 			DataInputStream flux_lecture = new DataInputStream (fichier_lecture);  
 
 			try {
@@ -580,6 +587,47 @@ public class Game {
 
 		return 0;
 	}
+
+	/**
+	 * La méthode "setAverageGame" permet d'ajouter le score obtenu au compteur total du score
+	 */
+	public void setAverageGame() {
+
+		try { 
+			FileInputStream fichier_lecture = new FileInputStream ("./saves/save"+this.saveActive+"/average.bin");
+			DataInputStream flux_lecture = new DataInputStream (fichier_lecture); 
+
+
+			try {
+
+				this.totalscore = flux_lecture.readInt(); 
+				flux_lecture.close();
+				this.totalscore = this.totalscore + this.actualScore;
+
+				try {
+					FileOutputStream fichier_ecriture = new FileOutputStream ("./saves/save"+this.saveActive+"/average.bin");
+					DataOutputStream flux_ecriture = new DataOutputStream (fichier_ecriture);  
+				
+					try {
+						flux_ecriture.writeInt(this.totalscore);
+
+					} catch (IOException e) {
+						System.err.println("Erreur lors de l'ecriture");
+					}
+
+				} catch (FileNotFoundException e) {
+					System.err.println("Erreur lors de l'ouverture en écriture ");
+				}  
+
+			} catch (IOException e) {
+				System.err.println("Erreur lors de la lecture");
+			}
+		} catch (FileNotFoundException e) {
+			System.err.println("Erreur lors de l'ouverture en lecture");
+		}    
+
+	}
+
 
 
 	/**

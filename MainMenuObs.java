@@ -70,7 +70,7 @@ public class MainMenuObs implements ActionListener {
 		if(e.getActionCommand() == this.mmf.shopString) {
 
 			this.mmf.eraseFrame();
-		// BoutiqueMenuFrame smf = new BoutiqueMenuFrame();
+			ShopFrame sf = new ShopFrame(this.fenetre);
 			this.mmf.refreshFrame();
 		}
 

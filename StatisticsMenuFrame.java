@@ -30,7 +30,7 @@ public class StatisticsMenuFrame extends MenuFrame {
 
 
 	BackgroundImagePanel statisticsMenuPanel = new BackgroundImagePanel(super.image_background, super.fenetre);
-	statisticsMenuPanel.setLayout(new GridLayout(4,1));
+	statisticsMenuPanel.setLayout(new GridLayout(5,1));
 
 	// JLabel au sommet
 	JLabel statisticsLabel = new JLabel(super.langue.getStatisticsString());
@@ -53,6 +53,12 @@ public class StatisticsMenuFrame extends MenuFrame {
 	chronolabel.setFont(super.font);	
 	recordtimerpanel.add(chronolabel);  // on rajoute au JPanel principal
 	statisticsMenuPanel.add(recordtimerpanel); // on rajoute recordtimepanel au JPanel principal
+
+
+	JLabel averagelabel = new JLabel(super.langue.getAverageScoreString() + " : "+ this.stat.getAverageScore() + " " + super.langue.getAPointsString());
+	averagelabel.setFont(super.font);	
+	averagelabel.setHorizontalAlignment(JLabel.CENTER);
+	statisticsMenuPanel.add(averagelabel); // on rajoute au JPanel principal
 
 
 	// Partie joués

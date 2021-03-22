@@ -42,16 +42,21 @@
 		// attributs JButton du menu pause
 		public JButton resumePauseButton = new JButton(this.resumeString);
 		public JButton leftGamePauseButton = new JButton(this.abandonString);
+		private JButton pauseRestartButton = new JButton(this.restartString);
+
 		public boolean pauseStatus = false; // état du menu pause (si actif ou non), par défaut en false
 
 		private JLabel chronoAtPause = new JLabel(); // temps sur le menu pause
 		private JLabel scoreAtPause = new JLabel(); // score sur le menu pause
 
 		private JPanel pauseButtonPanel = new JPanel();
+
 		private JPanel pauseScorePanel = new JPanel();
 		// JPanel du menu pause
 		private JPanel pausePanel = new JPanel();
 		private JLabel iconpause;
+
+
 		// Panel qui s'affiche à la fin de la partie
 		public JPanel endGamePanel = new JPanel();
 
@@ -66,6 +71,7 @@
 		private ImageIcon icon_pion_red;
 		private ImageIcon icon_pion_green;
 		private ImageIcon icon_pion_blue;
+
 
 
 	// Fichier de la grille
@@ -173,6 +179,8 @@
 			this.pausePanel.setLayout(new GridLayout(4,1));
 			this.pausePanel.setOpaque(false);
 
+
+
 			// Label "PAUSE"
 			JLabel gamename = new JLabel(super.langue.getPauseString());
 			gamename.setHorizontalAlignment(JLabel.CENTER);
@@ -181,7 +189,6 @@
 
 			// Partie informations
 			this.pauseScorePanel.setLayout(new GridLayout(2,1));
-			Font pauselabelFont;
 			this.scoreAtPause.setFont(super.font);
 			this.scoreAtPause.setHorizontalAlignment(JLabel.CENTER);
 			this.pauseScorePanel.add(this.scoreAtPause);
@@ -197,14 +204,26 @@
 			this.pausePanel.add(new JLabel()); // Vide
 
 
-			// Partie Boutton
+			// Partie Boutton de la pause
+
 			this.pauseButtonPanel.add(this.resumePauseButton);
 			this.resumePauseButton.setBackground(super.button_color);
 			this.resumePauseButton.setFont(super.font); 
 
+
+			this.pauseButtonPanel.add(this.pauseRestartButton);
+			this.pauseRestartButton.setBackground(super.button_color);
+			this.pauseRestartButton.setFont(super.font); 
+
+
 			this.pauseButtonPanel.add(this.leftGamePauseButton);
 			this.leftGamePauseButton.setBackground(super.button_color);
 			this.leftGamePauseButton.setFont(super.font); 
+
+			// On rend interactif les trois boutons
+			this.resumePauseButton.addActionListener(new GameObs(game, this, super.fenetre));
+			this.leftGamePauseButton.addActionListener(new GameObs(game, this, super.fenetre));
+			this.pauseRestartButton.addActionListener(new GameObs(game, this, super.fenetre));
 
 			this.pauseButtonPanel.setOpaque(false);
 
@@ -494,8 +513,15 @@
 
 
 			JButton endMainMenuButton = new JButton(this.mainMenuString);
-			JButton endRestartButton = new JButton(this.restartString);
+
 			JPanel endGameButtonPanel = new JPanel();
+
+			JButton endRestartButton = new JButton(this.restartString);
+			endRestartButton.setBackground(super.button_color);
+			endRestartButton.setFont(super.font); 
+
+			endGameButtonPanel.add(endRestartButton); // bouton pour relancer la partie
+
 
 			JLabel oldhightscorelabel = new JLabel(); // ancien record JLabel
 			oldhightscorelabel.setFont(super.font);
@@ -651,9 +677,7 @@
 			super.fenetre.repaint();
 			this.refreshFrame();
 
-			// On rend interactif les deux boutons
-			this.resumePauseButton.addActionListener(new GameObs(game, this, super.fenetre));
-			this.leftGamePauseButton.addActionListener(new GameObs(game, this, super.fenetre));
+
 		}
 
 		/**

@@ -13,33 +13,46 @@
 
 	public class TitleMenuFrame extends MenuFrame {
 
-	 Langue langue = new Langue("French");
-
-	 TitleMenu tm = new TitleMenu(true);
+	private JLabel gamename = new JLabel("SameGame");
 
 		// Constructeur
 	 public TitleMenuFrame(JFrame fenetre0) {
 		super(fenetre0);
 
-		// affichage du nom du jeux 
-		JLabel gamename = new JLabel("SameGame");
-		gamename.setHorizontalAlignment(JLabel.CENTER);
-		super.fenetre.add(gamename, BorderLayout.NORTH);
 
-		// Gestion du bouton Start pour entrer dans le jeux
-		JButton startbutton = new JButton(super.langue.getStartString()); // Bouton pour lancer le jeux
 		JPanel p = new JPanel();
-		p.add(startbutton);
-		super.fenetre.add(p, BorderLayout.CENTER);
-		startbutton.addActionListener(new TitleMenuObs(this.tm, this, super.fenetre)); //observateur
+		BackgroundImagePanel saveMenuPanel = new BackgroundImagePanel(Toolkit.getDefaultToolkit().getImage("./ressources/default_background.jpg"), super.fenetre);
+		saveMenuPanel.setLayout(new GridLayout(4,1));
+
+		// nom du jeux
+		this.gamename.setHorizontalAlignment(JLabel.CENTER);
+		this.gamename.setForeground(Color.YELLOW);
+		this.gamename.setFont(new Font("Arial", Font.ITALIC, 60));
+		this.gamename.addMouseListener(new TitleMenuObs(this, super.fenetre));
+
+		saveMenuPanel.add(new JLabel());
+		saveMenuPanel.add(gamename);
+
+		JButton startbutton = new JButton(super.langue.getStartString()); // Bouton pour lancer le jeux
+		startbutton.setFont(new Font("Century", Font.BOLD, 30));
+		startbutton.setBackground(Color.GREEN);
+
+		startbutton.addActionListener(new TitleMenuObs(this, super.fenetre));
+
+		super.fenetre.add(saveMenuPanel, BorderLayout.CENTER);
+		super.fenetre.add(startbutton, BorderLayout.SOUTH);
+
 	}
 
-	public boolean isActive() {
-		if(tm.check() == true) {
-			return true;
-		} else {
-			return false;
-		}
+
+	public void changeGameNameColor() {
+		this.gamename.setForeground(Color.RED);
 	}
+
+	public void resetGameNameColor() {
+		this.gamename.setForeground(Color.YELLOW);
+
+	}
+
 }
 

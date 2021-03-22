@@ -18,7 +18,7 @@ Main.class : Main.java TitleMenuFrame.class
 MenuFrame.class : MenuFrame.java Langue.class Options.class
 	${JC} ${JCFLAGS} MenuFrame.java
 
-BackgroundImagePanel.class : BackgroundImagePanel.class
+BackgroundImagePanel.class : BackgroundImagePanel.java
 	${JC} ${JCFLAGS} BackgroundImagePanel.java
 
 Langue.class : Langue.java
@@ -26,13 +26,10 @@ Langue.class : Langue.java
 
 
 ## MENU TITRE ##
-TitleMenuFrame.class : MenuFrame.class TitleMenuFrame.java TitleMenu.class TitleMenuObs.class 
+TitleMenuFrame.class : TitleMenuFrame.java MenuFrame.class BackgroundImagePanel.class TitleMenuObs.class 
 	${JC} ${JCFLAGS} TitleMenuFrame.java
 
-TitleMenu.class : TitleMenu.java
-	${JC} ${JCFLAGS} TitleMenu.java
-
-TitleMenuObs.class : TitleMenuObs.java TitleMenu.class MainMenuFrame.class
+TitleMenuObs.class : TitleMenuObs.java TitleMenuFrame.class SaveMenuFrame.class
 	${JC} ${JCFLAGS} TitleMenuObs.java
 
 ## MENU PRINCIPAL ##
@@ -42,7 +39,7 @@ MainMenuFrame.class : MainMenuFrame.java MenuFrame.class BackgroundImagePanel.cl
 MainMenu.class : MainMenu.java
 	${JC} ${JCFLAGS} MainMenu.java
 
-MainMenuObs.class : MainMenuObs.java MainMenuFrame.class GameFrame.class OptionsFrame.class StatisticsMenuFrame.class SaveMenuFrame.class
+MainMenuObs.class : MainMenuObs.java MainMenuFrame.class GameFrame.class OptionsFrame.class StatisticsMenuFrame.class SaveMenuFrame.class ShopFrame.class
 	${JC} ${JCFLAGS} MainMenuObs.java
 
 ## MENU OPTIONS ##
@@ -59,7 +56,7 @@ Options.class : Options.java
 StatisticsMenuFrame.class : StatisticsMenuFrame.java StatisticsObs.class BackgroundImagePanel.class Statistics.class Game.class
 	${JC} ${JCFLAGS} StatisticsMenuFrame.java
 
-Statistics.class : Statistics.java
+Statistics.class : Statistics.java Save.class Game.class
 	${JC} ${JCFLAGS} Statistics.java
 
 StatisticsObs.class : StatisticsObs.java StatisticsMenuFrame.class MainMenuFrame.class
@@ -75,7 +72,7 @@ CreditsObs.class : CreditsObs.java Credits.java MainMenuFrame.class
 
 ## SAUVEGARDES ##
 
-SaveMenuFrame.class : SaveMenuFrame.java MenuFrame.class Save.class SaveMenuObs.class
+SaveMenuFrame.class : SaveMenuFrame.java BackgroundImagePanel.class MenuFrame.class Save.class SaveMenuObs.class Coins.class
 	${JC} ${JCFLAGS} SaveMenuFrame.java
 
 Save.class : Save.java
@@ -83,6 +80,17 @@ Save.class : Save.java
 
 SaveMenuObs.class : SaveMenuObs.java SaveMenuFrame.class MainMenuFrame.class
 	${JC} ${JCFLAGS} SaveMenuObs.java
+
+## BOUTIQUE ##
+
+ShopFrame.class : ShopFrame.java MenuFrame.class Shop.class ShopObs.class Save.class
+	${JC} ${JCFLAGS} ShopFrame.java
+
+Shop.class : Shop.java Coins.class
+	${JC} ${JCFLAGS} Shop.java
+
+ShopObs.class : ShopObs.java MainMenuFrame.class ShopFrame.class Save.class
+	${JC} ${JCFLAGS} ShopObs.java
 
 
 ## COINS ###

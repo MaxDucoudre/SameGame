@@ -11,15 +11,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class TitleMenuObs implements ActionListener {
+public class TitleMenuObs implements ActionListener, MouseListener {
 
 	private TitleMenuFrame tmf;
-	private TitleMenu tm;
 	private JFrame fenetre;
 
 
-	public TitleMenuObs(TitleMenu tm0, TitleMenuFrame tmf0, JFrame fenetre0) {
-		this.tm = tm0;
+	public TitleMenuObs(TitleMenuFrame tmf0, JFrame fenetre0) {
 		this.tmf = tmf0;
 		this.fenetre = fenetre0;
 	}
@@ -27,18 +25,29 @@ public class TitleMenuObs implements ActionListener {
 	// gère l'interactivité du bouton Start du menu titre
 	public void actionPerformed(ActionEvent e) { 
 
-		this.tm.update(); // Change l'état du menu Title de false vers true
-
-
-		System.out.println("État du menu titre : " + this.tm.check());
 
 		this.tmf.eraseFrame();
-		MainMenuFrame mainmenu = new MainMenuFrame(this.fenetre);
+		SaveMenuFrame smf = new SaveMenuFrame(this.fenetre);
 		this.tmf.refreshFrame();
 
 		System.out.println("Main Menu");
 
-
-
 	} 
+
+
+	public void mouseEntered(MouseEvent e) {
+			this.tmf.changeGameNameColor();
+		
+	}
+
+	public void mouseExited(MouseEvent e) {
+			this.tmf.resetGameNameColor();
+	}
+
+
+	public void mouseClicked(MouseEvent evenement) {}
+	public void mousePressed(MouseEvent evenement) {}
+	public void mouseReleased(MouseEvent evenement) {}
+	public void mouseDragged(MouseEvent evenement) {}
+
 }

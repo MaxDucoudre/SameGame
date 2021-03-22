@@ -13,8 +13,9 @@ import java.awt.*;
 
 public class SaveMenuFrame extends MenuFrame {
 
-	private BackgroundImagePanel saveMenuPanel = new BackgroundImagePanel(super.image_background, super.fenetre);
-	JPanel savePanel = new JPanel();
+	private BackgroundImagePanel saveMenuPanel = new BackgroundImagePanel(Toolkit.getDefaultToolkit().getImage("./ressources/default_background.jpg"), super.fenetre);
+
+	private JPanel savePanel = new JPanel();
 
 	// Objet classe modèle Save
 	private Save save = new Save();
@@ -373,7 +374,7 @@ public class SaveMenuFrame extends MenuFrame {
 			this.save3panel.remove(this.textfield3);
 			this.save3panel.remove(this.createButton3);
 
-			this.save.createSave(3, this.textfield2.getText());
+			this.save.createSave(3, this.textfield3.getText());
 
 			this.save3label.setText(this.save.getSaveName(3));
 
