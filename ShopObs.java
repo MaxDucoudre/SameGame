@@ -10,7 +10,11 @@ public class ShopObs implements ItemListener, ActionListener {
 	public Save save = new Save();
 	public int saveActive = this.save.getLoadedSave();
 
-	public Coins coins = new Coins();
+	private Coins coins = new Coins();
+	private int numberofcoins =  this.coins.getNumberOfCoins(this.saveActive);
+
+	private Shop shop = new Shop();
+
 
 	public ShopObs(ShopFrame sf0, JFrame fenetre0) {
 		this.sf = sf0;
@@ -20,39 +24,58 @@ public class ShopObs implements ItemListener, ActionListener {
 
 	public void itemStateChanged(ItemEvent e) { 
 		String buttonString = ((AbstractButton) e.getItemSelectable()).getActionCommand();
-			System.out.println(buttonString + " selected !");
 
 
 		// LE PACK JUNGLE
 		if (e.getStateChange() == ItemEvent.SELECTED && buttonString == "Skin Pack JUNGLE") {
 
-
-			this.sf.setSkinPackFrame(this.saveActive, 0);
-
-
-
-    	} else if (e.getStateChange() == ItemEvent.DESELECTED && buttonString == "Skin Pack JUNGLE") {
+			this.sf.setSkinPackFrame(this.saveActive, 1);
 
 		}
+
+
+
+
 
 
 		if (e.getStateChange() == ItemEvent.SELECTED && buttonString == "Skin Pack GREEK") {
-			this.sf.setSkinPackFrame(this.saveActive, 1);
 
-    	} else if (e.getStateChange() == ItemEvent.DESELECTED && buttonString == "Skin Pack JUNGLE") {
+			if( this.shop.getIsUnlockedSkinPack(this.saveActive, 2) == true ) {
+				this.sf.setSkinPackFrame(this.saveActive, 2);
 
+				} else if(this.numberofcoins >= 10 && this.shop.getIsUnlockedSkinPack(this.saveActive, 2) == false) {
+					this.sf.setSkinPackFrame(this.saveActive, 2);
+					this.coins.decreaseCoins(10, this.saveActive);
+
+				} else {
+				this.sf.skin2.setSelected(false);
+				this.sf.skin1.setSelected(true);
+
+			}
 		}
+
+
+
 
 		if (e.getStateChange() == ItemEvent.SELECTED && buttonString == "Skin Pack PIXEL") {
-			this.sf.setSkinPackFrame(this.saveActive, 2);
 
 
-    	} else if (e.getStateChange() == ItemEvent.DESELECTED && buttonString == "Skin Pack JUNGLE") {
+			if( this.shop.getIsUnlockedSkinPack(this.saveActive, 3) == true ) {
+				this.sf.setSkinPackFrame(this.saveActive, 3);
 
+				} else if(this.numberofcoins >= 20  && this.shop.getIsUnlockedSkinPack(this.saveActive, 3) == false) {
+					this.sf.setSkinPackFrame(this.saveActive, 3);
+					this.coins.decreaseCoins(20, this.saveActive);
+					
+				} else {
+
+				this.sf.skin2.setSelected(false);
+				this.sf.skin1.setSelected(true);
+
+			}
 		}
-
-
 	}
+
 
 
 	public void actionPerformed(ActionEvent e) { 

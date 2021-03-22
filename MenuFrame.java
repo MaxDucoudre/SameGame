@@ -19,6 +19,9 @@ public abstract class MenuFrame extends JComponent {
 	protected Langue langue;
 	private Options options = new Options(); // On a besoin des options pour récupérer la langue active
 
+	private Shop shop = new Shop();
+	private Save save = new Save();
+	private int activeSave = this.save.getLoadedSave();
 
 		// Attributs couleur et police 
 
@@ -41,12 +44,16 @@ public abstract class MenuFrame extends JComponent {
 		public MenuFrame(JFrame fenetre0) {
 		this.fenetre = fenetre0; // on récupère la fenêtre du jeux
 		this.fenetre.add(this, BorderLayout.CENTER);
-		//this.langue = new Langue("esperanto"); // set la langue du jeux en fonction des options
+
+		this.setSkinFrame(this.shop.getSkinPack(this.activeSave));
+
 
 		this.langue = new Langue(this.options.getLanguage()); // set la langue du jeux en fonction des options
 		this.refreshFrame();
+
 	}
 	
+
 
 
 
@@ -76,4 +83,56 @@ public abstract class MenuFrame extends JComponent {
 		this.fenetre.getContentPane().removeAll();
 		this.fenetre.repaint();
 	}
+
+	/**
+	* méthode "setSkinFrame" qui permet de mettre à jour l'affichage en fonction du pack de skin
+	* @param pack correspond au pack de skin souhaité (1, 2 ou 3)
+	*/
+	public void setSkinFrame(int pack) {
+
+		if(pack == 2) { this.contour_color = Color.YELLOW;
+
+		this.label_color = Color.GRAY;
+
+		this.button_color = Color.WHITE;
+
+		this.font = new Font("Dialog", Font.ITALIC, 20);
+
+		this.top_color = Color.GRAY;
+
+		this.image_background = Toolkit.getDefaultToolkit().getImage("./ressources/skinpack2/background.png");
+
+
+		} else if(pack == 3) {
+		this.contour_color = Color.ORANGE;
+
+		this.label_color = Color.GREEN;
+
+		this.button_color = Color.YELLOW;
+
+		this.font = new Font("TimesRoman", Font.BOLD, 20);
+
+		this.top_color = Color.GREEN;
+
+		this.image_background = Toolkit.getDefaultToolkit().getImage("./ressources/skinpack3/background.png");
+
+
+		} else {
+		this.contour_color = new Color(102,51,0);
+
+		this.label_color = new Color(138,172,42);
+
+		this.button_color = new Color(138,172,42);
+
+		this.font = new Font("Arial", Font.BOLD, 20);
+
+		this.top_color = new Color(131,218,202);
+
+		this.image_background = Toolkit.getDefaultToolkit().getImage("./ressources/skinpack1/background.jpg");
+
+		}
+
+	}
+
+
 }

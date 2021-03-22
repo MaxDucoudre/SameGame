@@ -850,4 +850,17 @@ dans les différentes méthodes
 
 		return "points";
 	}
+
+	public String getRegisterString() {
+		if(this.langue == "french") {
+			return "Enregistrer";
+		}
+
+		if(this.langue == "english") {
+			return "Register";
+		}	
+
+		return "Register";
+	}
+
 }

@@ -78,18 +78,18 @@ SaveMenuFrame.class : SaveMenuFrame.java BackgroundImagePanel.class MenuFrame.cl
 Save.class : Save.java
 	${JC} ${JCFLAGS} Save.java
 
-SaveMenuObs.class : SaveMenuObs.java SaveMenuFrame.class MainMenuFrame.class
+SaveMenuObs.class : SaveMenuObs.java SaveMenuFrame.class MainMenuFrame.class 
 	${JC} ${JCFLAGS} SaveMenuObs.java
 
 ## BOUTIQUE ##
 
-ShopFrame.class : ShopFrame.java MenuFrame.class Shop.class ShopObs.class Save.class
+ShopFrame.class : ShopFrame.java MenuFrame.class Shop.class ShopObs.class Save.class Coins.class
 	${JC} ${JCFLAGS} ShopFrame.java
 
 Shop.class : Shop.java Coins.class
 	${JC} ${JCFLAGS} Shop.java
 
-ShopObs.class : ShopObs.java MainMenuFrame.class ShopFrame.class Save.class
+ShopObs.class : ShopObs.java MainMenuFrame.class ShopFrame.class Save.class Coins.class Shop.class
 	${JC} ${JCFLAGS} ShopObs.java
 
 

@@ -14,10 +14,14 @@ import java.io.*;
 public class ShopFrame extends MenuFrame {
 
 
-	public Coins coins = new Coins();
 
-	public Save save = new Save();
-	public int saveActive = this.save.getLoadedSave();
+	private Save save = new Save();
+	private int saveActive = this.save.getLoadedSave();
+
+	private Coins coins = new Coins();
+	private int numberofcoins =  this.coins.getNumberOfCoins(this.saveActive);
+
+	private JLabel walletmoney = new JLabel(String.valueOf(this.numberofcoins));
 
 
 	private Shop shop = new Shop();
@@ -29,20 +33,20 @@ public class ShopFrame extends MenuFrame {
 	private JButton mainmenubutton; // bouton pour retourner au menu principal
 	
 
-	public String mainmenustring = super.langue.getMainMenuString();
+	public String mainmenustring = super.langue.getRegisterString();
 
 
-	private JRadioButton skin1 = new JRadioButton("Skin Pack JUNGLE");
-	private JRadioButton skin2 = new JRadioButton("Skin Pack GREEK");
-	private JRadioButton skin3 = new JRadioButton("Skin Pack PIXEL");
+	public JRadioButton skin1 = new JRadioButton("Skin Pack JUNGLE");
+	public JRadioButton skin2 = new JRadioButton("Skin Pack GREEK");
+	public JRadioButton skin3 = new JRadioButton("Skin Pack PIXEL");
 
 	private JLabel isLockLabel1 = new JLabel();
 	private JLabel isLockLabel2 = new JLabel();
 	private JLabel isLockLabel3 = new JLabel();
 
-	private JPanel pack1panel = new JPanel();
-	private JPanel pack2panel = new JPanel();
-	private JPanel pack3panel = new JPanel();
+	private BackgroundImagePanel pack1panel = new BackgroundImagePanel(Toolkit.getDefaultToolkit().getImage("./ressources/skinpack1/background.png"), super.fenetre);
+	private BackgroundImagePanel pack2panel = new BackgroundImagePanel(Toolkit.getDefaultToolkit().getImage("./ressources/skinpack2/background.png"), super.fenetre);
+	private BackgroundImagePanel pack3panel = new BackgroundImagePanel(Toolkit.getDefaultToolkit().getImage("./ressources/skinpack3/background.png"), super.fenetre);
 
 
 	/**
@@ -67,6 +71,16 @@ public class ShopFrame extends MenuFrame {
 		shoplabel.setHorizontalAlignment(JLabel.CENTER);
 
 
+		// PORTE MONNAIE
+		JPanel wallet = new JPanel();
+		wallet.setOpaque(false);
+
+		walletmoney.setForeground(Color.ORANGE);
+		walletmoney.setFont(new Font("ARIAL", Font.BOLD, 28));
+		wallet.add(walletmoney);
+		wallet.add(this.getIconLabel("./ressources/coins.png"));
+
+
 		// PACK JUNGLE
 		pack1panel.setOpaque(false);
 		pack1panel.setBorder(BorderFactory.createLineBorder(new Color(102,51,0), 3));
@@ -79,7 +93,7 @@ public class ShopFrame extends MenuFrame {
 		isLockLabel1.setFont(new Font("Arial", Font.BOLD, 20));
 		isLockLabel1.setOpaque(true);
 
-		if(this.shop.getIsUnlockedSkinPack(saveActive, 0) == true) {
+		if(this.shop.getIsUnlockedSkinPack(saveActive, 1) == true) {
 		isLockLabel1.setBackground(new Color(138,172,42));
 		isLockLabel1.setText("UNLOCKED");
 		} else {
@@ -99,7 +113,7 @@ public class ShopFrame extends MenuFrame {
 
 
 
-		// PACK CEREALS
+		// PACK GREEK
 		pack2panel.setOpaque(false);
 		pack2panel.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
 		skin2.setBackground(Color.GRAY);
@@ -111,7 +125,7 @@ public class ShopFrame extends MenuFrame {
 		isLockLabel2.setFont(new Font("Arial", Font.BOLD, 20));
 		isLockLabel2.setOpaque(true);
 
-		if(this.shop.getIsUnlockedSkinPack(saveActive, 1) == true) {
+		if(this.shop.getIsUnlockedSkinPack(saveActive, 2) == true) {
 		isLockLabel2.setBackground(new Color(138,172,42));
 		isLockLabel2.setText("UNLOCKED");
 		} else {
@@ -128,7 +142,7 @@ public class ShopFrame extends MenuFrame {
 		pack2panel.add(this.isLockLabel2);
 
 
-		// PACK GREEK
+		// PACK PIXEL
 		pack3panel.setOpaque(false);
 		pack3panel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3));
 		skin3.setBackground(Color.ORANGE);
@@ -140,7 +154,7 @@ public class ShopFrame extends MenuFrame {
 		isLockLabel3.setFont(new Font("Arial", Font.BOLD, 20));
 		isLockLabel3.setOpaque(true);
 
-		if(this.shop.getIsUnlockedSkinPack(saveActive, 2) == true) {
+		if(this.shop.getIsUnlockedSkinPack(saveActive, 3) == true) {
 		isLockLabel3.setBackground(new Color(138,172,42));
 		isLockLabel3.setText("UNLOCKED");
 		} else {
@@ -169,13 +183,13 @@ public class ShopFrame extends MenuFrame {
 		choix.add(skin3);
 
 
-		if(this.shop.getSkinPack(this.saveActive) == 0) {
+		if(this.shop.getSkinPack(this.saveActive) == 1) {
 		skin1.setSelected(true);
 		}
-		else if(this.shop.getSkinPack(this.saveActive) == 1) {
+		else if(this.shop.getSkinPack(this.saveActive) == 2) {
 		skin2.setSelected(true);
 		}
-		else if(this.shop.getSkinPack(this.saveActive) == 2) {
+		else if(this.shop.getSkinPack(this.saveActive) == 3) {
 		skin3.setSelected(true);
 		}
 
@@ -190,7 +204,7 @@ public class ShopFrame extends MenuFrame {
 
 
 		shopPanel.add(shoplabel);
-		shopPanel.add(new JLabel());
+		shopPanel.add(wallet);
 		shopPanel.add(pack1panel);
 		shopPanel.add(pack2panel);
 		shopPanel.add(pack3panel);
@@ -209,36 +223,41 @@ public class ShopFrame extends MenuFrame {
 
 
 	public JLabel getIconLabel(String path_image) {
-		JLabel coinsImageLabel = new JLabel();
-		ImageIcon icon_money = new ImageIcon(path_image); // On initialise une icone avec l'image
-		Image image_money = icon_money.getImage().getScaledInstance(super.fenetre.getWidth()/15, super.fenetre.getHeight()/10-5, Image.SCALE_SMOOTH); // on reprend l'image et on la redimensionne
-		icon_money = new ImageIcon(image_money); // on met cette image redimensionnée dans l'icone
-		coinsImageLabel.setIcon(icon_money);
-		return coinsImageLabel;
+		JLabel imageLabel = new JLabel();
+		ImageIcon icon = new ImageIcon(path_image); // On initialise une icone avec l'image
+		Image image = icon.getImage().getScaledInstance(super.fenetre.getWidth()/15, super.fenetre.getHeight()/10-5, Image.SCALE_SMOOTH); // on reprend l'image et on la redimensionne
+		icon = new ImageIcon(image); // on met cette image redimensionnée dans l'icone
+		imageLabel.setIcon(icon);
+		return imageLabel;
 	}
 
 
 
 	public void setSkinPackFrame(int save, int pack) {
 
-		if(pack == 0) {
+
+
+		if(pack == 1) {
 			this.isLockLabel1.setText("UNLOCKED");
 			this.isLockLabel1.setBackground(new Color(138,172,42));
 		}
 
-		if(pack == 1) {
-			this.isLockLabel2.setText("UNLOCKED");
-			this.isLockLabel2.setBackground(new Color(138,172,42));
+		if(pack == 2) {
+				this.isLockLabel2.setText("UNLOCKED");
+				this.isLockLabel2.setBackground(new Color(138,172,42));
+			
 		}
 
-		if(pack == 2) {
+		if(pack == 3) {
 			this.isLockLabel3.setText("UNLOCKED");
 			this.isLockLabel3.setBackground(new Color(138,172,42));
 		}
 
+		this.walletmoney.setText(String.valueOf(this.coins.getNumberOfCoins(this.saveActive)));
+
 		super.fenetre.repaint();
-		this.shop.unlockSkinPack(save,pack);
-		this.shop.setSkinPack(save,pack);
+		this.shop.unlockSkinPack(save, pack);
+		this.shop.setSkinPack(save, pack);
 	}
 
 

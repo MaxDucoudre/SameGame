@@ -96,6 +96,14 @@ public class OptionsObs implements ActionListener {
 			this.optionsframe.resetSettings(); // remise des settings par défaut
 		}
 
+		// Bouton CREDITS
+		if(e.getActionCommand() == this.optionsframe.credits_string) {
+
+			System.out.println("Crédits");
+
+			this.optionsframe.creditDisplay(); // remise des settings par défaut
+		}
+
 
 		// Bouton SAUVEGARDER
 		if(e.getActionCommand() == this.optionsframe.save_string) {

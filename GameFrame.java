@@ -72,6 +72,12 @@
 		private ImageIcon icon_pion_green;
 		private ImageIcon icon_pion_blue;
 
+		private Save save = new Save();
+		private int activeSave = this.save.getLoadedSave();
+
+		private Shop shop = new Shop();
+
+		private int activeSkin = this.shop.getSkinPack(this.activeSave);
 
 
 	// Fichier de la grille
@@ -229,7 +235,7 @@
 
 			// ICONE DU MENU PAUSE
 			this.iconpause = new JLabel();
-			this.iconpause.setIcon(new ImageIcon("./ressources/pauseicon1.png"));
+			this.iconpause.setIcon(new ImageIcon("./ressources/skinpack"+this.activeSkin+"/pauseicon.png"));
 			this.iconpause.setOpaque(false);
 
 			this.pausePanel.add(this.pauseButtonPanel);
@@ -378,17 +384,17 @@
 		 */
 		public void ResizeIcon() {
 
-			this.icon_pion_red = new ImageIcon("./ressources/ananas.png"); // On initialise une icone avec l'image
+			this.icon_pion_red = new ImageIcon("./ressources/skinpack"+this.activeSkin+"/red.png"); // On initialise une icone avec l'image
 			//Image image_pion_red = icon_pion_red.getImage().getScaledInstance(this.pions[1][1].getWidth(), this.pions[1][1].getHeight(), Image.SCALE_SMOOTH); // on reprend l'image et on la redimensionne
 			Image image_pion_red = icon_pion_red.getImage().getScaledInstance(super.fenetre.getWidth()/15, super.fenetre.getHeight()/10-5, Image.SCALE_SMOOTH); // on reprend l'image et on la redimensionne
 			this.icon_pion_red = new ImageIcon(image_pion_red); // on met cette image redimensionnée dans l'icone
 
-			this.icon_pion_green = new ImageIcon("./ressources/banana.png"); // On initialise une icone avec l'image
+			this.icon_pion_green = new ImageIcon("./ressources/skinpack"+this.activeSkin+"/green.png"); // On initialise une icone avec l'image
 			//Image image_pion_green = icon_pion_green.getImage().getScaledInstance(this.pions[1][1].getWidth(), this.pions[1][1].getHeight(), Image.SCALE_SMOOTH); // on reprend l'image et on la redimensionne
 			Image image_pion_green = icon_pion_green.getImage().getScaledInstance(super.fenetre.getWidth()/15, super.fenetre.getHeight()/10-5, Image.SCALE_SMOOTH); // on reprend l'image et on la redimensionne
 			this.icon_pion_green = new ImageIcon(image_pion_green); // on met cette image redimensionnée dans l'icone
 
-			this.icon_pion_blue = new ImageIcon("./ressources/coconut.png"); // On initialise une icone avec l'image
+			this.icon_pion_blue = new ImageIcon("./ressources/skinpack"+this.activeSkin+"/blue.png"); // On initialise une icone avec l'image
 			//Image image_pion_blue = icon_pion_blue.getImage().getScaledInstance(this.pions[1][1].getWidth(), this.pions[1][1].getHeight(), Image.SCALE_SMOOTH); // on reprend l'image et on la redimensionne
 			Image image_pion_blue = icon_pion_blue.getImage().getScaledInstance(super.fenetre.getWidth()/15, super.fenetre.getHeight()/10-5, Image.SCALE_SMOOTH); // on reprend l'image et on la redimensionne
 			this.icon_pion_blue = new ImageIcon(image_pion_blue); // on met cette image redimensionnée dans l'icone
@@ -630,7 +636,7 @@
 
 
 			JLabel iconlabelend = new JLabel();
-			iconlabelend.setIcon(new ImageIcon("./ressources/endicon.png"));
+			iconlabelend.setIcon(new ImageIcon("./ressources/skinpack"+this.activeSkin+"/endicon.png"));
 			iconlabelend.setHorizontalAlignment(JLabel.CENTER);
 			iconlabelend.setOpaque(false);
 
@@ -685,7 +691,6 @@
 		 */
 		public void endPause() {
 			this.game.resumeGame(); // on relance le chronomètre
-
 
 
 			this.gamePanel.add(this.hud, BorderLayout.NORTH); 

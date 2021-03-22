@@ -39,7 +39,7 @@ public class OptionsFrame extends MenuFrame {
 	public String langue_german_string = super.langue.getGermanString();
 
 	private JButton save_button = new JButton();
-	public String save_string = super.langue.getSaveString();
+	public String save_string = super.langue.getRegisterString();
 
 	private JButton cancel_button = new JButton();
 	public String cancel_string = super.langue.getCancelString();
@@ -48,6 +48,7 @@ public class OptionsFrame extends MenuFrame {
 	public String reset_string = super.langue.getResetString();
 
 
+	public String credits_string = super.langue.getCreditsString();
 
 
 
@@ -124,6 +125,19 @@ public class OptionsFrame extends MenuFrame {
 		this.reset_button.setFont(super.font);
 		this.reset_button.addActionListener(new OptionsObs(this));
 		line5panel.add(this.reset_button);
+
+
+		line5panel.add(new JLabel());
+		line5panel.add(new JLabel());
+
+		// credits button
+		JButton credits_button = new JButton();
+		credits_button.setBackground(super.button_color);
+		credits_button.setText(this.credits_string);
+		credits_button.setFont(super.font);
+		credits_button.addActionListener(new OptionsObs(this));		
+		line5panel.add(credits_button);
+
 
 
 		// Rajout du JPanel principal
@@ -203,6 +217,24 @@ public class OptionsFrame extends MenuFrame {
 
 		this.options.setMod("solo"); // on met le mod en solo
 		this.mod_button.setText(this.mod_solo_string);
+
+	}
+
+
+	public void creditDisplay() {
+		BackgroundImagePanel creditPanel = new BackgroundImagePanel(Toolkit.getDefaultToolkit().getImage("./ressources/credits/credits.png"), super.fenetre);
+		creditPanel.setLayout(new BorderLayout());
+
+		super.fenetre.remove(optionsPanel);
+		super.fenetre.add(creditPanel, BorderLayout.CENTER);
+
+		JPanel button_left_panel = new JPanel();
+		button_left_panel.setOpaque(false);
+		button_left_panel.add(this.save_button);
+		creditPanel.add(button_left_panel, BorderLayout.SOUTH);
+
+		super.fenetre.repaint();
+		super.fenetre.setVisible(true);
 
 	}
 

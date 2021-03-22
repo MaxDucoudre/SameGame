@@ -438,14 +438,17 @@ public class Game {
 			if (this.getHightscore() < this.actualScore) {
 			// alors on change le record
 					this.setHightscore(this.actualScore);
+
+					this.setAverageGame();
+					this.incrementNumberOfGame(); // on incrémente de 1 le nombre de part
 				}
 
 			int coinsObt = (int)this.actualScore/1000; // Nombre de coins obtenu 
 			this.coins.increaseCoins(coinsObt, this.save.getLoadedSave()); // on augmente ce nombre de coins
 		}
 
-		this.setAverageGame();
-		this.incrementNumberOfGame(); // on incrémente de 1 le nombre de partie
+
+
 		this.chrono.endChrono(); // on arrête le chrono quand la partie se termine
 
 		return true; // sinon la partie se termine

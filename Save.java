@@ -147,7 +147,7 @@ public class Save {
 					flux4.writeInt(0);
 					flux5.writeChars("Empty Slot");
 					flux6.writeInt(0);
-					flux7.writeInt(0);
+					flux7.writeInt(1);
 
 					flux8.writeBoolean(true);
 					flux8.writeBoolean(false);

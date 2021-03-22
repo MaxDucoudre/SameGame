@@ -55,9 +55,9 @@ public class Shop {
 
 
 	public void unlockSkinPack(int save, int unlockedpack) {
-		boolean pack0 = true; 
-		boolean pack1 = false;
-		boolean pack2 = false; 
+		boolean pack1 = true; 
+		boolean pack2 = false;
+		boolean pack3 = false; 
 
 		try {
 			// On ouvre le fichier
@@ -65,9 +65,9 @@ public class Shop {
 			DataInputStream flux = new DataInputStream(fichier);  
 
 			try {
-				pack0 = flux.readBoolean(); 
-				pack1 = flux.readBoolean();
-				pack2 = flux.readBoolean(); 
+				pack1 = flux.readBoolean(); 
+				pack2 = flux.readBoolean();
+				pack3 = flux.readBoolean(); 
 
 
 					try { 
@@ -76,20 +76,20 @@ public class Shop {
 
 					try {
 
-						if (unlockedpack == 1) {
-							flux_ecriture.writeBoolean(pack0);
-							pack1 = true;
-							flux_ecriture.writeBoolean(pack1);
-							flux_ecriture.writeBoolean(pack2);
-						} else if (unlockedpack == 2) {
-							flux_ecriture.writeBoolean(pack0);
+						if (unlockedpack == 2) {
 							flux_ecriture.writeBoolean(pack1);
 							pack2 = true;
 							flux_ecriture.writeBoolean(pack2);
-						} else {
-							flux_ecriture.writeBoolean(pack0);
+							flux_ecriture.writeBoolean(pack3);
+						} else if (unlockedpack == 3) {
 							flux_ecriture.writeBoolean(pack1);
 							flux_ecriture.writeBoolean(pack2);
+							pack3 = true;
+							flux_ecriture.writeBoolean(pack3);
+						} else { // Le pack 1 est par défaut débloqué
+							flux_ecriture.writeBoolean(pack1);
+							flux_ecriture.writeBoolean(pack2);
+							flux_ecriture.writeBoolean(pack3);
 						}
 					
 
@@ -123,14 +123,12 @@ public class Shop {
 			DataInputStream flux = new DataInputStream(fichier);  
 
 			try {
+
 				pack_tab[0] = flux.readBoolean(); 
 				pack_tab[1] = flux.readBoolean();
 				pack_tab[2] = flux.readBoolean();
 
-				return pack_tab[pack];
-
-
-
+				return pack_tab[pack-1];
 
 
 			} catch (IOException e) {

@@ -36,7 +36,7 @@ public class SaveMenuFrame extends MenuFrame {
 	public String supprimerButton1String = super.langue.getDeleteString();
 	private	JButton createButton1;
 	public String createButton1String = super.langue.getCreateString();
-	private JTextField textfield1 = new JTextField(super.langue.getSaveNameString() + "...");
+	private JTextField textfield1 = new JTextField(super.langue.getSaveNameString() + "...   ");
 
 	private JLabel labelmoney1 = new JLabel("+ " + this.coins.getNumberOfCoins(1));
 
@@ -53,7 +53,7 @@ public class SaveMenuFrame extends MenuFrame {
 	public String supprimerButton2String = super.langue.getDeleteString()+ " ";
 	private	JButton createButton2;
 	public String createButton2String = super.langue.getCreateString()+ " ";
-	private JTextField textfield2 = new JTextField(super.langue.getSaveNameString() + "...");
+	private JTextField textfield2 = new JTextField(super.langue.getSaveNameString() + "...   ");
 
 
 
@@ -69,7 +69,7 @@ public class SaveMenuFrame extends MenuFrame {
 	public String supprimerButton3String = super.langue.getDeleteString() + "  ";
 	private	JButton createButton3;
 	public String createButton3String = super.langue.getCreateString() + "  ";
-	private JTextField textfield3 = new JTextField(super.langue.getSaveNameString() + "...");
+	private JTextField textfield3 = new JTextField(super.langue.getSaveNameString() + "...   ");
 
 	// attribut image
 	private ImageIcon icon_money;
