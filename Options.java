@@ -1,15 +1,13 @@
+import java.io.*;
+
 /**
-* Classe Modèle : Options
+* Classe Modèle : <code>Options</code>
 * Classe permettant de gérer les fichiers en fonction des options
 *
 * @version 1
 * @author Max Ducoudré
 * @author Loris Schnell
 */
-
-import java.io.*;
-
-
 public class Options {
 
 	public Options() {
@@ -17,7 +15,7 @@ public class Options {
 	}
 
 	/**
-	 * La méthode "getDifficulty" permet de récupérer le niveau de difficulté dans un fichier
+	 * La méthode <b>getDifficulty<b>" permet de récupérer le niveau de difficulté dans un fichier
 	 * @return la difficluté normale ou difficile en String
 	 */
 	public String getDifficulty() {
@@ -49,7 +47,7 @@ public class Options {
 	}
 
 	/**
-	 * La méthode "setDifficulty" permet de mettre à jour le niveau de difficulté
+	 * La méthode <b>setDifficulty</b> permet de mettre à jour le niveau de difficulté
 	 * @param difficulty_string représente le niveau de difficulté souhaité
 	 */
 	public void setDifficulty(String difficulty_string) {
@@ -80,7 +78,7 @@ public class Options {
 	}
 
 	/**
-	 * La méthode "getLanguage" permet de récupérer la langue actuellement en vigueur
+	 * La méthode <b>getLanguage</b> permet de récupérer la langue actuellement en vigueur
 	 * @return la langue sous forme de String
 	 */
 	public String getLanguage() {
@@ -100,8 +98,16 @@ public class Options {
 					return "french";
 				} else if(language == 2) {// pour 2, c'est en esperanto
 					return "esperanto";
-				} else if(language == 3) {// pour 2, c'est en esperanto
+				} else if(language == 3) {
 					return "german";
+				} else if(language == 4) {
+					return "russian";
+				} else if(language == 5) {
+					return "portuguese";
+				} else if(language == 6) {
+					return "spanish";
+				} else if(language == 7) {
+					return "chinese";
 				}
 
 			} catch (IOException e) {
@@ -116,7 +122,7 @@ public class Options {
 	}
 	
 	/**
-	 * La méthode "setLanguage" permet de mettre à jour la langue
+	 * La méthode <b>setLanguage</b> permet de mettre à jour la langue
 	 * @param langue_string correspond à la langue souhaitée
 	 */
 	public void setLanguage(String langue_string) {
@@ -133,10 +139,19 @@ public class Options {
 				} else if (langue_string == "french") {
 					flux.writeInt(1); // on met à jour la valeur en français (français = 1)
 				} else if (langue_string == "esperanto") {
-					flux.writeInt(2); // on met à jour la valeur en esperanto (esperanto = 1)
+					flux.writeInt(2); // on met à jour la valeur en esperanto (esperanto = 2)
 				} else if (langue_string == "german") {
-					flux.writeInt(3); // on met à jour la valeur en allemand (allemand = 1)
+					flux.writeInt(3); // on met à jour la valeur en allemand (allemand = 3)
+				} else if(langue_string == "russian") {
+					flux.writeInt(4);
+				} else if(langue_string == "portuguese") {
+					flux.writeInt(5);
+				} else if(langue_string == "spanish") {
+					flux.writeInt(6);
+				} else if(langue_string == "chinese") {
+					flux.writeInt(7);
 				}
+
 
 			} catch (IOException e) {
 				System.err.println("Erreur lors de l'écriture");
@@ -149,7 +164,7 @@ public class Options {
 
 	
 	/**
-	 * La méthode "getMod" permet de récupérer le mod du jeux
+	 * La méthode <b>getMod</b> permet de récupérer le mod du jeux
 	 * @return le mod sous forme de string (dual ou solo)
 	 */
 	public String getMod() {
@@ -181,7 +196,7 @@ public class Options {
 	}
 	
 	/**
-	 * La méthode "setMod" permet de mettre à jour le mod du jeux
+	 * La méthode <b>setMod</b> permet de mettre à jour le mod du jeux
 	 * @param mod_string correspond au mod souhaité (dual ou solo)
 	 */
 	public void setMod(String mod_string) {

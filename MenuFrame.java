@@ -35,11 +35,12 @@ public abstract class MenuFrame extends JComponent {
 
 		public Color top_color = new Color(131,218,202);
 
-		public Image image_background = Toolkit.getDefaultToolkit().getImage("./ressources/background_jungle2.jpg");
+		public Image image_background = Toolkit.getDefaultToolkit().getImage("./ressources/skinpack1/background.png");
 
 
 	/**
 	* Le constructeur de MenuFrame
+	* @param fenetre est la fenêtre du jeux
 	*/
 		public MenuFrame(JFrame fenetre0) {
 		this.fenetre = fenetre0; // on récupère la fenêtre du jeux
@@ -128,7 +129,7 @@ public abstract class MenuFrame extends JComponent {
 
 		this.top_color = new Color(131,218,202);
 
-		this.image_background = Toolkit.getDefaultToolkit().getImage("./ressources/skinpack1/background.jpg");
+		this.image_background = Toolkit.getDefaultToolkit().getImage("./ressources/skinpack1/background.png");
 
 		}
 

@@ -1,15 +1,14 @@
+import javax.swing.*;
+import java.awt.*;
+
 /**
-* Classe Vue : OptionsFrame
+* Classe Vue : <code>OptionsFrame</code>
 * Classe gérant l'affichage du menu des options
 *
 * @version 1
 * @author Max Ducoudré
 * @author Loris Schnell
 */
-
-import javax.swing.*;
-import java.awt.*;
-
 public class OptionsFrame extends MenuFrame {
 
 	private Options options = new Options();
@@ -37,6 +36,10 @@ public class OptionsFrame extends MenuFrame {
 	public String langue_english_string = super.langue.getEnglishString();
 	public String langue_esperanto_string = super.langue.getEsperantoString();
 	public String langue_german_string = super.langue.getGermanString();
+	public String langue_russian_string = super.langue.getRussianString();
+	public String langue_portuguese_string = super.langue.getPortugueseString();
+	public String langue_spanish_string = super.langue.getSpanishString();
+	public String langue_chinese_string = super.langue.getChineseString();
 
 	private JButton save_button = new JButton();
 	public String save_string = super.langue.getRegisterString();
@@ -52,6 +55,10 @@ public class OptionsFrame extends MenuFrame {
 
 
 
+	/**
+	* Constructeur de  <b>OptionsFrame</b> créer les composants sur la fenêtre
+	* @param fenetre correspond à la fenetre où les composants sont ajoutés
+	*/
 	public OptionsFrame(JFrame fenetre) {
 		super(fenetre);
 
@@ -102,6 +109,10 @@ public class OptionsFrame extends MenuFrame {
 		this.combobox.addItem(langue_french_string);
 		this.combobox.addItem(langue_esperanto_string);
 		this.combobox.addItem(langue_german_string);
+		this.combobox.addItem(langue_russian_string);
+		this.combobox.addItem(langue_portuguese_string);
+		this.combobox.addItem(langue_spanish_string);
+		this.combobox.addItem(langue_chinese_string);
 
 		this.combobox.addActionListener(new OptionsObs(this));
 		//super.langue.getLanguageString() + " : " + 
@@ -155,7 +166,7 @@ public class OptionsFrame extends MenuFrame {
 	}
 
 	/**
-	 * La méthode "getLanguageComboBoxString" nous obtient la séléction du JComboBox de la langue
+	 * La méthode <b>getLanguageComboBoxString</b> nous obtient la séléction du JComboBox de la langue
 	 * @return la langue selectionée sous forme de String
 	 */
 	public String getLanguageComboBoxString() {
@@ -209,7 +220,9 @@ public class OptionsFrame extends MenuFrame {
 		}
 	}
 
-
+	/**
+	 * La méthode "resetSettings" remet les settings de base
+	 */
 	public void resetSettings() {
 
 		this.options.setDifficulty("normal"); //  on met la difficulté en normale
@@ -220,7 +233,9 @@ public class OptionsFrame extends MenuFrame {
 
 	}
 
-
+	/**
+	 * La méthode "creditDisplay" affiche les JCOmponent des crédits
+	 */
 	public void creditDisplay() {
 		BackgroundImagePanel creditPanel = new BackgroundImagePanel(Toolkit.getDefaultToolkit().getImage("./ressources/credits/credits.png"), super.fenetre);
 		creditPanel.setLayout(new BorderLayout());

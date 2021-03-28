@@ -74,6 +74,29 @@ public class OptionsObs implements ActionListener {
 			System.out.println("Langue changée");
 		}
 
+		// Bouton langue russe 
+		if(this.optionsframe.getLanguageComboBoxString() == this.optionsframe.langue_russian_string) { // On regarde ce qui est selectioné dans la Jcombobox
+			this.optionsframe.setLanguageButton("russian");
+			System.out.println("Langue changée");
+		}
+
+		// Bouton langue portugaise
+		if(this.optionsframe.getLanguageComboBoxString() == this.optionsframe.langue_portuguese_string) { // On regarde ce qui est selectioné dans la Jcombobox
+			this.optionsframe.setLanguageButton("portuguese");
+			System.out.println("Langue changée");
+		}
+
+		// Bouton langue espagnole
+		if(this.optionsframe.getLanguageComboBoxString() == this.optionsframe.langue_spanish_string) { // On regarde ce qui est selectioné dans la Jcombobox
+			this.optionsframe.setLanguageButton("spanish");
+			System.out.println("Langue changée");
+		}
+
+		// Bouton langue chinoise 
+		if(this.optionsframe.getLanguageComboBoxString() == this.optionsframe.langue_chinese_string) { // On regarde ce qui est selectioné dans la Jcombobox
+			this.optionsframe.setLanguageButton("chinese");
+			System.out.println("Langue changée");
+		}
 
 			// BOUTONS MOD
 		// Bouton mod duel

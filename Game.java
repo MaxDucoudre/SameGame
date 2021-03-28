@@ -1,19 +1,18 @@
+import java.lang.Math;
+import java.util.Arrays;
+import java.io.*;
+
 /**
- * Classe Modèle : Game
+ * Classe Modèle : <code>Game</code>
  * Cette classe permet de gérer les données du jeux
  *
  * @version 1
  * @author Max Ducoudré
  * @author Loris Schnell
  */
-
-
-import java.lang.Math;
-import java.util.Arrays;
-import java.io.*;
-
 public class Game {
 
+	
 	// Initialisation de tableaux des dimensions de la grille 
 	private char[][] tab_grid = new char[10][15]; // tableau de caractères qui définit ce que contient une case de la grille
 	private boolean[][] tab_group = new boolean[10][15]; // tableau de booléen qui sera en TRUE aux endroits où un groupe de même pion est formé
@@ -41,21 +40,23 @@ public class Game {
 	//attribut contenant le score de toutes les parties
 	private int totalscore = 0;
 
+	// Passera en true si la partie a été lancée depuis un fichier
+	public boolean grillefichier = false; 
 
 	// Attribut de type Coins pour gérer l'argent d'un joueur
 	private Coins coins = new Coins(); 
 
-	public boolean grillefichier = false; // Passera en true si la partie a été lancée depuis un fichier
 
+	// Attributs permettant de récupérer le numéro de la sauvegarde active
 	public Save save = new Save();
 	public int saveActive = this.save.getLoadedSave();
 
 
 
 	/**
-	 * Le constructeur a besoin de gameframe car le chrono en a besoin pour activer le thread qui actualisera l'affichage du chrono
+	 * Le constructeur de <b>Game</b> a besoin de gameframe car le chrono en a besoin pour activer le thread qui actualisera l'affichage du chrono
 	 * @param gameframe0
-	 * @param fichier_grille (Mettre à "NULL" si aucun fichier n'est utilisé)
+	 * @param fichier_grille Correspond au fichier utilisé pour générer une grille (Mettre à "NULL" si aucun fichier n'est utilisé)
 	 */
 	public Game(GameFrame gameframe0, String fichier_grille) {
 		this.chrono = new Chrono(gameframe0);
@@ -67,7 +68,7 @@ public class Game {
 		System.out.println("Génération d'une grille aléatoire...");
 			this.genererGrille(); // on génère une grille aléatoire			
 		} else {
-			this.grillefichier = true;
+			this.grillefichier = true; // La grille provient d'un fichier
 			this.genererGrilleFichier(fichier_grille); // on génère une grille à partir d'un fichier
 		}
 
@@ -75,47 +76,46 @@ public class Game {
 	}
 
 	/**
-	 * Ce second constructeur permet de créer un objet Game pour récupérer des données des méthodes get
-
+	 * Ce second constructeur de <b>Game</b> permet de créer un objet Game pour récupérer des données des méthodes get
 	 */
 	public Game() {
-		this.numberofgame = this.getNumberOfGame();
+		this.numberofgame = this.getNumberOfGame(); // on récup_re le nombre de parties
 	}
 
-
-
 	/**
-	 * la méthode "genererGrilleFichier" permet de générer une grille à partie d'un fichier
+	 * la méthode <b>genererGrilleFichier<b> permet de générer une grille à partie d'un fichier
 	 * @param fichier_path est le chemin vers le fichier en question
 	 */
 	public void genererGrilleFichier(String fichier_path) {
 
-
 		int c = 0; 
 		String line = "";
+
 		this.i = 0;
 		this.j = 0;
 
-
 		try {
 
+			// On ouvre le fichier en lecture
 			FileReader fichier = new FileReader(fichier_path);
 			BufferedReader flux = new BufferedReader(fichier);
 
 			try {
 
-				while (i < 10) {
 
-					line = flux.readLine();
-					this.char_line = line.toCharArray();
+				while (i < 10) { // on effectue 10 fois l'actoin car il y a 10 lignes
 
-					System.out.println(line); 
+					line = flux.readLine(); // line gange la valeur d'une ligne sous forme de String
+					this.char_line = line.toCharArray(); // on convertie ce String en tableau de Char
 
+					System.out.println(line); // on l'affiche à la console
+
+					// Puis on fait en sorte que ce tableau de char donne ses valeurs au tableau de la grille
 					for (j = 0; j < 15; j++) {
 
 						this.tab_grid[i][j] = this.char_line[j];
-
 					}
+
 					this.j = 0;
 					this.i++;
 
@@ -132,7 +132,7 @@ public class Game {
 
 
 	/**
-	 * La méthode "genererGrille" génère une grille de manière aléatoire
+	 * La méthode <b>genererGrille</b> génère une grille de manière aléatoire
 	 */
 	public void genererGrille() {
 		System.out.println("Génération d'une grille aléatoire...");
@@ -160,7 +160,7 @@ public class Game {
 	}
 
 	/**	
-	 * La méthode "afficherGrid" affiche la grille à la console
+	 * La méthode <b>afficherGrid</b> affiche la grille à la console pour un meilleur suivi
 	 */
 	public void afficherGrid() {
 		int i, j;
@@ -174,7 +174,7 @@ public class Game {
 	}
 
 	/**
-	 * La méthode "getGrid" permet de récupérer la le tableau de caractère de la grille
+	 * La méthode <b>getGrid</b> permet de récupérer la le tableau de caractère de la grille
 	 * @return tableau de char représentant la grille
 	 */
 	public char[][] getGrid() {
@@ -183,7 +183,7 @@ public class Game {
 
 
 	/**
-	 * La méthode "resetgroupPions" permet de remplir le tableau tab_group de "false"
+	 * La méthode <b>resetgroupPions</b> permet de remplir le tableau tab_group de "false"
 	 */
 	public void resetgroupPions() {
 		for (int i = 0; i < 10; i++) {
@@ -193,6 +193,9 @@ public class Game {
 		}
 	}
 
+	/**
+	 * La méthode <b>afficheGroup</b> permet d'afficher à la console le groupe séléctionné
+	 */
 	public void afficheGroup() {
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 15; j++) {
@@ -207,7 +210,7 @@ public class Game {
 	}
 
 	/**
-	 * La méthode "groupPions" permet de trouver le groupe d'un point du tableau en remplissant de "true" tab_group tous les poibts liés à i et j
+	 * La méthode <b>groupPions</b> permet de trouver le groupe d'un point du tableau en remplissant de "true" tab_group tous les poibts liés à i et j
 	 * @param i représente la ligne choisie
 	 * @param j représente la colone choisie
 	 */
@@ -246,7 +249,7 @@ public class Game {
 	}
 
 	/**
-	 * la méthode "groupDestruct" permet de détruire toutes les cases du group
+	 * la méthode <b>groupDestruct</b> permet de détruire toutes les cases du group
 	 */
 	public void groupDestruct() {
 
@@ -265,7 +268,7 @@ public class Game {
 	}
 
 	/**
-	 * la méthode "getTabGroup" permet de récupérer tab_group 
+	 * la méthode <b>getTabGroup</b> permet de récupérer tab_group 
 	 * @param i représente la ligne du point
 	 * @param j représente la colone du point
 	 * @return un tableau de booléen représentant un groupe donnée en fonction de la colone et de la ligne
@@ -311,11 +314,12 @@ public class Game {
 				}
 			}
 		}
-		return compte; // compte renvoie donc le nombre de cases en "true" de tab_group
+		return compte; // compte renvoi donc le nombre de cases en "true" de tab_group
 	}
 
+
 	/**
-	 * la méthode "cascadePionHorizontal" permet de faire tomber toutes les pions si la case en dessosu est vide
+	 * la méthode <b>cascadePionHorizontal</b> permet de faire tomber toutes les pions si la case en dessosu est vide
 	 */
 	public void cascadePionHorizontal() {
 		int i, j, l;
@@ -337,7 +341,7 @@ public class Game {
 	}
 
 	/**
-	 * la méthode "cascadePionVertical" de décaler une colone de pion si la colone à sa gauche est vide
+	 * la méthode <b>cascadePionVertical</b> de décaler une colone de pion si la colone à sa gauche est vide
 	 */
 	public void cascadePionVertical() {
 		int i, j, l;
@@ -360,7 +364,7 @@ public class Game {
 	}
 
 	/**
-	 * la méthode "destroyedCol" renvoie un booléen true si la colone est détruite et false si non
+	 * la méthode <b>destroyedCol</b> renvoie un booléen true si la colone est détruite et false si non
 	 * @param j représente le numéro de la colonne allant de 0 à 14 de la grille
 	 * @return true si la colone j est détruite entièrement et false si la colone j ne l'est pas
 	 */
@@ -377,7 +381,7 @@ public class Game {
 
 
 	/**
-	 * La méthode "pionRemaining" renvoie le nombre (int) de pions qui reste dans la grille
+	 * La méthode <b>pionRemaining</b> renvoie le nombre (int) de pions qui reste dans la grille
 	 * @return le nombre de pion qu'il reste dans la partie
 	 */
 	public int pionRemaining() {
@@ -403,7 +407,7 @@ public class Game {
 
 
 	/**
-	 * La méthode "endGame" vérifie si la partie est terminée ou non en renvoyant un booléen
+	 * La méthode <b>endGame</b> vérifie si la partie est terminée ou non en renvoyant un booléen
 	 * @return true si la partie est finie et false si elle ne l'est pas
 	 */
 	public boolean endGame() {
@@ -425,12 +429,13 @@ public class Game {
 				}
 			}
 		}
-		// Fin de la partie ici
+			// ON ECRIT LA FIN DE LA PARTIE ICI
+		// en effet, si il ne reste aucun groupe de taille supérieure à un, alors la partie est terminée
 
-		this.resetgroupPions();
+		this.resetgroupPions(); // on supprime tous les groupes
 		System.out.println("Fin de la partie...");
 
-		this.old_hightscore = this.getHightscore();
+		this.old_hightscore = this.getHightscore(); // On récupère le record actuel
 
 
 		if (this.grillefichier == false) { // on change le record et on gagne des coins que si la partie n'est pas lancée depuis un fichier (pour éviter la triche)
@@ -439,11 +444,12 @@ public class Game {
 			// alors on change le record
 					this.setHightscore(this.actualScore);
 
-					this.setAverageGame();
+					this.setAverageGame(); // on met à jour la moyenne du score des parties
 					this.incrementNumberOfGame(); // on incrémente de 1 le nombre de part
 				}
 
-			int coinsObt = (int)this.actualScore/1000; // Nombre de coins obtenu 
+
+			int coinsObt = (int)this.actualScore/1000; // Nombre de coins obtenu (1 coins tous les 1000 points)
 			this.coins.increaseCoins(coinsObt, this.save.getLoadedSave()); // on augmente ce nombre de coins
 		}
 
@@ -456,7 +462,7 @@ public class Game {
 
 
 	/**
-	 * La méthode "scoreCalcul" renvoie le nombre de points que gagne le joueur sous forme d'int
+	 * La méthode <b>scoreCalcul</b> renvoie le nombre de points que gagne le joueur sous forme d'int
 	 * @return le score actuellement gagné en détruisant un groupe
 	 */
 	public int scoreCalcul() {
@@ -465,7 +471,7 @@ public class Game {
 	}
 
 	/**
-	 * La méthode "scoreTotal" renvoie le score total du joueur sous forme d'int
+	 * La méthode <b>scoreTotal<b> renvoie le score total du joueur sous forme d'int
 	 * @return le score total du joueur
 	 */
 	public int scoreTotal() {
@@ -475,11 +481,11 @@ public class Game {
 	}
 
 
-		// A partir d'ici, ce n'est plus dans la consigne
 
+		// A partir d'ici c'est plus trop dans la consigne mais on avait du temps
 
 	/**
-	 * La méthode "setHightscore" permet de mettre à jour le record dans un fichier
+	 * La méthode <b>setHightscore</b> permet de mettre à jour le record dans un fichier
 	 * @param score Le nouveau record en int 
 	 */
 	public void setHightscore(int score) {
@@ -496,6 +502,8 @@ public class Game {
 			try {
 				flux.writeInt(score); // on met à jour la valeur dans le fichier pour mettre le record
 				flux2.writeLong(this.chrono.getDureeNowLong()); // on met à jour le temps du record
+				flux.close();
+				flux2.close();
 			}
 
 			catch (IOException e) {
@@ -509,19 +517,20 @@ public class Game {
 
 
 	/**
-	 * La méthode "getHightscore" permet de récupérer le record dans un fichier
+	 * La méthode <b>getHightscore<b> permet de récupérer le record dans un fichier
 	 * @return le record en int
 	 */
 	public int getHightscore() {
 		int hightscore;
 
 		try {
-			// On ouvre le fichier
+			// On ouvre le fichier du record
 			FileInputStream fichier = new FileInputStream("./saves/save"+this.saveActive+"/hightscore.bin");
 			DataInputStream flux = new DataInputStream(fichier);  
 
 			try {
 				hightscore = flux.readInt(); // On récupère la valeur dans le fichier
+				flux.close();
 				return hightscore; // on renvoi la valeur qui est dans le fichier
 
 			} catch (IOException e) {
@@ -536,7 +545,7 @@ public class Game {
 
 
 	/**
-	 * La méthode "incrementNumberOfGame" d'incrémenter de 1 le nombre de partie 
+	 * La méthode <b>incrementNumberOfGame</b> d'incrémenter de 1 le nombre de partie 
 	 */
 	public void incrementNumberOfGame() {
 		int numberofgame; // variable contenant le nombre de parties jouées
@@ -549,7 +558,8 @@ public class Game {
 
 			try {
 				this.numberofgame++; // on l'incrémente de 1
-				flux_ecriture.writeInt(this.numberofgame);
+				flux_ecriture.writeInt(this.numberofgame); // on écrit cette valeur dans le fichier
+				flux_ecriture.close(); // et on ferme le fichier
 			}
 
 			catch (IOException e) {
@@ -564,7 +574,7 @@ public class Game {
 
 
 	/**
-	 * La méthode "getNumberOfGame" permet de récupérer le nombre de parties joués
+	 * La méthode <b>getNumberOfGame</b> permet de récupérer le nombre de parties joués
 	 * @return le nombre de parties jouées (en int)
 	 */
 	public int getNumberOfGame() {
@@ -576,6 +586,7 @@ public class Game {
 
 			try {
 				this.numberofgame = flux_lecture.readInt(); // on récupère le nombre de partie
+				flux_lecture.close();
 				return this.numberofgame; // puis on le return
 			}
 
@@ -592,27 +603,31 @@ public class Game {
 	}
 
 	/**
-	 * La méthode "setAverageGame" permet d'ajouter le score obtenu au compteur total du score
+	 * La méthode <b>setAverageGame</b> permet d'ajouter le score obtenu au compteur total du score
 	 */
 	public void setAverageGame() {
 
 		try { 
+			// On ouvre le fichier du score total de toutes les parties en lecture
 			FileInputStream fichier_lecture = new FileInputStream ("./saves/save"+this.saveActive+"/average.bin");
 			DataInputStream flux_lecture = new DataInputStream (fichier_lecture); 
 
 
 			try {
 
-				this.totalscore = flux_lecture.readInt(); 
-				flux_lecture.close();
+				this.totalscore = flux_lecture.readInt(); // on lit la valeur 
+				flux_lecture.close();  // on ferme le fichier
 				this.totalscore = this.totalscore + this.actualScore;
 
 				try {
+					// on ouvre le fichier du score total de toutes les partie en écriture
 					FileOutputStream fichier_ecriture = new FileOutputStream ("./saves/save"+this.saveActive+"/average.bin");
 					DataOutputStream flux_ecriture = new DataOutputStream (fichier_ecriture);  
 				
 					try {
-						flux_ecriture.writeInt(this.totalscore);
+
+						flux_ecriture.writeInt(this.totalscore); // puis on écrit dedans le score total incrémenté du score actuel
+						flux_ecriture.close(); // et on ferme le fichier
 
 					} catch (IOException e) {
 						System.err.println("Erreur lors de l'ecriture");
@@ -634,7 +649,7 @@ public class Game {
 
 
 	/**
-	 * La méthode "newHightscore" nous dis si le record est battu ou non
+	 * La méthode <b>newHightscore</b> nous dis si le record est battu ou non
 	 * @return true si le record est battu, sinon false.
 	 */
 	public boolean newHightscore() {
@@ -647,7 +662,7 @@ public class Game {
 
 
 	/**
-	 * La méthode "getOldHightscore" nous donne l'ancien record
+	 * La méthode <b>getOldHightscore</b> nous donne l'ancien record
 	 * @return l'ancien record sous forme de int
 	 */
 	public int getOldHightscore() {
@@ -656,7 +671,7 @@ public class Game {
 	 }
 
 	/**
-	 * la méthode "getChrono" permet renvoie le chrono sous forme de String à l'instant où elle est appelée
+	 * la méthode <b>getChrono</b> permet renvoie le chrono sous forme de String à l'instant où elle est appelée
 	 * @return renvois le chrono sous forme de chaine de caractère
 	 */
 	public String getChrono() {
@@ -664,14 +679,14 @@ public class Game {
 	}
 
 	/**
-	 * la méthode "pauseGame" met la partie en pause
+	 * la méthode <b>pauseGame</b> met la partie en pause
 	 */
 	public void pauseGame() {
 		this.chrono.pauseChrono(); // lorsqu'on met en pause, on met en pause le chrono
 	}
 
 	/**
-	 * la méthode "resumeGame" permet de reprendre la partie
+	 * la méthode <b>resumeGame</b> permet de reprendre la partie
 	 */
 	public void resumeGame() {
 		this.chrono.resumeChrono(); // losqu'on reprend la partie, on relance le chrono
