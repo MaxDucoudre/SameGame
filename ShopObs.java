@@ -2,6 +2,14 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+* Classe Observateur : ShopObs
+* classe gérant les boutons de la boutique
+*
+* @version 1
+* @author Max Ducoudré
+* @author Loris Schnell
+*/
 public class ShopObs implements ItemListener, ActionListener {
 
 	private ShopFrame sf;
@@ -26,7 +34,7 @@ public class ShopObs implements ItemListener, ActionListener {
 		String buttonString = ((AbstractButton) e.getItemSelectable()).getActionCommand();
 
 
-		// LE PACK JUNGLE
+		// LE PACK JUNGLE (par défaut)
 		if (e.getStateChange() == ItemEvent.SELECTED && buttonString == "Skin Pack JUNGLE") {
 
 			this.sf.setSkinPackFrame(this.saveActive, 1);
@@ -35,9 +43,7 @@ public class ShopObs implements ItemListener, ActionListener {
 
 
 
-
-
-
+		// LE PACK GREEK
 		if (e.getStateChange() == ItemEvent.SELECTED && buttonString == "Skin Pack GREEK") {
 
 			if( this.shop.getIsUnlockedSkinPack(this.saveActive, 2) == true ) {
@@ -56,7 +62,7 @@ public class ShopObs implements ItemListener, ActionListener {
 
 
 
-
+		// LE PACK PIXEL
 		if (e.getStateChange() == ItemEvent.SELECTED && buttonString == "Skin Pack PIXEL") {
 
 

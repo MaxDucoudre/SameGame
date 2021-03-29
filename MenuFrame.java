@@ -63,7 +63,6 @@ public abstract class MenuFrame extends JComponent {
 	* Constructeur sans la fenetre si on en a pas besoin (pour des sous-menu qui sont dans des menus)
 	*/
 	public MenuFrame() {
-		System.out.println("--Nouveau menu généré--");
 
 	}
 

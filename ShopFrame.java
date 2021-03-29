@@ -13,8 +13,6 @@ import java.io.*;
 
 public class ShopFrame extends MenuFrame {
 
-
-
 	private Save save = new Save();
 	private int saveActive = this.save.getLoadedSave();
 
