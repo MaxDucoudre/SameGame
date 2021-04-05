@@ -19,7 +19,7 @@ public class ShopFrame extends MenuFrame {
 	private Coins coins = new Coins();
 	private int numberofcoins =  this.coins.getNumberOfCoins(this.saveActive);
 
-	private JLabel walletmoney = new JLabel(String.valueOf(this.numberofcoins));
+	private JLabel walletmoney;
 
 
 	private Shop shop = new Shop();
@@ -57,6 +57,9 @@ public class ShopFrame extends MenuFrame {
 
 		this.backgroundPanel.setLayout(new BorderLayout());
 
+		this.walletmoney = new JLabel(String.valueOf(this.numberofcoins));
+
+
 		JPanel shopPanel = new JPanel();
 		shopPanel.setOpaque(false);
 
@@ -92,11 +95,11 @@ public class ShopFrame extends MenuFrame {
 		isLockLabel1.setOpaque(true);
 
 		if(this.shop.getIsUnlockedSkinPack(saveActive, 1) == true) {
-		isLockLabel1.setBackground(new Color(138,172,42));
-		isLockLabel1.setText("UNLOCKED");
+			isLockLabel1.setBackground(new Color(138,172,42));
+			isLockLabel1.setText("UNLOCKED");
 		} else {
-		isLockLabel1.setBackground(Color.RED);
-		isLockLabel1.setText("LOCKED");			
+			isLockLabel1.setBackground(Color.RED);
+			isLockLabel1.setText("LOCKED");			
 		}
 
 
@@ -124,11 +127,11 @@ public class ShopFrame extends MenuFrame {
 		isLockLabel2.setOpaque(true);
 
 		if(this.shop.getIsUnlockedSkinPack(saveActive, 2) == true) {
-		isLockLabel2.setBackground(new Color(138,172,42));
-		isLockLabel2.setText("UNLOCKED");
+			isLockLabel2.setBackground(new Color(138,172,42));
+			isLockLabel2.setText("UNLOCKED");
 		} else {
-		isLockLabel2.setBackground(Color.RED);
-		isLockLabel2.setText("LOCKED");			
+			isLockLabel2.setBackground(Color.RED);
+			isLockLabel2.setText("LOCKED");			
 		}
 
 		pack2panel.add(price2);
@@ -153,11 +156,11 @@ public class ShopFrame extends MenuFrame {
 		isLockLabel3.setOpaque(true);
 
 		if(this.shop.getIsUnlockedSkinPack(saveActive, 3) == true) {
-		isLockLabel3.setBackground(new Color(138,172,42));
-		isLockLabel3.setText("UNLOCKED");
+			isLockLabel3.setBackground(new Color(138,172,42));
+			isLockLabel3.setText("UNLOCKED");
 		} else {
-		isLockLabel3.setBackground(Color.RED);
-		isLockLabel3.setText("LOCKED");			
+			isLockLabel3.setBackground(Color.RED);
+			isLockLabel3.setText("LOCKED");			
 		}
 
 		pack3panel.add(price3);
@@ -182,13 +185,13 @@ public class ShopFrame extends MenuFrame {
 
 
 		if(this.shop.getSkinPack(this.saveActive) == 1) {
-		skin1.setSelected(true);
+			skin1.setSelected(true);
 		}
 		else if(this.shop.getSkinPack(this.saveActive) == 2) {
-		skin2.setSelected(true);
+			skin2.setSelected(true);
 		}
 		else if(this.shop.getSkinPack(this.saveActive) == 3) {
-		skin3.setSelected(true);
+			skin3.setSelected(true);
 		}
 
 
@@ -233,16 +236,14 @@ public class ShopFrame extends MenuFrame {
 
 	public void setSkinPackFrame(int save, int pack) {
 
-
-
 		if(pack == 1) {
 			this.isLockLabel1.setText("UNLOCKED");
 			this.isLockLabel1.setBackground(new Color(138,172,42));
 		}
 
 		if(pack == 2) {
-				this.isLockLabel2.setText("UNLOCKED");
-				this.isLockLabel2.setBackground(new Color(138,172,42));
+			this.isLockLabel2.setText("UNLOCKED");
+			this.isLockLabel2.setBackground(new Color(138,172,42));
 			
 		}
 
@@ -251,13 +252,15 @@ public class ShopFrame extends MenuFrame {
 			this.isLockLabel3.setBackground(new Color(138,172,42));
 		}
 
-		this.walletmoney.setText(String.valueOf(this.coins.getNumberOfCoins(this.saveActive)));
 
 		super.fenetre.repaint();
 		this.shop.unlockSkinPack(save, pack);
 		this.shop.setSkinPack(save, pack);
 	}
 
+	public void setWalletLabel() {
+		this.walletmoney.setText(String.valueOf(this.coins.getNumberOfCoins(this.saveActive)));
+	}
 
 
 

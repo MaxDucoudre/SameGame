@@ -1,6 +1,7 @@
 import java.lang.Math;
 import java.util.Arrays;
 import java.io.*;
+import java.lang.Math;
 
 /**
  * Classe Modèle : <code>Game</code>
@@ -21,7 +22,7 @@ public class Game {
 	private boolean[][] tab_nb_group = new boolean[10][15];
 
 	// attribut qui sera rempli du score actuel
-	private int actualScore;
+	private int actualScore = 0;
 
 	// initialisation d'un Chrono qui sera utile dans le jeux pour le timer 
 	private Chrono chrono;
@@ -55,7 +56,7 @@ public class Game {
 
 	/**
 	 * Le constructeur de <b>Game</b> a besoin de gameframe car le chrono en a besoin pour activer le thread qui actualisera l'affichage du chrono
-	 * @param gameframe0
+	 * @param gameframe0 pour le chrono
 	 * @param fichier_grille Correspond au fichier utilisé pour générer une grille (Mettre à "NULL" si aucun fichier n'est utilisé)
 	 */
 	public Game(GameFrame gameframe0, String fichier_grille) {
@@ -467,7 +468,7 @@ public class Game {
 	 */
 	public int scoreCalcul() {
 		// le calcul du score se fait (n-2)^2, n étant le nombre de pion qu'on détruit, qui sera récupérer grace à la méthode sizeGroupPion
-		return ((this.sizeGroupPion() - 2) * (this.sizeGroupPion() - 2));
+		return (int)Math.pow((this.sizeGroupPion() - 2), 2);
 	}
 
 	/**

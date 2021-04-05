@@ -32,6 +32,7 @@ public class ShopObs implements ItemListener, ActionListener {
 
 	public void itemStateChanged(ItemEvent e) { 
 		String buttonString = ((AbstractButton) e.getItemSelectable()).getActionCommand();
+		this.sf.setWalletLabel();
 
 
 		// LE PACK JUNGLE (par défaut)
