@@ -29,8 +29,8 @@ public class Main {
 
 
 		// Mise en forme de la fenêtre
-		fenetre.setSize(1000, 600); // taille de la fenêtre en fonction des dimensions de l'écrans
-		fenetre.setLocation(screenWidth/4, screenHeight/4); // position de la fenêtre en haut à droite de l'écran
+		fenetre.setSize((int)screenWidth/2, (int)screenHeight/2); // taille de la fenêtre en fonction des dimensions de l'écrans
+		fenetre.setLocation((int)screenWidth/10, (int)screenHeight/10); // position de la fenêtre en haut à gauche de l'écran
 		fenetre.setMinimumSize(new Dimension(1000,600)); // taille minimale de la fênêtre
 
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // on quitte le programme quand on ferme la fenetre
